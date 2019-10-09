@@ -10,12 +10,14 @@ import UIKit
 
 struct User: CustomStringConvertible{
     
-    var uid:String
-    var name:String
+    var id:String
+    var firseName:String
+    var lastName:String
     var email:String
+    var timeStamp:CVTimeStamp?
     
     var description: String{
-        return "UID: \(uid) , Name: \(name) , Email: \(email)"
+        return "id: \(id) , firstName: \(firseName) ,lastName: \(lastName), Email: \(email), timeStemp: \(String(describing: timeStamp))"
     }
 }
 
