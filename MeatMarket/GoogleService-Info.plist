@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>233401034925-8umf45pitii9ckdtu06ah6o933e79h9h.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.233401034925-8umf45pitii9ckdtu06ah6o933e79h9h</string>
+	<key>API_KEY</key>
+	<string>AIzaSyClaZdhUilMzQOmS5Y8JQ182K4Q9IFjsWk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>233401034925</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.YardenSwisa.MeatMarket</string>
+	<key>PROJECT_ID</key>
+	<string>meat-markett</string>
+	<key>STORAGE_BUCKET</key>
+	<string>meat-markett.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:233401034925:ios:5480b4391edf7a220f7e24</string>
+	<key>DATABASE_URL</key>
+	<string>https://meat-markett.firebaseio.com</string>
+</dict>
+</plist>

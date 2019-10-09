@@ -3,19 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62878341C14DF27E186957EE /* Pods_MeatMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */; };
 		F94EC35A2325946C007AEAB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94EC3592325946C007AEAB5 /* AppDelegate.swift */; };
 		F94EC35C2325946C007AEAB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94EC35B2325946C007AEAB5 /* ViewController.swift */; };
 		F94EC35F2325946C007AEAB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94EC35D2325946C007AEAB5 /* Main.storyboard */; };
 		F94EC3622325946C007AEAB5 /* MeatMarket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F94EC3602325946C007AEAB5 /* MeatMarket.xcdatamodeld */; };
 		F94EC3642325946C007AEAB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F94EC3632325946C007AEAB5 /* Assets.xcassets */; };
 		F94EC3672325946C007AEAB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94EC3652325946C007AEAB5 /* LaunchScreen.storyboard */; };
+		F98AABCC234DDC99002CC05D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98AABCB234DDC99002CC05D /* User.swift */; };
+		F98F86F2234DD0E90090737A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F98F86F1234DD0E90090737A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeatMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4EE9E939A5EA3BCCE241B92 /* Pods-MeatMarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatMarket.debug.xcconfig"; path = "Target Support Files/Pods-MeatMarket/Pods-MeatMarket.debug.xcconfig"; sourceTree = "<group>"; };
+		EF0F11BA56A0A2EAEE1D3A94 /* Pods-MeatMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatMarket.release.xcconfig"; path = "Target Support Files/Pods-MeatMarket/Pods-MeatMarket.release.xcconfig"; sourceTree = "<group>"; };
 		F94EC3562325946C007AEAB5 /* MeatMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeatMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F94EC3592325946C007AEAB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F94EC35B2325946C007AEAB5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +30,8 @@
 		F94EC3632325946C007AEAB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F94EC3662325946C007AEAB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F94EC3682325946C007AEAB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F98AABCB234DDC99002CC05D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F98F86F1234DD0E90090737A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +39,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62878341C14DF27E186957EE /* Pods_MeatMarket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13F640CD61AC2C5B997E9779 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B4EE9E939A5EA3BCCE241B92 /* Pods-MeatMarket.debug.xcconfig */,
+				EF0F11BA56A0A2EAEE1D3A94 /* Pods-MeatMarket.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2BC6E7736E422ADCAFC1C378 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F94EC34D2325946C007AEAB5 = {
 			isa = PBXGroup;
 			children = (
 				F94EC3582325946C007AEAB5 /* MeatMarket */,
 				F94EC3572325946C007AEAB5 /* Products */,
+				13F640CD61AC2C5B997E9779 /* Pods */,
+				2BC6E7736E422ADCAFC1C378 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,7 +90,9 @@
 				F94EC3632325946C007AEAB5 /* Assets.xcassets */,
 				F94EC3652325946C007AEAB5 /* LaunchScreen.storyboard */,
 				F94EC3682325946C007AEAB5 /* Info.plist */,
+				F98F86F1234DD0E90090737A /* GoogleService-Info.plist */,
 				F94EC3602325946C007AEAB5 /* MeatMarket.xcdatamodeld */,
+				F98AABCB234DDC99002CC05D /* User.swift */,
 			);
 			path = MeatMarket;
 			sourceTree = "<group>";
@@ -74,9 +104,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F94EC36B2325946C007AEAB5 /* Build configuration list for PBXNativeTarget "MeatMarket" */;
 			buildPhases = (
+				FD485F421DF3944E3DAC1455 /* [CP] Check Pods Manifest.lock */,
 				F94EC3522325946C007AEAB5 /* Sources */,
 				F94EC3532325946C007AEAB5 /* Frameworks */,
 				F94EC3542325946C007AEAB5 /* Resources */,
+				46847D5FA49E0527E7336040 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F94EC3672325946C007AEAB5 /* LaunchScreen.storyboard in Resources */,
+				F98F86F2234DD0E90090737A /* GoogleService-Info.plist in Resources */,
 				F94EC3642325946C007AEAB5 /* Assets.xcassets in Resources */,
 				F94EC35F2325946C007AEAB5 /* Main.storyboard in Resources */,
 			);
@@ -133,11 +166,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		46847D5FA49E0527E7336040 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MeatMarket/Pods-MeatMarket-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MeatMarket/Pods-MeatMarket-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MeatMarket/Pods-MeatMarket-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD485F421DF3944E3DAC1455 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MeatMarket-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F94EC3522325946C007AEAB5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F98AABCC234DDC99002CC05D /* User.swift in Sources */,
 				F94EC35C2325946C007AEAB5 /* ViewController.swift in Sources */,
 				F94EC3622325946C007AEAB5 /* MeatMarket.xcdatamodeld in Sources */,
 				F94EC35A2325946C007AEAB5 /* AppDelegate.swift in Sources */,
@@ -284,6 +360,7 @@
 		};
 		F94EC36C2325946C007AEAB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4EE9E939A5EA3BCCE241B92 /* Pods-MeatMarket.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -301,6 +378,7 @@
 		};
 		F94EC36D2325946C007AEAB5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF0F11BA56A0A2EAEE1D3A94 /* Pods-MeatMarket.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
