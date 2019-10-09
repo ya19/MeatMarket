@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 
-class ViewController: UIViewController {
+class SplashScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
