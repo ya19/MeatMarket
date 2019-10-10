@@ -11,13 +11,22 @@ import UIKit
 struct User: CustomStringConvertible{
     
     var id:String
-    var firseName:String
+    var firstName:String
     var lastName:String
     var email:String
-    var timeStamp:CVTimeStamp?
+    var timeStamp: TimeInterval?
     
+    init(id:String, firstName:String, lastName:String, email:String, timeStemp:TimeInterval?) {
+        self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.timeStamp = timeStemp
+        
+        
+    }
     var description: String{
-        return "id: \(id) , firstName: \(firseName) ,lastName: \(lastName), Email: \(email), timeStemp: \(String(describing: timeStamp))"
+        return "id: \(id) , firstName: \(firstName) ,lastName: \(lastName), Email: \(email), timeStemp: \(timeStamp)"
     }
 }
 

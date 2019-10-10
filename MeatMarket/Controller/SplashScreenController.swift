@@ -26,6 +26,7 @@ class SplashScreenController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+
     }
     
     
@@ -48,7 +49,22 @@ class SplashScreenController: UIViewController {
         }
     }
     
-    
+//    func readRealTimeDatabase(){
+//        let databaseRef = Database.database().reference()
+//        let meatCutsRef = databaseRef.child("MeatCuts")
+//        let recipeRef = databaseRef.child("Recipes")
+//        
+//        meatCutsRef.child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+//          // Get user value
+//          let value = snapshot.value as? NSDictionary
+//          let username = value?["username"] as? String ?? ""
+//          let user = User(username: username)
+//
+//          // ...
+//          }) { (error) in
+//            print(error.localizedDescription)
+//        }
+//    }
     func realtimeDatabase(){
         let databaseRef = Database.database().reference()
         
@@ -60,8 +76,9 @@ class SplashScreenController: UIViewController {
             let email = data?["email"] as? String ?? "no email"
             let firstName = data?["firstName"] as? String ?? "no first name"
             let lastName = data?["lastName"] as? String ?? "no last name"
+            let timeStemp = data?["timeStemp"] as? TimeInterval
             
-            let user = User(id: id, firseName: firstName, lastName: lastName, email: email)
+            let user = User(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: timeStemp)
             
             print("------USER----------> ",user.description)
         }) { (error) in

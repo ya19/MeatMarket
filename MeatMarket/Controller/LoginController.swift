@@ -16,6 +16,12 @@ class LoginController: UIViewController {
     
     //MARK: Actions
     @IBAction func loginTapped(_ sender: UIButton) {
+        guard let email = emailField.text else {return}
+        guard let password = passwordField.text else {return}
+
+        if email.count == 0 || password.count == 0{
+            HelperFuncs.showToast(message: "Please Enter Email And Password", view: view)
+        }
         loginWithFireBaseWith()
         
     }
@@ -30,7 +36,9 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        
+        print(Levels.levelRecipe(.EASY))
+
     }
     
     
@@ -55,7 +63,7 @@ class LoginController: UIViewController {
             
             self.present(alert, animated: true, completion: nil)
           }
-            
+            UserDefaults.standard.set("1", forKey: "isLogin")
             let navigationVC = self.storyboard!.instantiateViewController(withIdentifier: "navigationStoryboardID")
             self.present(navigationVC, animated: true, completion: nil)
         }

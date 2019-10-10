@@ -7,9 +7,21 @@
 //
 
 import UIKit
+import Firebase
 
 class PageRootController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-
+    //MARK: Actions
+    @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
+        let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
+            UserDefaults.standard.set("0", forKey: "isLogin")
+        } catch let signOutError as NSError {
+          print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    //MARK: Properties
     lazy var viewCntrollersList:[UIViewController] = {
         let mainSB = UIStoryboard(name: "Main", bundle: nil)
         
