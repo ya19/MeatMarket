@@ -19,18 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
- 
-        Auth.auth().addStateDidChangeListener { auth, user in
-          if user != nil {
-            // User is signed in. Show home screen
-            let navigationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "navigationStoryboardID")
-            self.window?.rootViewController?.present(navigationVC, animated: true, completion: nil)
-          } else {
-            // No User is signed in. Show user the login screen
-            let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginStoryboardID")
-            self.window?.rootViewController?.present(loginVC, animated: true, completion: nil)
-          }
-        }
         
         return true
     }

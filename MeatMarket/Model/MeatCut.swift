@@ -11,5 +11,6 @@ import UIKit
 struct MeatCut{
     let id:String
     let name:String
-    let imageName:String
+    let image:String
+    let recipes:[Recipe]
 }

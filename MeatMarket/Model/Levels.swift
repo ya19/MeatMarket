@@ -8,19 +8,19 @@
 
 import UIKit
 
-enum Levels:String{
-    case EASY = "0"
-    case MEDIUM = "1"
-    case HARD = "2"
+enum Levels:Int{
+    case EASY = 0
+    case MEDIUM = 1
+    case HARD = 2
     
-    func levelRecipe(level: Levels)->String?{
+    func levelRecipe(level: Levels)->Int{
         switch level{
         case .EASY:
-            return "0"
+            return 0
         case .MEDIUM:
-            return "1"
+            return 1
         case .HARD:
-            return "2"
+            return 2
         }
         
     }
