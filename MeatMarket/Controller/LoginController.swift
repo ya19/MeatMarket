@@ -25,10 +25,9 @@ class LoginController: UIViewController {
         loginWithFireBaseWith()
         
     }
-    
+
     @IBAction func regiserTapped(_ sender: UIButton) {
-        let registerationVC = self.storyboard!.instantiateViewController(withIdentifier: "registrationStoryboardID")
-        self.present(registerationVC, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "loginToRegistrarion", sender: self)
     }
     
     
@@ -36,9 +35,6 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        print(Levels.levelRecipe(.EASY))
-
     }
     
     
@@ -46,10 +42,7 @@ class LoginController: UIViewController {
     func loginWithFireBaseWith(){
         guard
           let email = emailField.text,
-          let password = passwordField.text,
-          email.count > 0,
-          password.count > 0
-          else {
+          let password = passwordField.text, email.count > 0, password.count > 0 else {
             return
         }
 
@@ -64,8 +57,7 @@ class LoginController: UIViewController {
             self.present(alert, animated: true, completion: nil)
           }
             UserDefaults.standard.set("1", forKey: "isLogin")
-            let navigationVC = self.storyboard!.instantiateViewController(withIdentifier: "navigationStoryboardID")
-            self.present(navigationVC, animated: true, completion: nil)
+            self.performSegue(withIdentifier: "loginToNavigation", sender: self)
         }
     }
 }

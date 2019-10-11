@@ -50,10 +50,6 @@ class RegistrationController: UIViewController {
     //MARK: LifeCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        let timestamp = NSDate().timeIntervalSince1970
-        //        let timeStamp = Date().currentTimeMillis()
-        let timeStamp =  Date().timeIntervalSince1970
-        print("-----Date----",HelperFuncs.getReadableDate(timeStamp: timeStamp)!,"----timeInterval----",timeStamp)
         // Do any additional setup after loading the view.
         
         
@@ -94,7 +90,7 @@ class RegistrationController: UIViewController {
             self.databaseRef.child("Users").child(id).setValue(userData)
             //Create user with User
             let user = User(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: timeStamp)
-            print("----New User Created with User-----", user.description)
+            print("----New user created with User-----", user.description)
             
 
         }

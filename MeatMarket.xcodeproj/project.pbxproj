@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62878341C14DF27E186957EE /* Pods_MeatMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */; };
+		F93CA9212350C21D00289AD6 /* RoundedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CA9202350C21D00289AD6 /* RoundedCollectionViewCell.swift */; };
 		F93CB860234E0B6300136DA6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB85F234E0B6300136DA6 /* LoginController.swift */; };
 		F93CB862234E19FE00136DA6 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB861234E19FE00136DA6 /* RegistrationController.swift */; };
 		F93CB864234E23FF00136DA6 /* HelperFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB863234E23FF00136DA6 /* HelperFuncs.swift */; };
@@ -33,6 +34,7 @@
 		8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeatMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4EE9E939A5EA3BCCE241B92 /* Pods-MeatMarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatMarket.debug.xcconfig"; path = "Target Support Files/Pods-MeatMarket/Pods-MeatMarket.debug.xcconfig"; sourceTree = "<group>"; };
 		EF0F11BA56A0A2EAEE1D3A94 /* Pods-MeatMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatMarket.release.xcconfig"; path = "Target Support Files/Pods-MeatMarket/Pods-MeatMarket.release.xcconfig"; sourceTree = "<group>"; };
+		F93CA9202350C21D00289AD6 /* RoundedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCollectionViewCell.swift; sourceTree = "<group>"; };
 		F93CB85F234E0B6300136DA6 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		F93CB861234E19FE00136DA6 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		F93CB863234E23FF00136DA6 /* HelperFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFuncs.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				F99B7C75234F614500EB8C59 /* MeatCut.swift */,
 				F99B7C77234F61AF00EB8C59 /* Recipe.swift */,
 				F99B7C79234F628200EB8C59 /* Levels.swift */,
+				F93CA9202350C21D00289AD6 /* RoundedCollectionViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			files = (
 				F99B7C7A234F628200EB8C59 /* Levels.swift in Sources */,
 				F94296B1234E02FD005CB018 /* SplashScreenController.swift in Sources */,
+				F93CA9212350C21D00289AD6 /* RoundedCollectionViewCell.swift in Sources */,
 				F93CB864234E23FF00136DA6 /* HelperFuncs.swift in Sources */,
 				F93CB86A234E2D1B00136DA6 /* PageRootController.swift in Sources */,
 				F99B7C76234F614500EB8C59 /* MeatCut.swift in Sources */,

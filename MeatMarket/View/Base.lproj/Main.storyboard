@@ -42,12 +42,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <segue destination="NDY-gj-9hd" kind="show" identifier="splashScreenToLogin" id="DHx-vf-hdR"/>
+                        <outlet property="splashScreenImageGIF" destination="OOo-9G-iPq" id="cAk-62-t2G"/>
+                        <segue destination="NDY-gj-9hd" kind="show" identifier="splashScreenToLogin" id="j2b-Qv-Plk"/>
+                        <segue destination="6nu-Ws-jr9" kind="show" identifier="splashScreenToNavigation" id="ogp-cJ-spr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="85.714285714285708"/>
+            <point key="canvasLocation" x="181" y="550"/>
         </scene>
         <!--Page Root Controller-->
         <scene sceneID="vWe-GR-var">
@@ -63,7 +65,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6j-hM-evm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2491" y="86"/>
+            <point key="canvasLocation" x="2599" y="550"/>
         </scene>
         <!--Main Screen Controller-->
         <scene sceneID="ICv-Gk-rA6">
@@ -90,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aOI-Pj-xx9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3309" y="86"/>
+            <point key="canvasLocation" x="3355" y="550"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="vzL-mi-hej">
@@ -117,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBs-3t-ZwY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4151" y="86"/>
+            <point key="canvasLocation" x="4099" y="550"/>
         </scene>
         <!--Credits Controller-->
         <scene sceneID="mSe-CE-Aeg">
@@ -144,7 +146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5gg-yc-9IM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5019" y="86"/>
+            <point key="canvasLocation" x="4858" y="550"/>
         </scene>
         <!--Registration Controller-->
         <scene sceneID="JGH-Ay-nbv">
@@ -218,11 +220,12 @@
                         <outlet property="lastNameField" destination="GMF-6H-Tpq" id="n0K-AX-rSx"/>
                         <outlet property="passwordField" destination="JBy-rh-vSa" id="i7B-RR-uj0"/>
                         <outlet property="verifyPasswordField" destination="Mnt-se-K9V" id="721-7F-VD7"/>
+                        <segue destination="6nu-Ws-jr9" kind="show" identifier="registerToNavigation" id="6dT-65-EPm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Nl-fv-El8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1722" y="-232"/>
+            <point key="canvasLocation" x="1722" y="-208"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="qe9-Aw-AWg">
@@ -290,8 +293,7 @@
                     <connections>
                         <outlet property="emailField" destination="afp-Tu-DXa" id="jO2-AR-PIW"/>
                         <outlet property="passwordField" destination="ZED-9I-kBQ" id="lRC-zN-Yo7"/>
-                        <segue destination="z6B-HH-fcW" kind="show" id="lzU-VV-XZr"/>
-                        <segue destination="6nu-Ws-jr9" kind="show" id="0ft-7l-9GK"/>
+                        <segue destination="z6B-HH-fcW" kind="show" identifier="loginToRegistration" id="lzU-VV-XZr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtk-k8-NGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -316,11 +318,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BCW-Tg-c6C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1722" y="429"/>
+            <point key="canvasLocation" x="1722" y="550"/>
         </scene>
     </scenes>
     <resources>
         <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
         <image name="power" catalog="system" width="64" height="62"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ogp-cJ-spr"/>
+    </inferredMetricsTieBreakers>
 </document>
