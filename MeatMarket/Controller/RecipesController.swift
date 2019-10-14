@@ -15,6 +15,7 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
 
     //MARK:Properties
     var array = ["First Cell", "Second Cell", "Third Cell", "Fourth Cell", "Fifth Cell"]
+    var allRecipes:[Recipe]?
 
     //MARK: LiveCycle View
     override func viewDidLoad() {
@@ -24,6 +25,9 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         recipeCollectionView.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        cellVisuality()
+    }
 
     /*
     // MARK: - Navigation
@@ -34,25 +38,43 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         // Pass the selected object to the new view controller.
     }
     */
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let instructionsVC = segue.destination as? InstructionsController{
+            guard let recipe = sender as? Recipe else {return}
+            instructionsVC.recipe = recipe
+        }
+    }
     //MARK: CollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return array.count
+        return allRecipes!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let recipeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCellID", for: indexPath) as! RecipeViewCell
-
-        recipeCell.recipeNameCell.text = array[indexPath.row]
-        recipeCell.recipeLevelCell.text = Levels.EASY.description
-        recipeCell.recipeTimeCell.text = "1 Hour"
+        let recipe = allRecipes![indexPath.row]
+        recipeCell.recipeNameCell.text = recipe.name
+        recipeCell.recipeLevelCell.text = recipe.level.description
+        recipeCell.recipeTimeCell.text = recipe.time
         recipeCell.recipeImageCell.roundCorners(.allCorners, radius: 15)
-        recipeCell.recipeImageCell.image = #imageLiteral(resourceName: "testImage")
+        recipeCell.recipeImageCell.sd_setImage(with: recipe.image)
         
         return recipeCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("cell \(indexPath.row) tapped")
-        self.performSegue(withIdentifier: "recipesToInstructions", sender: self)
+        self.performSegue(withIdentifier: "recipesToInstructions", sender: allRecipes![indexPath.row])
+    }
+    
+    func cellVisuality(){
+        let cellSize = CGSize(width:recipeCollectionView.bounds.width * 0.9 , height:150)
+        let layout = UICollectionViewFlowLayout()
+
+        layout.scrollDirection = .vertical
+        layout.itemSize = cellSize
+        layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+        layout.minimumLineSpacing = 25
+        recipeCollectionView.setCollectionViewLayout(layout, animated: true)
+
+        recipeCollectionView.reloadData()
     }
 }
