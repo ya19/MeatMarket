@@ -16,6 +16,8 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         do {
           try firebaseAuth.signOut()
             UserDefaults.standard.set("0", forKey: "isLogin")
+            let loginVC = self.storyboard!.instantiateViewController(withIdentifier: "loginStoryboardID")
+            self.present(loginVC, animated: true, completion: nil)
         } catch let signOutError as NSError {
           print ("Error signing out: %@", signOutError)
         }
@@ -32,7 +34,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         return [mainScreenVC, profileVC, creditsVC]
     }()
     
-
+    //MARK: LiveCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -54,6 +56,11 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: Funcs
+    
+    
+    //MARK: PageViewController
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = viewCntrollersList.firstIndex(of: viewController) else {return nil}
         let previusIndex = vcIndex - 1

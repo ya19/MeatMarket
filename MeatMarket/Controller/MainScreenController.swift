@@ -8,12 +8,24 @@
 
 import UIKit
 
-class MainScreenController: UIViewController {
-
+class MainScreenController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource {
+    @IBOutlet weak var meatCutCollectionView: UICollectionView!
+    
+    
+    var array = ["First Cell", "Second Cell", "Third Cell", "Fourth Cell", "Fifth Cell"]
+    
+    //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        meatCutCollectionView.delegate = self
+        meatCutCollectionView.dataSource = self
+        
 
-        // Do any additional setup after loading the view.
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        cellVisuality()
     }
     
 
@@ -27,4 +39,36 @@ class MainScreenController: UIViewController {
     }
     */
 
+    //MARK: CollectionView
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return array.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MeatCutCellID", for: indexPath) as! MeatCutViewCell
+        cell.meatCutName.text = array[indexPath.row]
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("cell \(indexPath.row) tapped")
+        performSegue(withIdentifier: "meatCutsToRecipes", sender: indexPath.row)
+    }
+    
+//    func cellVisuality(){
+//        let cellSize = CGSize(width:meatCutCollectionView.bounds.width-80, height:200)
+//        let layout = UICollectionViewFlowLayout()
+//
+//        layout.scrollDirection = .vertical
+//        layout.itemSize = cellSize
+//        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        layout.minimumLineSpacing = 25
+//        meatCutCollectionView.setCollectionViewLayout(layout, animated: true)
+//
+//        meatCutCollectionView.reloadData()
+//    }
+    
 }
+
+

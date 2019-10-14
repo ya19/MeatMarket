@@ -110,6 +110,8 @@ class SplashScreenController: UIViewController {
                                             level: Levels(rawValue: data["level"] as! Int)!,
                                             time: data["time"] as! String)
                         self.allRecipes.append(recipe)
+                        
+                        print(recipe.level)
 
                     }
 

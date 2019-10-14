@@ -11,10 +11,7 @@ import SDWebImage
 
 struct  HelperFuncs {
     
-    static func loadImageWithURL(imageViewForGIF: UIImageView, imageURL:String){
-        let urlImage = URL(string: imageURL)
-        imageViewForGIF.sd_setImage(with: urlImage)
-    }
+
     
     
     static func showToast(message : String, view: UIView) {
@@ -63,3 +60,22 @@ struct  HelperFuncs {
         return (currentWeek == datesWeek)
     }
 }
+//MARK: Extensions
+extension UIImageView {
+    public func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+        let maskPath = UIBezierPath(roundedRect: bounds,
+                                    byRoundingCorners: corners,
+                                    cornerRadii: CGSize(width: radius, height: radius))
+        let shape = CAShapeLayer()
+        shape.path = maskPath.cgPath
+        layer.mask = shape
+    }
+    
+    public func loadImageWithURL(imageViewForGIF: UIImageView, imageURL:String){
+        let urlImage = URL(string: imageURL)
+        imageViewForGIF.sd_setImage(with: urlImage)
+    }
+}
+
+
+

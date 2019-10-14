@@ -8,10 +8,21 @@
 
 import UIKit
 
-enum Levels:Int{
+enum Levels:Int, CustomStringConvertible{
     case EASY = 0
     case MEDIUM = 1
     case HARD = 2
+
+    var description: String{
+        switch self {
+        case .EASY:
+            return "Easy"
+        case .MEDIUM:
+            return "Medium"
+        case .HARD:
+            return "Hard"
+        }
+    }
     
     func levelRecipe(level: Levels)->Int{
         switch level{
@@ -22,6 +33,6 @@ enum Levels:Int{
         case .HARD:
             return 2
         }
-        
     }
+
 }

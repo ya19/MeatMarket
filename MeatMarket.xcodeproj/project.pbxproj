@@ -23,11 +23,16 @@
 		F94EC3622325946C007AEAB5 /* MeatMarket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F94EC3602325946C007AEAB5 /* MeatMarket.xcdatamodeld */; };
 		F94EC3642325946C007AEAB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F94EC3632325946C007AEAB5 /* Assets.xcassets */; };
 		F94EC3672325946C007AEAB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94EC3652325946C007AEAB5 /* LaunchScreen.storyboard */; };
+		F95336EC235138650060BD4F /* FavoriteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95336EB235138650060BD4F /* FavoriteViewCell.swift */; };
+		F95B26F7235237E30034CE84 /* RecipesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B26F6235237E30034CE84 /* RecipesController.swift */; };
+		F95B26F9235238030034CE84 /* InstructionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B26F8235238030034CE84 /* InstructionsController.swift */; };
 		F98AABCC234DDC99002CC05D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98AABCB234DDC99002CC05D /* User.swift */; };
+		F98D9442235116BE007AE4D9 /* MeatCutViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98D9441235116BE007AE4D9 /* MeatCutViewCell.swift */; };
 		F98F86F2234DD0E90090737A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F98F86F1234DD0E90090737A /* GoogleService-Info.plist */; };
 		F99B7C76234F614500EB8C59 /* MeatCut.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99B7C75234F614500EB8C59 /* MeatCut.swift */; };
 		F99B7C78234F61AF00EB8C59 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99B7C77234F61AF00EB8C59 /* Recipe.swift */; };
 		F99B7C7A234F628200EB8C59 /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99B7C79234F628200EB8C59 /* Levels.swift */; };
+		F9ED4BAE23528EDD005CB3E7 /* RecipeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED4BAD23528EDD005CB3E7 /* RecipeViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,11 +56,16 @@
 		F94EC3632325946C007AEAB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F94EC3662325946C007AEAB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F94EC3682325946C007AEAB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F95336EB235138650060BD4F /* FavoriteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewCell.swift; sourceTree = "<group>"; };
+		F95B26F6235237E30034CE84 /* RecipesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesController.swift; sourceTree = "<group>"; };
+		F95B26F8235238030034CE84 /* InstructionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsController.swift; sourceTree = "<group>"; };
 		F98AABCB234DDC99002CC05D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F98D9441235116BE007AE4D9 /* MeatCutViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeatCutViewCell.swift; sourceTree = "<group>"; };
 		F98F86F1234DD0E90090737A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F99B7C75234F614500EB8C59 /* MeatCut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeatCut.swift; sourceTree = "<group>"; };
 		F99B7C77234F61AF00EB8C59 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		F99B7C79234F628200EB8C59 /* Levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
+		F9ED4BAD23528EDD005CB3E7 /* RecipeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +115,9 @@
 			children = (
 				F94EC35D2325946C007AEAB5 /* Main.storyboard */,
 				F94EC3652325946C007AEAB5 /* LaunchScreen.storyboard */,
+				F98D9441235116BE007AE4D9 /* MeatCutViewCell.swift */,
+				F95336EB235138650060BD4F /* FavoriteViewCell.swift */,
+				F9ED4BAD23528EDD005CB3E7 /* RecipeViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -120,6 +133,8 @@
 				F93CB869234E2D1B00136DA6 /* PageRootController.swift */,
 				F93CB86B234E35BE00136DA6 /* ProfileController.swift */,
 				F93CB86D234E35FD00136DA6 /* CreditsController.swift */,
+				F95B26F6235237E30034CE84 /* RecipesController.swift */,
+				F95B26F8235238030034CE84 /* InstructionsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -281,20 +296,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F95B26F9235238030034CE84 /* InstructionsController.swift in Sources */,
+				F95336EC235138650060BD4F /* FavoriteViewCell.swift in Sources */,
 				F99B7C7A234F628200EB8C59 /* Levels.swift in Sources */,
 				F94296B1234E02FD005CB018 /* SplashScreenController.swift in Sources */,
 				F93CA9212350C21D00289AD6 /* RoundedCollectionViewCell.swift in Sources */,
 				F93CB864234E23FF00136DA6 /* HelperFuncs.swift in Sources */,
 				F93CB86A234E2D1B00136DA6 /* PageRootController.swift in Sources */,
 				F99B7C76234F614500EB8C59 /* MeatCut.swift in Sources */,
+				F95B26F7235237E30034CE84 /* RecipesController.swift in Sources */,
 				F98AABCC234DDC99002CC05D /* User.swift in Sources */,
 				F93CB86E234E35FD00136DA6 /* CreditsController.swift in Sources */,
 				F94EC3622325946C007AEAB5 /* MeatMarket.xcdatamodeld in Sources */,
 				F93CB868234E2CC700136DA6 /* NavigationController.swift in Sources */,
+				F9ED4BAE23528EDD005CB3E7 /* RecipeViewCell.swift in Sources */,
 				F94EC35A2325946C007AEAB5 /* AppDelegate.swift in Sources */,
 				F99B7C78234F61AF00EB8C59 /* Recipe.swift in Sources */,
 				F93CB86C234E35BE00136DA6 /* ProfileController.swift in Sources */,
 				F93CB862234E19FE00136DA6 /* RegistrationController.swift in Sources */,
+				F98D9442235116BE007AE4D9 /* MeatCutViewCell.swift in Sources */,
 				F93CB866234E25E200136DA6 /* MainScreenController.swift in Sources */,
 				F93CB860234E0B6300136DA6 /* LoginController.swift in Sources */,
 			);
