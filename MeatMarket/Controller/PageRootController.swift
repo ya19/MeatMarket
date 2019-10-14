@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class PageRootController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    
     //MARK: Actions
     @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
         let firebaseAuth = Auth.auth()
@@ -34,7 +35,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         return [mainScreenVC, profileVC, creditsVC]
     }()
     
-    //MARK: LiveCycle View
+    //MARK: LifeCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -43,20 +44,9 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         if let firstVC = viewCntrollersList.first {
             self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
-        // Do any additional setup after loading the view.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     //MARK: Funcs
     
     

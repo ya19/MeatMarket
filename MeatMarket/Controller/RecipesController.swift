@@ -14,7 +14,6 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     
 
     //MARK:Properties
-    var array = ["First Cell", "Second Cell", "Third Cell", "Fourth Cell", "Fifth Cell"]
     var allRecipes:[Recipe]?
 
     //MARK: LiveCycle View

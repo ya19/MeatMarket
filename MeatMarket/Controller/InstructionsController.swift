@@ -7,26 +7,58 @@
 //
 
 import UIKit
+import SDWebImage
 
-class InstructionsController: UIViewController {
+class InstructionsController: UIViewController, UITableViewDelegate , UITableViewDataSource {
+
+    
+    //MARK: Outlets
+    @IBOutlet weak var recipeImage: UIImageView!
+    @IBOutlet weak var ingredientsTableView: UITableView!
+    @IBOutlet weak var instructionsTableView: UITableView!
+    
     //MARK: Properties
     var recipe:Recipe?
     
+    //MARK: LifeCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(recipe!)
-        // Do any additional setup after loading the view.
+        
+        instructionsTableView.delegate = self
+        instructionsTableView.dataSource = self
+        
+        ingredientsTableView.delegate = self
+        ingredientsTableView.dataSource = self
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: TableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == ingredientsTableView{
+            return recipe!.ingredients.count
+        }else{
+            return recipe!.instructions.count
+        }
+        
     }
-    */
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        recipeImage.sd_setImage(with: recipe?.image)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == ingredientsTableView{
+            let ingredientsCell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCellID") as! IngredientsTableViewCell
+            ingredientsCell.ingredientLable.text = "• \(recipe!.ingredients[indexPath.row])"
+            
+            return ingredientsCell
+        }else{
+            let instructionsCell = tableView.dequeueReusableCell(withIdentifier: "InstructionsCellID") as! InstructionsTableViewCell
+            instructionsCell.instructionLable.text = "• \(recipe!.instructions[indexPath.row])"
+            
+            return instructionsCell
+        }
+        
+    }
+        
+    
 }

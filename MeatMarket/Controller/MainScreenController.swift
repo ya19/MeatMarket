@@ -21,6 +21,8 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
         super.viewDidLoad()
         meatCutCollectionView.delegate = self
         meatCutCollectionView.dataSource = self
+        self.navigationItem.title = "Meat Cuts"
+        
         
 
 

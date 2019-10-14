@@ -26,7 +26,7 @@ struct User: CustomStringConvertible{
         
     }
     var description: String{
-        return "id: \(id) , firstName: \(firstName) ,lastName: \(lastName), Email: \(email), timeStemp: \(timeStamp)"
+        return "id: \(id) , firstName: \(firstName) ,lastName: \(lastName), Email: \(email), timeStemp: \(String(describing: timeStamp))"
     }
 }
 
