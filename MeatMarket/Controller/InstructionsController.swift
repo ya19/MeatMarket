@@ -9,10 +9,12 @@
 import UIKit
 
 class InstructionsController: UIViewController {
-
+    //MARK: Properties
+    var recipe:Recipe?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(recipe!)
         // Do any additional setup after loading the view.
     }
     

@@ -19,6 +19,7 @@ class RegistrationController: UIViewController {
     
     //MARK: Properties
     var databaseRef: DatabaseReference!
+    var allMeatCuts:[MeatCut]?
     
     //MARK: Actions
     @IBAction func registerTapped(_ sender: UIButton) {
@@ -40,13 +41,18 @@ class RegistrationController: UIViewController {
             HelperFuncs.showToast(message: "Password Incompatible", view: view)
         }else{
             creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password, timeStamp: timeStamp)
-        
-            let mainScreenVC = self.storyboard!.instantiateViewController(withIdentifier: "navigationStoryboardID")
-            self.present(mainScreenVC, animated: true, completion: nil)
+            performSegue(withIdentifier: "registerToNavigation", sender: self.allMeatCuts)
+//            let mainScreenVC = self.storyboard!.instantiateViewController(withIdentifier: "navigationStoryboardID")
+//            self.present(mainScreenVC, animated: true, completion: nil)
         }
         
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+                if let navigationVC = segue.destination as? NavigationController{
+            guard let meatCuts = sender as? [MeatCut] else {return}
+            navigationVC.allMeatCuts = meatCuts
+        }
+    }
     //MARK: LifeCycle View
     override func viewDidLoad() {
         super.viewDidLoad()

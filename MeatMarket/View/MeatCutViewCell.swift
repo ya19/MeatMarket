@@ -11,5 +11,5 @@ import UIKit
 class MeatCutViewCell: RoundedCollectionViewCell {
     @IBOutlet weak var meatCutName: UILabel!
     @IBOutlet weak var meatCutImageView: UIImageView!
-    
+
 }

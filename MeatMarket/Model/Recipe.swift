@@ -11,7 +11,8 @@ import UIKit
 struct Recipe{
     let id:String
     let name:String
-    let image:String
+    let imageName:String
+    var image:URL?
     let ingredients:[String]
     let instructions:[String]
     let level:Levels

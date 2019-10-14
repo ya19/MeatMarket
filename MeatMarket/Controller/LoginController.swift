@@ -10,6 +10,9 @@ import UIKit
 import Firebase
 
 class LoginController: UIViewController {
+    //MARK: Properties
+    var allMeatCuts:[MeatCut]?
+    
     //MARK: Outlets
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -27,7 +30,7 @@ class LoginController: UIViewController {
     }
 
     @IBAction func regiserTapped(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "loginToRegistrarion", sender: self)
+        self.performSegue(withIdentifier: "loginToRegistration", sender: self.allMeatCuts)
     }
     
     
@@ -36,7 +39,16 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navigationVC = segue.destination as? NavigationController{
+            guard let meatCuts = sender as? [MeatCut] else {return}
+            navigationVC.allMeatCuts = meatCuts
+        }
+        if let registerVC = segue.destination as? RegistrationController{
+            guard let meatCuts = sender as? [MeatCut] else {return}
+            registerVC.allMeatCuts = meatCuts
+        }
+    }
     
     //MARK: funcs
     func loginWithFireBaseWith(){
@@ -56,8 +68,7 @@ class LoginController: UIViewController {
             
             self.present(alert, animated: true, completion: nil)
           }
-            UserDefaults.standard.set("1", forKey: "isLogin")
-            self.performSegue(withIdentifier: "loginToNavigation", sender: self)
+            self.performSegue(withIdentifier: "loginToNavigation", sender: self.allMeatCuts)
         }
     }
 }
