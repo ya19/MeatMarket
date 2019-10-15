@@ -30,6 +30,7 @@ class SplashScreenController: UIViewController {
     var allRecipesURL:[String:URL] = [:]
     var allRecipesSize = 0
     var bol:Bool = true
+    var allRecipes:[Recipe] = []
     
     //MARK: Lifecycle View
     override func viewDidLoad() {
@@ -47,7 +48,40 @@ class SplashScreenController: UIViewController {
     func checkUserStateLogin(meatCuts: [MeatCut]){
         Auth.auth().addStateDidChangeListener { auth, user in
              if user != nil {
-                self.performSegue(withIdentifier: "splashScreenToNavigation", sender: meatCuts)
+                let ref = Database.database().reference()
+                ref.child("Users").child(user!.uid).observeSingleEvent(of: .value) { (userData) in
+                    guard let userDictionary = userData.value as? [String:Any] else {return}
+                    User.shared.loadCurrentUserDetails(id: user!.uid,
+                                                       firstName: userDictionary["firstName"] as! String,
+                                                       lastName: userDictionary["lastName"] as! String,
+                                                       email: userDictionary["email"] as! String,
+                                                       timeStemp: nil)
+                    ref.child("Favorites").child(User.shared.id!).observeSingleEvent(of: .value) { (userFavoritesData) in
+                        guard let userFavoritesData = userFavoritesData.value as? [String:Any] else {return}
+                        self.allRecipes = []
+                        for recipeId in userFavoritesData.keys{
+                            ref.child("AllRecipes").child(recipeId).observeSingleEvent(of: .value) { (recipeData) in
+                                guard let recipeData = recipeData.value as? [String:Any] else {return}
+                                let recipe = Recipe(id: recipeData["id"] as! String,
+                                                    name: recipeData["name"] as! String,
+                                                    imageName: recipeData["image"] as! String,
+                                                    image: self.allRecipesURL[recipeId],
+                                                    ingredients: recipeData["ingredients"] as! [String],
+                                                    instructions: recipeData["instructions"] as! [String],
+                                                    level: Levels(rawValue: (recipeData["level"] as! Int))!,
+                                                    time: recipeData["time"] as! String)
+                                self.allRecipes.append(recipe)
+                                
+                                //MARK: should move it in timer method.
+                                User.shared.setRecipes(recipes: self.allRecipes)
+                                self.performSegue(withIdentifier: "splashScreenToNavigation", sender: meatCuts)
+                            }
+                        }
+                        
+                    }
+                   
+                }
+                
                  
              }else{
                 self.performSegue(withIdentifier: "splashScreenToLogin", sender: meatCuts)
@@ -83,10 +117,24 @@ class SplashScreenController: UIViewController {
             }
         }
     }
-    
+    //write all the recipes at AllRecipes for that User.shared recognaize the favorite
+//    func recipesToServer(recipe:Recipe){
+//        let ref = Database.database().reference().child("AllRecipes")
+//        let recipeValue:[String:Any] = [
+//            "id": recipe.id,
+//            "name": recipe.name,
+//            "instructions": recipe.instructions,
+//            "ingredients": recipe.ingredients,
+//            "image": recipe.imageName,
+//            "level": recipe.level.levelRecipe(),
+//            "time": recipe.time
+//        ]
+//        ref.child(recipe.id).setValue(recipeValue)
+//
+//    }
     
     @objc func loadDataEvery(_ timer:Timer){
-
+        
         if serverMeatCutsCount == allMeatCuts.count{
             //after get all the data need to move VC
             print("print in loadDataEvry()  -> server: \(self.serverMeatCutsCount) , allMeatCuts: \(self.allMeatCuts.count)")
@@ -103,6 +151,7 @@ class SplashScreenController: UIViewController {
                     meatCuts.append(myMeatCut)
                 }
                 checkUserStateLogin(meatCuts: meatCuts)
+                
             timer.invalidate()
             }
         }

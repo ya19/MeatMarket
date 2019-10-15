@@ -28,7 +28,7 @@ class RegistrationController: UIViewController {
         guard let email = emailField.text else {return}
         guard let password = passwordField.text else {return}
         guard let verifyPassword = verifyPasswordField.text else {return}
-        let timeStamp =  Date().timeIntervalSince1970
+        let timeStamp =  ServerValue.timestamp()
         
         if  email.count == 0 ||
             firstName.count == 0 ||
@@ -40,7 +40,7 @@ class RegistrationController: UIViewController {
         }else if password != verifyPassword {
             HelperFuncs.showToast(message: "Password Incompatible", view: view)
         }else{
-            creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password, timeStamp: timeStamp)
+            creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
             performSegue(withIdentifier: "registerToNavigation", sender: self.allMeatCuts)
 //            let mainScreenVC = self.storyboard!.instantiateViewController(withIdentifier: "navigationStoryboardID")
 //            self.present(mainScreenVC, animated: true, completion: nil)
@@ -75,7 +75,7 @@ class RegistrationController: UIViewController {
     
     //MARK: Funcs
 
-    func creatUserWith(firstName:String, lastName:String, email: String, password: String ,timeStamp: TimeInterval?){
+    func creatUserWith(firstName:String, lastName:String, email: String, password: String ){
         //Create user with Firebase Auth
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let error = error {
@@ -90,13 +90,13 @@ class RegistrationController: UIViewController {
                 "firstName": firstName,
                 "lastName": lastName,
                 "email": email,
-                "timeStemp": timeStamp
+                "timeStemp": ServerValue.timestamp()
             ]
             self.databaseRef = Database.database().reference()
             self.databaseRef.child("Users").child(id).setValue(userData)
             //Create user with User
-            let user = User(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: timeStamp)
-            print("----New user created with User-----", user.description)
+            User.shared.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil)
+            print("----New user created with User-----", User.shared.description)
             
 
         }

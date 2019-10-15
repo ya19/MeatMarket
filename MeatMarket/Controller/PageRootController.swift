@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class PageRootController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    
+        
     //MARK: Actions
     @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
         let firebaseAuth = Auth.auth()
@@ -29,6 +29,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         let mainSB = UIStoryboard(name: "Main", bundle: nil)
         
         let mainScreenVC = mainSB.instantiateViewController(withIdentifier: "mainScreenStoryboardID")
+        
         let profileVC = mainSB.instantiateViewController(withIdentifier: "profileStoryboardID")
         let creditsVC = mainSB.instantiateViewController(withIdentifier: "creditsStoryboardID")
         
@@ -41,9 +42,15 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         self.delegate = self
         self.dataSource = self
         
+        self.navigationItem.title = "Meat Cuts"
+        
         if let firstVC = viewCntrollersList.first {
             self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            
         }
+        
+        
+        
     }
     
 
@@ -54,6 +61,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = viewCntrollersList.firstIndex(of: viewController) else {return nil}
         let previusIndex = vcIndex - 1
+        setTitle(vcIndex: previusIndex)
         guard previusIndex >= 0 else {return nil}
         guard viewCntrollersList.count > previusIndex else {return nil}
         
@@ -63,9 +71,26 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let vcIndex = viewCntrollersList.firstIndex(of: viewController) else {return nil}
         let nextIndex = vcIndex + 1
+        setTitle(vcIndex: nextIndex)
         guard viewCntrollersList.count != nextIndex else {return nil}
         guard viewCntrollersList.count > nextIndex else {return nil}
         
         return viewCntrollersList[nextIndex]
+    }
+    
+    func setTitle(vcIndex:Int){
+        switch vcIndex{
+        case 0:
+            self.navigationItem.title = "Meat Cuts"
+            break
+        case 1:
+            self.navigationItem.title = "Profile"
+            break
+        case 2:
+            self.navigationItem.title = "Credits"
+            break
+        default:
+            return
+        }
     }
 }

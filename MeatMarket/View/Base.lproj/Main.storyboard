@@ -52,11 +52,11 @@
             </objects>
             <point key="canvasLocation" x="174" y="569"/>
         </scene>
-        <!--Title-->
+        <!--Page Root Controller-->
         <scene sceneID="vWe-GR-var">
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="fullScreen" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="nRJ-7K-1I4" customClass="PageRootController" customModule="MeatMarket" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Title" id="P6Q-dE-D6u">
+                    <navigationItem key="navigationItem" id="P6Q-dE-D6u">
                         <barButtonItem key="rightBarButtonItem" title="logOut" image="power" catalog="system" id="TeY-F2-dUs">
                             <connections>
                                 <action selector="logoutTapped:" destination="nRJ-7K-1I4" id="mgz-fx-uri"/>
@@ -100,7 +100,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2019-09-19 at 11.08.13" translatesAutoresizingMaskIntoConstraints="NO" id="dRF-ZS-Hxd">
-                                                    <rect key="frame" x="47.5" y="55.5" width="222" height="141.50000000000011"/>
+                                                    <rect key="frame" x="47.5" y="55.5" width="222" height="141.5"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -283,7 +283,7 @@
             </objects>
             <point key="canvasLocation" x="4440.579710144928" y="549.77678571428567"/>
         </scene>
-        <!--Recipes Controller-->
+        <!--Recipes-->
         <scene sceneID="Xx8-0Y-iY4">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="4He-BA-DdS" customClass="RecipesController" customModule="MeatMarket" customModuleProvider="target" sceneMemberID="viewController">
@@ -291,14 +291,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDw-9k-y2l">
-                                <rect key="frame" x="156.5" y="44" width="101" height="39"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="30"/>
-                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mrt-I4-oYL">
-                                <rect key="frame" x="0.0" y="91" width="414" height="771"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bdk-LR-9tZ">
                                     <size key="itemSize" width="329" height="238"/>
@@ -337,9 +331,18 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yep-0h-1bJ">
+                                                    <rect key="frame" x="296" y="6" width="33" height="24"/>
+                                                    <state key="normal" image="star" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="favoriteBtnAction:" destination="4He-BA-DdS" eventType="touchUpInside" id="oJY-tJ-q04"/>
+                                                        <action selector="favoriteBtnTapped:" destination="BS2-Br-eUQ" eventType="touchUpInside" id="Wzq-VK-Kz5"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="SL2-pN-hss" firstAttribute="centerX" secondItem="djf-h6-IQV" secondAttribute="centerX" id="61d-bI-8K7"/>
+                                                <constraint firstItem="yep-0h-1bJ" firstAttribute="centerY" secondItem="djf-h6-IQV" secondAttribute="centerY" multiplier="0.15" id="78A-FM-Xsx"/>
                                                 <constraint firstItem="prH-8n-rSN" firstAttribute="centerY" secondItem="djf-h6-IQV" secondAttribute="centerY" multiplier="1.85" id="9LE-0T-HS4"/>
                                                 <constraint firstItem="dyy-oX-1rK" firstAttribute="height" secondItem="djf-h6-IQV" secondAttribute="height" multiplier="0.15" id="9Oj-vg-7lU"/>
                                                 <constraint firstItem="SL2-pN-hss" firstAttribute="height" secondItem="djf-h6-IQV" secondAttribute="height" multiplier="0.15" id="EFQ-zL-qDy"/>
@@ -348,10 +351,13 @@
                                                 <constraint firstItem="SL2-pN-hss" firstAttribute="width" secondItem="djf-h6-IQV" secondAttribute="width" id="Q8D-dt-hED"/>
                                                 <constraint firstItem="PIa-oh-6dU" firstAttribute="width" secondItem="djf-h6-IQV" secondAttribute="width" multiplier="0.9" id="W8F-6a-bat"/>
                                                 <constraint firstItem="dyy-oX-1rK" firstAttribute="centerY" secondItem="djf-h6-IQV" secondAttribute="centerY" multiplier="1.85" id="Xnw-gX-2lR"/>
+                                                <constraint firstItem="yep-0h-1bJ" firstAttribute="centerX" secondItem="djf-h6-IQV" secondAttribute="centerX" multiplier="1.9" id="ZQR-zf-Iqh"/>
                                                 <constraint firstItem="PIa-oh-6dU" firstAttribute="centerY" secondItem="djf-h6-IQV" secondAttribute="centerY" id="bRw-Ic-TUU"/>
+                                                <constraint firstItem="yep-0h-1bJ" firstAttribute="height" secondItem="djf-h6-IQV" secondAttribute="height" multiplier="0.1" id="beH-F5-cY3"/>
                                                 <constraint firstItem="dyy-oX-1rK" firstAttribute="centerX" secondItem="djf-h6-IQV" secondAttribute="centerX" multiplier="1.8" id="fFE-sF-gW7"/>
                                                 <constraint firstItem="dyy-oX-1rK" firstAttribute="width" secondItem="djf-h6-IQV" secondAttribute="width" multiplier="0.45" id="gmG-Po-Yut"/>
                                                 <constraint firstItem="SL2-pN-hss" firstAttribute="centerY" secondItem="djf-h6-IQV" secondAttribute="centerY" multiplier="0.15" id="h7c-jc-fN3"/>
+                                                <constraint firstItem="yep-0h-1bJ" firstAttribute="width" secondItem="djf-h6-IQV" secondAttribute="width" multiplier="0.1" id="mXn-mt-njI"/>
                                                 <constraint firstItem="prH-8n-rSN" firstAttribute="width" secondItem="djf-h6-IQV" secondAttribute="width" multiplier="0.45" id="qWA-ve-aNb"/>
                                                 <constraint firstItem="PIa-oh-6dU" firstAttribute="centerX" secondItem="djf-h6-IQV" secondAttribute="centerX" id="sVn-k1-T44"/>
                                                 <constraint firstItem="prH-8n-rSN" firstAttribute="height" secondItem="djf-h6-IQV" secondAttribute="height" multiplier="0.15" id="zyU-Va-iRM"/>
@@ -361,6 +367,7 @@
                                         <viewLayoutGuide key="safeArea" id="tGC-uD-g9S"/>
                                         <size key="customSize" width="329" height="238"/>
                                         <connections>
+                                            <outlet property="favoriteBtn" destination="yep-0h-1bJ" id="Hxh-Ax-XO7"/>
                                             <outlet property="recipeImageCell" destination="PIa-oh-6dU" id="fKa-d6-6U9"/>
                                             <outlet property="recipeLevelCell" destination="dyy-oX-1rK" id="4JK-YT-bgo"/>
                                             <outlet property="recipeNameCell" destination="SL2-pN-hss" id="DRp-Q1-2NS"/>
@@ -378,14 +385,12 @@
                         <constraints>
                             <constraint firstItem="mrt-I4-oYL" firstAttribute="trailing" secondItem="P94-mu-LQg" secondAttribute="trailing" id="EnG-rE-cg9"/>
                             <constraint firstItem="mrt-I4-oYL" firstAttribute="bottom" secondItem="P94-mu-LQg" secondAttribute="bottom" id="Tvg-7P-JVX"/>
+                            <constraint firstItem="mrt-I4-oYL" firstAttribute="top" secondItem="P94-mu-LQg" secondAttribute="top" id="bt2-eI-mRs"/>
                             <constraint firstItem="mrt-I4-oYL" firstAttribute="leading" secondItem="P94-mu-LQg" secondAttribute="leading" id="fv9-ds-ViZ"/>
-                            <constraint firstItem="dDw-9k-y2l" firstAttribute="top" secondItem="P94-mu-LQg" secondAttribute="top" id="k20-ie-8WW"/>
-                            <constraint firstItem="mrt-I4-oYL" firstAttribute="top" secondItem="dDw-9k-y2l" secondAttribute="bottom" constant="8" id="mqZ-y0-HRn"/>
-                            <constraint firstItem="dDw-9k-y2l" firstAttribute="centerX" secondItem="P94-mu-LQg" secondAttribute="centerX" id="zkR-hJ-8TQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P94-mu-LQg"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YOV-Jw-SM7"/>
+                    <navigationItem key="navigationItem" title="Recipes" id="YMW-62-eaw"/>
                     <connections>
                         <outlet property="recipeCollectionView" destination="mrt-I4-oYL" id="wFK-rA-a8A"/>
                         <segue destination="PXt-mA-Qd6" kind="show" identifier="recipesToInstructions" id="YLt-8n-ImA"/>
@@ -395,7 +400,7 @@
             </objects>
             <point key="canvasLocation" x="3498.5507246376815" y="1330.5803571428571"/>
         </scene>
-        <!--Instructions Controller-->
+        <!--Title-->
         <scene sceneID="vwI-U1-AzP">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="PXt-mA-Qd6" customClass="InstructionsController" customModule="MeatMarket" customModuleProvider="target" sceneMemberID="viewController">
@@ -516,7 +521,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GxO-8H-bbF"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SWO-Xw-0OV"/>
+                    <navigationItem key="navigationItem" title="Title" id="GIX-ug-zDQ"/>
                     <connections>
                         <outlet property="ingredientsTableView" destination="pB5-ex-4tN" id="qgH-oE-sLH"/>
                         <outlet property="instructionsTableView" destination="wII-dn-1qV" id="2JG-Qq-DVZ"/>
@@ -733,6 +738,7 @@
         <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
         <image name="person.circle" catalog="system" width="64" height="60"/>
         <image name="power" catalog="system" width="64" height="62"/>
+        <image name="star" catalog="system" width="64" height="58"/>
         <image name="testImage" width="1080" height="832"/>
         <image name="trash" catalog="system" width="60" height="64"/>
     </resources>

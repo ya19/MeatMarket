@@ -24,8 +24,8 @@ enum Levels:Int, CustomStringConvertible{
         }
     }
     
-    func levelRecipe(level: Levels)->Int{
-        switch level{
+    func levelRecipe()->Int{
+        switch self{
         case .EASY:
             return 0
         case .MEDIUM:

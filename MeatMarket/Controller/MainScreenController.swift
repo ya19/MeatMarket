@@ -13,16 +13,13 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
     @IBOutlet weak var meatCutCollectionView: UICollectionView!
     
     var allMeatCuts:[MeatCut]?
-    
     var array = ["First Cell", "Second Cell", "Third Cell", "Fourth Cell", "Fifth Cell"]
-    
     //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         meatCutCollectionView.delegate = self
         meatCutCollectionView.dataSource = self
-        self.navigationItem.title = "Meat Cuts"
-        
+
         
 
 

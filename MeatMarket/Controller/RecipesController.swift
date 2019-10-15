@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
 class RecipesController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     //MARK:Outlets
     @IBOutlet weak var recipeCollectionView: UICollectionView!
     
-
+    @IBAction func favoriteBtnAction(_ sender: UIButton) {
+        
+    }
+    
     //MARK:Properties
     var allRecipes:[Recipe]?
 
@@ -56,7 +60,7 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         recipeCell.recipeTimeCell.text = recipe.time
         recipeCell.recipeImageCell.roundCorners(.allCorners, radius: 15)
         recipeCell.recipeImageCell.sd_setImage(with: recipe.image)
-        
+        recipeCell.recipe = recipe
         return recipeCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
