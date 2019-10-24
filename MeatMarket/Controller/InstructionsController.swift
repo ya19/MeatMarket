@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 class InstructionsController: UIViewController, UITableViewDelegate , UITableViewDataSource {
-
+    
     
     //MARK: Outlets
     @IBOutlet weak var recipeImage: UIImageView!
@@ -33,6 +33,11 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
         self.navigationItem.title = recipe?.name 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+         recipeImage.layer.cornerRadius = 8
+         recipeImage.sd_setImage(with: recipe?.image)
+     }
+    
     //MARK: TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == ingredientsTableView{
@@ -41,10 +46,6 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
             return recipe!.instructions.count
         }
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        recipeImage.sd_setImage(with: recipe?.image)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,6 +62,6 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
         }
         
     }
-        
+    
     
 }

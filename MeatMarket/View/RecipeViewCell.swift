@@ -8,9 +8,13 @@
 
 import UIKit
 import Firebase
-class RecipeViewCell: RoundedCollectionViewCell {
+class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelegate{
+    
     //MARK:Properties
     var recipe:Recipe?
+    var vc:UIViewController?
+    var isFavorite:Bool?
+    var once:Bool?
     //MARK:Outlets
     @IBOutlet weak var recipeLevelCell: UILabel!
     @IBOutlet weak var recipeTimeCell: UILabel!
@@ -20,7 +24,45 @@ class RecipeViewCell: RoundedCollectionViewCell {
     
     //MARK: Actions
     @IBAction func favoriteBtnTapped(_ sender: UIButton) {
-        Database.database().reference().child("Favorites").child(User.shared.id!).child(recipe!.id).setValue(ServerValue.timestamp())
+        if once!{
+            once = false
+            if !isFavorite!{
+                CurrentUser.shared.addToFavorite(recipe: recipe!, vc: vc!,delegate: self)
+                changeStar(full: true)
+            }else{
+                CurrentUser.shared.removeFromFavorite(recipe: recipe!, vc: vc!,delegate: self)
+                changeStar(full: false)
+            }
+            isFavorite = !isFavorite!
+        }
     }
-    
+    func populate(recipe:Recipe){
+        self.recipe = recipe
+        self.once = true
+        isFavorite = false
+        recipeLevelCell.text = recipe.level.description
+        recipeTimeCell.text = recipe.time
+        recipeNameCell.text = recipe.name
+        recipeImageCell.layer.cornerRadius = 10
+        recipeImageCell.sd_setImage(with: recipe.image!)
+        for favorite in CurrentUser.shared.user!.recipes{
+            if favorite.id == recipe.id{
+                isFavorite = true
+            }
+        }
+        changeStar(full: isFavorite!)
+    }
+    func changeStar(full:Bool){
+        if full{
+            favoriteBtn.setImage(UIImage(named:"star_filled"), for: .normal)
+        }else{
+            favoriteBtn.setImage(UIImage(named: "star_blunk"), for: .normal)
+        }
+    }
+    func changeStatus() {
+        self.once = true
+    }
+}
+protocol RecipeCellFavoriteStatusDelegate {
+    func changeStatus()
 }

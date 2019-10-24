@@ -28,7 +28,6 @@ class RegistrationController: UIViewController {
         guard let email = emailField.text else {return}
         guard let password = passwordField.text else {return}
         guard let verifyPassword = verifyPasswordField.text else {return}
-        let timeStamp =  ServerValue.timestamp()
         
         if  email.count == 0 ||
             firstName.count == 0 ||
@@ -42,39 +41,26 @@ class RegistrationController: UIViewController {
         }else{
             creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
             performSegue(withIdentifier: "registerToNavigation", sender: self.allMeatCuts)
-//            let mainScreenVC = self.storyboard!.instantiateViewController(withIdentifier: "navigationStoryboardID")
-//            self.present(mainScreenVC, animated: true, completion: nil)
         }
         
     }
+    
+    
+    //MARK: LifeCycle View
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-                if let navigationVC = segue.destination as? NavigationController{
+        if let navigationVC = segue.destination as? NavigationController{
             guard let meatCuts = sender as? [MeatCut] else {return}
             navigationVC.allMeatCuts = meatCuts
         }
     }
-    //MARK: LifeCycle View
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        
-        
-    }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     //MARK: Funcs
-
+    
     func creatUserWith(firstName:String, lastName:String, email: String, password: String ){
         //Create user with Firebase Auth
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
@@ -95,10 +81,10 @@ class RegistrationController: UIViewController {
             self.databaseRef = Database.database().reference()
             self.databaseRef.child("Users").child(id).setValue(userData)
             //Create user with User
-            User.shared.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil)
-            print("----New user created with User-----", User.shared.description)
+            CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil)
+            print("----New user created with User-----", CurrentUser.shared.user!.description)
             
-
+            
         }
     }
     

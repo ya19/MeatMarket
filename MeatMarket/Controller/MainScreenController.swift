@@ -10,19 +10,19 @@ import UIKit
 import SDWebImage
 
 class MainScreenController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    
+    //MARK: Outlets
     @IBOutlet weak var meatCutCollectionView: UICollectionView!
     
+    //MARK: Properties
     var allMeatCuts:[MeatCut]?
-    var array = ["First Cell", "Second Cell", "Third Cell", "Fourth Cell", "Fifth Cell"]
+
     //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         meatCutCollectionView.delegate = self
         meatCutCollectionView.dataSource = self
-
-        
-
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,30 +32,19 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
         cellVisuality()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let recipesVC = segue.destination as? RecipesController{
             guard let recipes = sender as? [Recipe] else {return}
             recipesVC.allRecipes = recipes
         }
     }
+    
+    
     //MARK: CollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allMeatCuts!.count
     }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: collectionView.frame.width * 0.8, height: collectionView.frame.height * 0.3)
-//
-//    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "meatCutsCellID", for: indexPath) as! MeatCutViewCell
         cell.meatCutName.text = allMeatCuts![indexPath.row].name
@@ -69,12 +58,11 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
     }
     
     func cellVisuality(){
-        let cellSize = CGSize(width:meatCutCollectionView.bounds.width-80, height:200)
+        let cellSize = CGSize(width:meatCutCollectionView.bounds.width * 0.9, height:meatCutCollectionView.bounds.height * 0.22)
         let layout = UICollectionViewFlowLayout()
 
         layout.scrollDirection = .vertical
         layout.itemSize = cellSize
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 25
         meatCutCollectionView.setCollectionViewLayout(layout, animated: true)
 

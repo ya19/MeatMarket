@@ -9,10 +9,11 @@
 import UIKit
 
 class InstructionsTableViewCell: UITableViewCell {
+    
     //MARK: OutLets
     @IBOutlet weak var instructionLable: UILabel!
     
-    //MARK: LifeCycle View
+    //MARK: LifeCycle ViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

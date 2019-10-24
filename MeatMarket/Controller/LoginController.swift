@@ -12,7 +12,8 @@ import Firebase
 class LoginController: UIViewController {
     //MARK: Properties
     var allMeatCuts:[MeatCut]?
-    
+    var allRecipesURL:[String:URL]?
+    var credits:[String:String]?
     //MARK: Outlets
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -21,14 +22,15 @@ class LoginController: UIViewController {
     @IBAction func loginTapped(_ sender: UIButton) {
         guard let email = emailField.text else {return}
         guard let password = passwordField.text else {return}
-
+        
         if email.count == 0 || password.count == 0{
             HelperFuncs.showToast(message: "Please Enter Email And Password", view: view)
         }
-        loginWithFireBaseWith()
+        
+        loginWithFireBase()
         
     }
-
+    
     @IBAction func regiserTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "loginToRegistration", sender: self.allMeatCuts)
     }
@@ -40,10 +42,13 @@ class LoginController: UIViewController {
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigationVC = segue.destination as? NavigationController{
-            guard let meatCuts = sender as? [MeatCut] else {return}
-            navigationVC.allMeatCuts = meatCuts
-        }
+          if let navigationVC = segue.destination as? NavigationController{
+                  guard let dictionary = sender as? [String:Any] else {return print("test")}
+                  navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+                  navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
+                 navigationVC.credits = dictionary["credits"] as? [String:String]
+             }
+        
         if let registerVC = segue.destination as? RegistrationController{
             guard let meatCuts = sender as? [MeatCut] else {return}
             registerVC.allMeatCuts = meatCuts
@@ -51,24 +56,25 @@ class LoginController: UIViewController {
     }
     
     //MARK: funcs
-    func loginWithFireBaseWith(){
+    func loginWithFireBase(){
         guard
-          let email = emailField.text,
-          let password = passwordField.text, email.count > 0, password.count > 0 else {
-            return
-        }
-
+            let email = emailField.text,
+            let password = passwordField.text, email.count > 0, password.count > 0 else {return}
+        
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
-          if let error = error, user == nil {
-            let alert = UIAlertController(title: "Sign In Failed",
-                                          message: error.localizedDescription,
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            
-            self.present(alert, animated: true, completion: nil)
-          }
-            self.performSegue(withIdentifier: "loginToNavigation", sender: self.allMeatCuts)
+            if let error = error, user == nil {
+                print(error.localizedDescription)
+                let alert = UIAlertController(title: "Sign In Failed",
+                                              message: error.localizedDescription,
+                                              preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                CurrentUser.shared.configure(userId: Auth.auth().currentUser!.uid, segueId: "loginToNavigation", meatCuts: self.allMeatCuts!, allRecipesURL: self.allRecipesURL!, vc: self,credits: self.credits!)
+                //            self.performSegue(withIdentifier: "loginToNavigation", sender: self.allMeatCuts)
+            }
         }
     }
 }

@@ -9,11 +9,11 @@
 import UIKit
 
 class IngredientsTableViewCell: UITableViewCell {
+    
     //MARK: OutLets
     @IBOutlet weak var ingredientLable: UILabel!
     
-    
-    //MARK: LifeCycle
+    //MARK: LifeCycle ViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

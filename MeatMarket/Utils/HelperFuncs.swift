@@ -1,21 +1,14 @@
 //
 //  HelperFuncs.swift
 //  MeatMarket
-//
-//  Created by YardenSwisa on 09/10/2019.
 //  Copyright © 2019 YardenSwisa. All rights reserved.
-//
 
 import UIKit
 import SDWebImage
-
+import Firebase
 struct  HelperFuncs {
-    
-
-    
-    
     static func showToast(message : String, view: UIView) {
-        let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 150 , y: view.frame.size.height-100, width: 300 , height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 150 , y: view.frame.size.height-100, width: 300 , height: 25))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;
@@ -31,7 +24,7 @@ struct  HelperFuncs {
             toastLabel.removeFromSuperview()
         })
     }
-    
+
     static func getReadableDate(timeStamp: Double) -> String? {
         let date = Date(timeIntervalSince1970: timeStamp)
         let dateFormatter = DateFormatter()
@@ -49,7 +42,7 @@ struct  HelperFuncs {
                 return dateFormatter.string(from: date)
             }
         } else {
-            dateFormatter.dateFormat = "MMM d, yyyy"
+            dateFormatter.dateFormat = "MMM dd, yyyy"
             return dateFormatter.string(from: date)
         }
     }
@@ -62,19 +55,19 @@ struct  HelperFuncs {
 }
 //MARK: Extensions
 extension UIImageView {
-    public func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let maskPath = UIBezierPath(roundedRect: bounds,
-                                    byRoundingCorners: corners,
-                                    cornerRadii: CGSize(width: radius, height: radius))
-        let shape = CAShapeLayer()
-        shape.path = maskPath.cgPath
-        layer.mask = shape
-    }
+//    public func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+//        let maskPath = UIBezierPath(roundedRect: bounds,
+//                                    byRoundingCorners: corners,
+//                                    cornerRadii: CGSize(width: radius, height: radius))
+//        let shape = CAShapeLayer()
+//        shape.path = maskPath.cgPath
+//        layer.mask = shape
+//    }
     
-    public func loadImageWithURL(imageViewForGIF: UIImageView, imageURL:String){
-        let urlImage = URL(string: imageURL)
-        imageViewForGIF.sd_setImage(with: urlImage)
-    }
+//    public func loadImageWithURL(imageViewForGIF: UIImageView, imageURL:String){
+//        let urlImage = URL(string: imageURL)
+//        imageViewForGIF.sd_setImage(with: urlImage)
+//    }
 }
 
 

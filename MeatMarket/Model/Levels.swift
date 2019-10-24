@@ -1,18 +1,21 @@
 //
 //  Levels.swift
 //  MeatMarket
-//
-//  Created by YardenSwisa on 10/10/2019.
 //  Copyright © 2019 YardenSwisa. All rights reserved.
-//
 
+/**
+ Levels - Provide to choose a level for the Recipe
+ with three options Easy, Meadium, Hard.
+ Levels register to the server like Int and  convert to string for display
+ */
 import UIKit
-
 enum Levels:Int, CustomStringConvertible{
+    //MARK: Cases
     case EASY = 0
     case MEDIUM = 1
     case HARD = 2
 
+    //MARK: Properties
     var description: String{
         switch self {
         case .EASY:
@@ -24,6 +27,7 @@ enum Levels:Int, CustomStringConvertible{
         }
     }
     
+    //MARK: Funcs
     func levelRecipe()->Int{
         switch self{
         case .EASY:
