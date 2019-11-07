@@ -20,6 +20,7 @@ class RegistrationController: UIViewController {
     //MARK: Properties
     var databaseRef: DatabaseReference!
     var allMeatCuts:[MeatCut]?
+    var credits:[String:String]?
     
     //MARK: Actions
     @IBAction func registerTapped(_ sender: UIButton) {
@@ -40,7 +41,8 @@ class RegistrationController: UIViewController {
             HelperFuncs.showToast(message: "Password Incompatible", view: view)
         }else{
             creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
-            performSegue(withIdentifier: "registerToNavigation", sender: self.allMeatCuts)
+//            let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
+//            performSegue(withIdentifier: "registerToNavigation", sender: dic)
         }
         
     }
@@ -54,18 +56,20 @@ class RegistrationController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigationVC = segue.destination as? NavigationController{
-            guard let meatCuts = sender as? [MeatCut] else {return}
-            navigationVC.allMeatCuts = meatCuts
+            guard let dictionary = sender as? [String:Any] else {return}
+            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+            navigationVC.credits = dictionary["credits"] as? [String:String]
         }
     }
     
     //MARK: Funcs
-    
     func creatUserWith(firstName:String, lastName:String, email: String, password: String ){
         //Create user with Firebase Auth
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let error = error {
                 print("-----Error Creat FireBase User----",error.localizedDescription)
+                HelperFuncs.showToast(message: error.localizedDescription, view: self.view)
+                return
             }
             Auth.auth().signIn(withEmail: email, password: password)
             print("---user LoggedIn with Firebase---")
@@ -83,7 +87,8 @@ class RegistrationController: UIViewController {
             //Create user with User
             CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil)
             print("----New user created with User-----", CurrentUser.shared.user!.description)
-            
+            let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
+            self.performSegue(withIdentifier: "registerToNavigation", sender: dic)
             
         }
     }

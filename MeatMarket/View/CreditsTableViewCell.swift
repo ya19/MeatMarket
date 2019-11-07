@@ -17,6 +17,15 @@ class CreditsTableViewCell: UITableViewCell{
     //MARK: Outlets
     @IBOutlet weak var recipeNameLable: UILabel!
     @IBOutlet weak var websiteBtn: UIButton!
+    
+    //MARK: Actions
+    @IBAction func creditBtnTapped(_ sender: UIButton) {
+        let urlCredit = creditCellDelegate?.urlArray[sender.tag].description
+        guard let url = URL(string: urlCredit ?? "") else {return}
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
 
     //MARK: Properties
     var creditCellDelegate: CreditsController?
@@ -24,13 +33,5 @@ class CreditsTableViewCell: UITableViewCell{
         recipeNameLable.text = recipeName
     
     }
-    @IBAction func creditBtnTapped(_ sender: UIButton) {
-        let urlCredit = creditCellDelegate?.urlArray[sender.tag].description
-        guard let url = URL(string: urlCredit ?? "") else {return}
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-             }
-            
-            
-    }
+    
 }

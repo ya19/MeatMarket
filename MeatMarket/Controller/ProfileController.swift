@@ -27,11 +27,18 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         favoriteCollectionView.dataSource = self
         
         userNameLabel.text = "\(CurrentUser.shared.user!.firstName!) \(CurrentUser.shared.user!.lastName!)"
-        profileImageView.layer.masksToBounds = false
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
+        profileImageView.image = #imageLiteral(resourceName: "lake").circleMasked
+//        profileImageView.setRounded()
+//        profileImageView.layer.masksToBounds = false
+//        profileImageView.clipsToBounds = true
+//        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
     }
     
+//    override func viewWillLayoutSubviews() {
+//      super.viewWillLayoutSubviews()
+//        profileImageView.setRounded(borderWidth: 1, borderColor: .blue)
+//    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let instructionsVC = segue.destination as? InstructionsController{
             guard let recipe = sender as? Recipe else {return}
@@ -49,13 +56,15 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         let recipe = CurrentUser.shared.user!.recipes[indexPath.row]
         
         cell.favoriteRecipeName.text = recipe.name
-//        cell.favoriteRecipeLevel.text =  recipe.level.description
+        cell.favoriteRecipeLevel.text =  recipe.level.description
         cell.favoriteRecipeTime.text = recipe.time
-        cell.favoriteImageView.layer.cornerRadius = 10
+//        cell.favoriteImageView.layer.cornerRadius = 13
+        
         cell.favoriteImageView.sd_setImage(with: recipe.image)
         cell.recipe = recipe
         cell.vc = self
         cell.delegate = self
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -78,6 +87,7 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
 protocol RemoveFavoriteProtocol {
     func refresh(recipeId:String)
 }
+
 extension ProfileController:RemoveFavoriteProtocol{
     func refresh(recipeId:String){
         for i in 0..<CurrentUser.shared.user!.recipes.count {

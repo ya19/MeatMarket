@@ -14,6 +14,7 @@ class LoginController: UIViewController {
     var allMeatCuts:[MeatCut]?
     var allRecipesURL:[String:URL]?
     var credits:[String:String]?
+    
     //MARK: Outlets
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -28,11 +29,11 @@ class LoginController: UIViewController {
         }
         
         loginWithFireBase()
-        
     }
     
     @IBAction func regiserTapped(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "loginToRegistration", sender: self.allMeatCuts)
+        let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
+        self.performSegue(withIdentifier: "loginToRegistration", sender: dic)
     }
     
     
@@ -50,8 +51,10 @@ class LoginController: UIViewController {
              }
         
         if let registerVC = segue.destination as? RegistrationController{
-            guard let meatCuts = sender as? [MeatCut] else {return}
-            registerVC.allMeatCuts = meatCuts
+            guard let dictionary = sender as? [String:Any] else {return}
+            registerVC.allMeatCuts = (dictionary["meatCuts"] as! [MeatCut])
+            registerVC.credits = dictionary["credits"] as? [String:String]
+            
         }
     }
     

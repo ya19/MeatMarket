@@ -21,6 +21,7 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         meatCutCollectionView.delegate = self
         meatCutCollectionView.dataSource = self
     }
@@ -41,6 +42,10 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
     
     
     //MARK: CollectionView
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets (top: 8, left: 0, bottom: 0, right: 0)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allMeatCuts!.count
     }
@@ -58,7 +63,7 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
     }
     
     func cellVisuality(){
-        let cellSize = CGSize(width:meatCutCollectionView.bounds.width * 0.9, height:meatCutCollectionView.bounds.height * 0.22)
+        let cellSize = CGSize(width:meatCutCollectionView.bounds.width * 0.8, height:meatCutCollectionView.bounds.height * 0.25)
         let layout = UICollectionViewFlowLayout()
 
         layout.scrollDirection = .vertical

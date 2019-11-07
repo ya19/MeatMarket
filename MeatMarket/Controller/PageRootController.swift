@@ -20,6 +20,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             guard let navigationVC = self.navigationController as? NavigationController else {return}
             loginVC.allMeatCuts = navigationVC.allMeatCuts
             loginVC.allRecipesURL = navigationVC.allRecipesURL
+            loginVC.credits = navigationVC.credits
             CurrentUser.shared.logout()
             self.present(loginVC, animated: true, completion: nil)
         } catch let signOutError as NSError {
@@ -39,7 +40,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
     }()
     
     var pageControl = UIPageControl()
-    
+    var credits:[String:String] = [:]
    
 
     
@@ -48,8 +49,13 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         super.viewDidLoad()
         self.delegate = self
         self.dataSource = self
+        
         if let firstVC = viewCntrollersList.first {
             self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+        }
+        if let navigationVC = self.navigationController as? NavigationController{
+            credits = navigationVC.credits!
+            print(credits)
         }
         self.navigationItem.title = "Meat Cuts"
         configurePageControl()
@@ -72,6 +78,9 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             if mainVC.meatCutCollectionView != nil{
                 mainVC.meatCutCollectionView.reloadData()
             }
+        }else if previusIndex == 2{
+            let creditsVC = viewCntrollersList[previusIndex] as! CreditsController
+            creditsVC.credits = credits
         }
         return viewCntrollersList[previusIndex]
     }
@@ -92,6 +101,11 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             if mainVC.meatCutCollectionView != nil{
                 mainVC.meatCutCollectionView.reloadData()
             }
+        }else if nextIndex == 2{
+            
+                let creditsVC = viewCntrollersList[nextIndex] as! CreditsController
+                creditsVC.credits = credits
+            
         }
         return viewCntrollersList[nextIndex]
     }

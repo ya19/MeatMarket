@@ -3,9 +3,6 @@
 //  MeatMarket
 //  Copyright © 2019 YardenSwisa. All rights reserved.
 
-/**
-    User - 
- */
 
 import UIKit
 import Firebase

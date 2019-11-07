@@ -39,6 +39,10 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     //MARK: CollectionView
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets (top: 8, left: 0, bottom: 0, right: 0)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allRecipes!.count
     }
@@ -57,7 +61,7 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func cellVisuality(){
-        let cellSize = CGSize(width:recipeCollectionView.bounds.width * 0.85  , height:recipeCollectionView.bounds.height * 0.25)
+        let cellSize = CGSize(width:recipeCollectionView.bounds.width * 0.9  , height:recipeCollectionView.bounds.height * 0.25)
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .vertical

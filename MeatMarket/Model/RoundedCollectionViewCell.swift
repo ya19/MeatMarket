@@ -9,10 +9,6 @@
 import UIKit
 
 class RoundedCollectionViewCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.layer.cornerRadius = 13
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
