@@ -51,10 +51,12 @@ class MainScreenController: UIViewController, UICollectionViewDelegate,UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "meatCutsCellID", for: indexPath) as! MeatCutViewCell
-        cell.meatCutName.text = allMeatCuts![indexPath.row].name
-        cell.meatCutImageView.sd_setImage(with: allMeatCuts![indexPath.row].image)
-        return cell
+       let meatCutCell = collectionView.dequeueReusableCell(withReuseIdentifier: "meatCutsCellID", for: indexPath) as! MeatCutViewCell
+        meatCutCell.meatCutName.text = allMeatCuts![indexPath.row].name
+        meatCutCell.meatCutImageView.sd_setImage(with: allMeatCuts![indexPath.row].image)
+        meatCutCell.layer.borderWidth = 2
+        meatCutCell.layer.borderColor = #colorLiteral(red: 0.9611939788, green: 0.507047832, blue: 0.497117877, alpha: 1)
+        return meatCutCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

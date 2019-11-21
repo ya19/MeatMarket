@@ -25,6 +25,8 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         
         recipeCollectionView.delegate = self
         recipeCollectionView.dataSource = self
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +54,9 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         let recipe = allRecipes![indexPath.row]
         recipeCell.populate(recipe: recipe)
         recipeCell.vc = self
+        recipeCell.layer.borderWidth = 2
+        recipeCell.layer.borderColor = #colorLiteral(red: 0.9611939788, green: 0.507047832, blue: 0.497117877, alpha: 1)
+        
         return recipeCell
     }
     

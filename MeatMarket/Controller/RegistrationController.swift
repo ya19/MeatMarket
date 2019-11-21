@@ -41,8 +41,6 @@ class RegistrationController: UIViewController {
             HelperFuncs.showToast(message: "Password Incompatible", view: view)
         }else{
             creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
-//            let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
-//            performSegue(withIdentifier: "registerToNavigation", sender: dic)
         }
         
     }

@@ -30,8 +30,10 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
         ingredientsTableView.delegate = self
         ingredientsTableView.dataSource = self
         
-        self.navigationItem.title = recipe?.name 
+        self.navigationItem.title = recipe?.name
+        
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
          recipeImage.layer.cornerRadius = 8

@@ -26,6 +26,10 @@ struct  HelperFuncs {
         })
     }
 
+    static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?)->()){
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
     static func getReadableDate(timeStamp: Double) -> String? {
         let date = Date(timeIntervalSince1970: timeStamp)
         let dateFormatter = DateFormatter()

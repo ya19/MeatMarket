@@ -13,6 +13,7 @@ class User: CustomStringConvertible{
     var firstName:String?
     var lastName:String?
     var email:String?
+    var image:URL?
     var timeStamp: TimeInterval?
     var recipes:[Recipe]
     var description: String{
@@ -26,6 +27,7 @@ class User: CustomStringConvertible{
         self.lastName = nil
         self.email = nil
         self.timeStamp = nil
+        self.image = nil
         self.recipes = []
     }
     func clear(){
@@ -33,6 +35,7 @@ class User: CustomStringConvertible{
         self.firstName = nil
         self.lastName = nil
         self.email = nil
+        self.image = nil
         self.timeStamp = nil
         self.recipes = []
     }
@@ -69,6 +72,9 @@ class User: CustomStringConvertible{
     }
     func setRecipes(recipes:[Recipe]){
         self.recipes = recipes
+    }
+    func setImageUrl(url:URL?){
+        self.image = url
     }
     
 }

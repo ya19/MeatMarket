@@ -5,14 +5,14 @@
 //  Created by YardenSwisa on 09/10/2019.
 //  Copyright © 2019 YardenSwisa. All rights reserved.
 //
-
+/**
+    SplashScreen Preper the app to use, read from database and check the user state.
+    The database readed every 0.25 sec to match the cout of the igame at the app against the count of the database
+ */
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
 import Firebase
-
-
-
 
 class SplashScreenController: UIViewController {
     
@@ -68,7 +68,7 @@ class SplashScreenController: UIViewController {
     @objc func loadDataEvery(_ timer:Timer){
         
         if serverMeatCutsCount == allMeatCuts.count{
-            //                        print("print in loadDataEvry()  -> server: \(self.serverMeatCutsCount) , allMeatCuts: \(self.allMeatCuts.count)")
+            // print("print in loadDataEvry()  -> server: \(self.serverMeatCutsCount) , allMeatCuts: \(self.allMeatCuts.count)")
             if allRecipesSize == allRecipesURL.keys.count{
                 if self.readCredits == true{
                     var meatCuts:[MeatCut] = []
@@ -98,9 +98,11 @@ class SplashScreenController: UIViewController {
         let databaseRef = Database.database().reference()
         let meatCutsRef = databaseRef.child("MeatCuts")
         let recipeRef = databaseRef.child("Recipes")
+        
         meatCutsRef.observeSingleEvent(of: .value, with: { (meatCutsData) in
-            self.allMeatCuts = []
             let meatCuts = meatCutsData.value as! [String:Any]
+            
+            self.allMeatCuts = []
             self.serverMeatCutsCount = meatCuts.keys.count
             
             for meatCutID in meatCuts.keys{
@@ -139,7 +141,7 @@ class SplashScreenController: UIViewController {
                     }
                 }
             }
-            print("server: \(self.serverMeatCutsCount) , allMeatCuts: \(self.allMeatCuts.count)")
+//            print("server: \(self.serverMeatCutsCount) , allMeatCuts: \(self.allMeatCuts.count)")
             Database.database().reference().child("Credits").child("RecipesCredits").observe(.value) { (creditsData) in
                 guard let creditsDictionary = creditsData.value as? [String:String] else {return}
                 self.credits = creditsDictionary

@@ -8,36 +8,99 @@
 
 import UIKit
 import SDWebImage
+import Firebase
 
-class ProfileController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate {
+
+class ProfileController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate, UINavigationControllerDelegate , UIImagePickerControllerDelegate{
     
     //MARK: Outlets
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     
+    //MARK: Properties
+
+
     //MARK: Actions
+    @IBAction func addImageTapped(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose Source Camera or Library", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+            (action:UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            }else{
+                HelperFuncs.showToast(message: "Camera not Available", view: self.view)
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as! UIImage
+        
+        profileImageView.image = image.circleMasked
+        
+        uploadProfileImage(image, complition: nil)
+        dismiss(animated: true, completion: nil)
+
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func uploadProfileImage(_ image: UIImage, complition: ((_ url:String?)->())?){
+        let uid = CurrentUser.shared.user?.id
+        let storageRef = Storage.storage().reference(forURL: "gs://meat-markett.appspot.com/images/")
+        let storage = storageRef.child("profileImage").child(uid!)
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        
+        storage.putData(imageData, metadata: metaData) { (storageMetaData, error) in
+            if error != nil {
+                HelperFuncs.showToast(message: error!.localizedDescription, view: self.view)
+                print(error!.localizedDescription)
+                return
+            }
+        }
+    }
     
 
+    
     //MARK: LiveCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if CurrentUser.shared.user?.image != nil{
+            HelperFuncs.getData(from: (CurrentUser.shared.user?.image)!) { (data, URLResponse, error) in
+                guard let data = data, error == nil else {return}
+                DispatchQueue.main.async() {
+                    let image = UIImage(data: data)
+                    self.profileImageView.image = image!.circleMasked
+                }
+            }
+        }
+
         favoriteCollectionView.delegate = self
         favoriteCollectionView.dataSource = self
         
         userNameLabel.text = "\(CurrentUser.shared.user!.firstName!) \(CurrentUser.shared.user!.lastName!)"
-        profileImageView.image = #imageLiteral(resourceName: "lake").circleMasked
-//        profileImageView.setRounded()
-//        profileImageView.layer.masksToBounds = false
-//        profileImageView.clipsToBounds = true
-//        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
+        
     }
-    
-//    override func viewWillLayoutSubviews() {
-//      super.viewWillLayoutSubviews()
-//        profileImageView.setRounded(borderWidth: 1, borderColor: .blue)
-//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let instructionsVC = segue.destination as? InstructionsController{
@@ -52,36 +115,27 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: "favoriteCell", for: indexPath) as! FavoriteViewCell
+        let favoriteCell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: "favoriteCell", for: indexPath) as! FavoriteViewCell
         let recipe = CurrentUser.shared.user!.recipes[indexPath.row]
         
-        cell.favoriteRecipeName.text = recipe.name
-        cell.favoriteRecipeLevel.text =  recipe.level.description
-        cell.favoriteRecipeTime.text = recipe.time
-//        cell.favoriteImageView.layer.cornerRadius = 13
+        favoriteCell.favoriteRecipeName.text = recipe.name
+        favoriteCell.favoriteRecipeLevel.text =  recipe.level.description
+        favoriteCell.favoriteRecipeTime.text = recipe.time
+        favoriteCell.favoriteImageView.sd_setImage(with: recipe.image)
+        favoriteCell.recipe = recipe
+        favoriteCell.vc = self
+        favoriteCell.delegate = self
+        favoriteCell.layer.borderWidth = 2
+        favoriteCell.layer.borderColor = #colorLiteral(red: 0.9611939788, green: 0.507047832, blue: 0.497117877, alpha: 1)
         
-        cell.favoriteImageView.sd_setImage(with: recipe.image)
-        cell.recipe = recipe
-        cell.vc = self
-        cell.delegate = self
-        
-        return cell
+        return favoriteCell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("cell \(indexPath.row) tapped")
         self.performSegue(withIdentifier: "profileToInstructions", sender: CurrentUser.shared.user!.recipes[indexPath.row])
     }
     
-//        func cellVisuality(){
-//        let cellSize = CGSize(width:favoriteCollectionView.bounds.width * 0.9, height:0)
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        layout.itemSize = cellSize
-//        layout.minimumLineSpacing = 25
-//        favoriteCollectionView.setCollectionViewLayout(layout, animated: true)
-//
-//        favoriteCollectionView.reloadData()
-//    }
 }
 
 protocol RemoveFavoriteProtocol {

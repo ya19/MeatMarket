@@ -19,6 +19,8 @@ class CurrentUser{
     var allRecipesURL:[String:URL]
     var user:User?
     var credits:[String:String]
+    var didDownloadImage = false
+    var image:URL? = nil
     //MARK: Properties
     static let shared = CurrentUser()
 //    var id:String?
@@ -65,7 +67,24 @@ class CurrentUser{
         self.meatCuts = meatCuts
         self.allRecipes = []
         self.credits = credits
+        self.image = nil
+        self.didDownloadImage = false
         self.serverFavoritesNum = nil
+        let storageRef = Storage.storage().reference(forURL: "gs://meat-markett.appspot.com/images/profileImage/")
+        let imageRef = storageRef.child(userId)
+
+        imageRef.downloadURL { url, error in
+          if let error = error {
+            print(error.localizedDescription)
+            self.didDownloadImage = true
+          } else {
+            if url != nil{
+                self.image = url
+                print(url)
+            }
+            self.didDownloadImage = true
+          }
+        }
             dataBaseRef.child("Users").child(userId).observeSingleEvent(of: .value) { (userData) in
                 guard let userDictionary = userData.value as? [String:Any] else {return}
                 self.user!.loadCurrentUserDetails(id: userId,
@@ -106,8 +125,10 @@ class CurrentUser{
     
     @objc func loadUser(_ timer:Timer){
 //        print(serverFavoritesNum?,allRecipes.count)
-        if serverFavoritesNum != nil , serverFavoritesNum == allRecipes.count{
+        
+        if serverFavoritesNum != nil , serverFavoritesNum == allRecipes.count, didDownloadImage{
             timer.invalidate()
+            self.user!.setImageUrl(url: self.image)
             self.user!.setRecipes(recipes: allRecipes)
             let dic:[String:Any] = ["meatCuts":self.meatCuts,"allRecipesURL":self.allRecipesURL,"credits":self.credits]
             vc.performSegue(withIdentifier: segueId, sender: dic)

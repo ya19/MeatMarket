@@ -11,6 +11,7 @@ import Firebase
 
 class PageRootController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
+    
     //MARK: Actions
     @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
         let firebaseAuth = Auth.auth()
@@ -55,8 +56,8 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         }
         if let navigationVC = self.navigationController as? NavigationController{
             credits = navigationVC.credits!
-            print(credits)
         }
+        
         self.navigationItem.title = "Meat Cuts"
         configurePageControl()
     }
@@ -125,9 +126,8 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         self.pageControl.numberOfPages = viewCntrollersList.count
         self.pageControl.currentPage = viewCntrollersList.startIndex
         self.pageControl.alpha = 1
-//        self.pageControl.tintColor = UIColor.black
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
-        self.pageControl.currentPageIndicatorTintColor = UIColor.blue
+        self.pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.8862006068, green: 0.4702017307, blue: 0.3049917817, alpha: 1)
         self.view.addSubview(pageControl)
     }
     
