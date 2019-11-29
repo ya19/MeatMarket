@@ -76,7 +76,6 @@ class LoginController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }else{
                 CurrentUser.shared.configure(userId: Auth.auth().currentUser!.uid, segueId: "loginToNavigation", meatCuts: self.allMeatCuts!, allRecipesURL: self.allRecipesURL!, vc: self,credits: self.credits!)
-                //            self.performSegue(withIdentifier: "loginToNavigation", sender: self.allMeatCuts)
             }
         }
     }

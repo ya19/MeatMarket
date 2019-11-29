@@ -62,7 +62,6 @@ class RegistrationController: UIViewController {
     
     //MARK: Funcs
     func creatUserWith(firstName:String, lastName:String, email: String, password: String ){
-        //Create user with Firebase Auth
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let error = error {
                 print("-----Error Creat FireBase User----",error.localizedDescription)
@@ -82,7 +81,7 @@ class RegistrationController: UIViewController {
             ]
             self.databaseRef = Database.database().reference()
             self.databaseRef.child("Users").child(id).setValue(userData)
-            //Create user with User
+
             CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil)
             print("----New user created with User-----", CurrentUser.shared.user!.description)
             let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]

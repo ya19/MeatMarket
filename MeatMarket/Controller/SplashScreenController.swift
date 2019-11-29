@@ -5,10 +5,7 @@
 //  Created by YardenSwisa on 09/10/2019.
 //  Copyright © 2019 YardenSwisa. All rights reserved.
 //
-/**
-    SplashScreen Preper the app to use, read from database and check the user state.
-    The database readed every 0.25 sec to match the cout of the igame at the app against the count of the database
- */
+
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
@@ -68,7 +65,6 @@ class SplashScreenController: UIViewController {
     @objc func loadDataEvery(_ timer:Timer){
         
         if serverMeatCutsCount == allMeatCuts.count{
-            // print("print in loadDataEvry()  -> server: \(self.serverMeatCutsCount) , allMeatCuts: \(self.allMeatCuts.count)")
             if allRecipesSize == allRecipesURL.keys.count{
                 if self.readCredits == true{
                     var meatCuts:[MeatCut] = []
@@ -141,7 +137,6 @@ class SplashScreenController: UIViewController {
                     }
                 }
             }
-//            print("server: \(self.serverMeatCutsCount) , allMeatCuts: \(self.allMeatCuts.count)")
             Database.database().reference().child("Credits").child("RecipesCredits").observe(.value) { (creditsData) in
                 guard let creditsDictionary = creditsData.value as? [String:String] else {return}
                 self.credits = creditsDictionary
@@ -151,21 +146,6 @@ class SplashScreenController: UIViewController {
         })
     }
     
-    //write all the recipes at AllRecipes for that User.shared recognaize the favorite
-    //    func recipesToServer(recipe:Recipe){
-    //        let ref = Database.database().reference().child("AllRecipes")
-    //        let recipeValue:[String:Any] = [
-    //            "id": recipe.id,
-    //            "name": recipe.name,
-    //            "instructions": recipe.instructions,
-    //            "ingredients": recipe.ingredients,
-    //            "image": recipe.imageName,
-    //            "level": recipe.level.levelRecipe(),
-    //            "time": recipe.time
-    //        ]
-    //        ref.child(recipe.id).setValue(recipeValue)
-    //
-    //    }
 }
 
 

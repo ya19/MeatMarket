@@ -3,9 +3,6 @@
 //  MeatMarket
 //  Copyright © 2019 YardenSwisa. All rights reserved.
 
-/**
-    CurrentUser -
- */
 
 import UIKit
 import Firebase
@@ -23,12 +20,6 @@ class CurrentUser{
     var image:URL? = nil
     //MARK: Properties
     static let shared = CurrentUser()
-//    var id:String?
-//    var firstName:String?
-//    var lastName:String?
-//    var email:String?
-//    var timeStamp: TimeInterval?
-//    var recipes:[Recipe]
 
     
     //MARK: Constructor
@@ -76,11 +67,10 @@ class CurrentUser{
         imageRef.downloadURL { url, error in
           if let error = error {
             print(error.localizedDescription)
-            self.didDownloadImage = true
+            self.didDownloadImage = false
           } else {
             if url != nil{
                 self.image = url
-                print(url)
             }
             self.didDownloadImage = true
           }
@@ -123,9 +113,7 @@ class CurrentUser{
 
     }
     
-    @objc func loadUser(_ timer:Timer){
-//        print(serverFavoritesNum?,allRecipes.count)
-        
+    @objc func loadUser(_ timer:Timer){        
         if serverFavoritesNum != nil , serverFavoritesNum == allRecipes.count, didDownloadImage{
             timer.invalidate()
             self.user!.setImageUrl(url: self.image)
@@ -142,7 +130,7 @@ class CurrentUser{
             delegate.changeStatus()
         }
         user!.addFavorite(recipe: recipe)
-        HelperFuncs.showToast(message: "added to favorites", view: vc.view)
+        HelperFuncs.showToast(message: "Added to favorites", view: vc.view)
     }
     func removeFromFavorite(recipe:Recipe,vc:UIViewController,delegate:Any){
         Database.database().reference().child("Favorites").child(user!.id!).child(recipe.id).removeValue { (Error, DatabaseReference) in
@@ -154,7 +142,7 @@ class CurrentUser{
             }
         }
         user!.removeFavorite(recipeId: recipe.id)
-        HelperFuncs.showToast(message: "removed from favorites", view: vc.view)
+        HelperFuncs.showToast(message: "Removed from favorites", view: vc.view)
     }
 }
 

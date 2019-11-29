@@ -17,6 +17,5 @@ class NavigationController: UINavigationController {
     //MARK: LifeCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(credits)
     }
 }
