@@ -10,6 +10,7 @@
 		62878341C14DF27E186957EE /* Pods_MeatMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */; };
 		F90537AE2358ED3600245626 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90537AD2358ED3600245626 /* Extensions.swift */; };
 		F90B0F23235B1EED00370A9F /* CreditsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90B0F22235B1EED00370A9F /* CreditsTableViewCell.swift */; };
+		F938FA7523BB3AB700896198 /* MainScreenController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F938FA7423BB3AB700896198 /* MainScreenController1.swift */; };
 		F93CA9212350C21D00289AD6 /* RoundedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CA9202350C21D00289AD6 /* RoundedCollectionViewCell.swift */; };
 		F93CB860234E0B6300136DA6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB85F234E0B6300136DA6 /* LoginController.swift */; };
 		F93CB862234E19FE00136DA6 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB861234E19FE00136DA6 /* RegistrationController.swift */; };
@@ -47,6 +48,7 @@
 		EF0F11BA56A0A2EAEE1D3A94 /* Pods-MeatMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatMarket.release.xcconfig"; path = "Target Support Files/Pods-MeatMarket/Pods-MeatMarket.release.xcconfig"; sourceTree = "<group>"; };
 		F90537AD2358ED3600245626 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F90B0F22235B1EED00370A9F /* CreditsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsTableViewCell.swift; sourceTree = "<group>"; };
+		F938FA7423BB3AB700896198 /* MainScreenController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController1.swift; sourceTree = "<group>"; };
 		F93CA9202350C21D00289AD6 /* RoundedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCollectionViewCell.swift; sourceTree = "<group>"; };
 		F93CB85F234E0B6300136DA6 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		F93CB861234E19FE00136DA6 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				F93CB86D234E35FD00136DA6 /* CreditsController.swift */,
 				F95B26F6235237E30034CE84 /* RecipesController.swift */,
 				F95B26F8235238030034CE84 /* InstructionsController.swift */,
+				F938FA7423BB3AB700896198 /* MainScreenController1.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F938FA7523BB3AB700896198 /* MainScreenController1.swift in Sources */,
 				F95B26F9235238030034CE84 /* InstructionsController.swift in Sources */,
 				F95336EC235138650060BD4F /* FavoriteViewCell.swift in Sources */,
 				F99B7C7A234F628200EB8C59 /* Levels.swift in Sources */,

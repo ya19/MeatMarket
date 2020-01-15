@@ -35,7 +35,7 @@ class SplashScreenController: UIViewController {
         readRealTimeDatabase()
         splashScreenImageGIF.sd_setImage(with: URL(string: splashScreenGif))
     }
-    
+     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigationVC = segue.destination as? NavigationController{
             guard let dictionary = sender as? [String:Any] else {return print("test")}
@@ -85,7 +85,7 @@ class SplashScreenController: UIViewController {
             }
         }
     }
-    
+     
     func readRealTimeDatabase(){
         readCredits = false
         credits = [:]
