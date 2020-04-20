@@ -9,7 +9,9 @@
  Levels register to the server like Int and  convert to string for display
  */
 import UIKit
+
 enum Levels:Int, CustomStringConvertible{
+    
     //MARK: Cases
     case EASY = 0
     case MEDIUM = 1
@@ -27,7 +29,7 @@ enum Levels:Int, CustomStringConvertible{
         }
     }
     
-    //MARK: Funcs
+    //MARK: Levle Recipe
     func levelRecipe()->Int{
         switch self{
         case .EASY:

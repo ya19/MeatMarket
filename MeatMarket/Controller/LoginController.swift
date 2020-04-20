@@ -19,6 +19,32 @@ class LoginController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
+    //MARK: LifeCycle View
+    override func viewDidLoad() {
+        super.viewDidLoad()
+     
+        self.observeKeybordForPushUpTheView()
+        self.hideKeyboardWhenTappedAround()
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navigationVC = segue.destination as? NavigationController{
+            guard let dictionary = sender as? [String:Any] else {return}
+            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+            navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
+            navigationVC.credits = dictionary["credits"] as? [String:String]
+        }
+        
+        if let registerVC = segue.destination as? RegistrationController{
+            guard let dictionary = sender as? [String:Any] else {return}
+            registerVC.allMeatCuts = (dictionary["meatCuts"] as! [MeatCut])
+            registerVC.credits = dictionary["credits"] as? [String:String]
+            
+        }
+    }
+    
     //MARK: Actions
     @IBAction func loginTapped(_ sender: UIButton) {
         guard let email = emailField.text else {return}
@@ -36,29 +62,8 @@ class LoginController: UIViewController {
         self.performSegue(withIdentifier: "loginToRegistration", sender: dic)
     }
     
+    //MARK: Login with firebase
     
-    //MARK: LifeCycle View
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-          if let navigationVC = segue.destination as? NavigationController{
-                  guard let dictionary = sender as? [String:Any] else {return print("test")}
-                  navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
-                  navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
-                 navigationVC.credits = dictionary["credits"] as? [String:String]
-             }
-        
-        if let registerVC = segue.destination as? RegistrationController{
-            guard let dictionary = sender as? [String:Any] else {return}
-            registerVC.allMeatCuts = (dictionary["meatCuts"] as! [MeatCut])
-            registerVC.credits = dictionary["credits"] as? [String:String]
-            
-        }
-    }
-    
-    //MARK: funcs
     func loginWithFireBase(){
         guard
             let email = emailField.text,

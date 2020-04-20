@@ -8,8 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		62878341C14DF27E186957EE /* Pods_MeatMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */; };
-		F90537AE2358ED3600245626 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90537AD2358ED3600245626 /* Extensions.swift */; };
 		F90B0F23235B1EED00370A9F /* CreditsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90B0F22235B1EED00370A9F /* CreditsTableViewCell.swift */; };
+		F92D4FC7243B029700AE788D /* ExtentionProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FC6243B029700AE788D /* ExtentionProfileViewController.swift */; };
+		F92D4FC9243B02C700AE788D /* ProtocolProfileFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FC8243B02C700AE788D /* ProtocolProfileFavorite.swift */; };
+		F92D4FCD243B04CF00AE788D /* ExtentionCreateRecipePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FCC243B04CF00AE788D /* ExtentionCreateRecipePicker.swift */; };
+		F92D4FCF243B059900AE788D /* ProtocolRecipeRatingAvg.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FCE243B059900AE788D /* ProtocolRecipeRatingAvg.swift */; };
+		F92D4FD1243B431F00AE788D /* ExtentionUIImageViewAndUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FD0243B431F00AE788D /* ExtentionUIImageViewAndUIImage.swift */; };
+		F92D4FD3243B456A00AE788D /* ProtocolRecipeCellFavoriteStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FD2243B456A00AE788D /* ProtocolRecipeCellFavoriteStatus.swift */; };
+		F92D4FDB243FA55600AE788D /* ExtentionUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FDA243FA55600AE788D /* ExtentionUIViewController.swift */; };
+		F92D4FDD243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FDC243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift */; };
+		F92D4FDF2442144400AE788D /* PopUpIngredientsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FDE2442144400AE788D /* PopUpIngredientsController.swift */; };
+		F92D4FE1244216A200AE788D /* CreateRecipeIngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92D4FE0244216A200AE788D /* CreateRecipeIngredientsTableViewCell.swift */; };
+		F938D8F12437787D00EF3A9B /* CreateRecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F938D8F02437787D00EF3A9B /* CreateRecipeController.swift */; };
 		F938FA7523BB3AB700896198 /* MainScreenController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F938FA7423BB3AB700896198 /* MainScreenController1.swift */; };
 		F93CA9212350C21D00289AD6 /* RoundedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CA9202350C21D00289AD6 /* RoundedCollectionViewCell.swift */; };
 		F93CB860234E0B6300136DA6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB85F234E0B6300136DA6 /* LoginController.swift */; };
@@ -46,8 +56,18 @@
 		8EE4E8623CD904E21FEDC6A0 /* Pods_MeatMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeatMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4EE9E939A5EA3BCCE241B92 /* Pods-MeatMarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatMarket.debug.xcconfig"; path = "Target Support Files/Pods-MeatMarket/Pods-MeatMarket.debug.xcconfig"; sourceTree = "<group>"; };
 		EF0F11BA56A0A2EAEE1D3A94 /* Pods-MeatMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatMarket.release.xcconfig"; path = "Target Support Files/Pods-MeatMarket/Pods-MeatMarket.release.xcconfig"; sourceTree = "<group>"; };
-		F90537AD2358ED3600245626 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F90B0F22235B1EED00370A9F /* CreditsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsTableViewCell.swift; sourceTree = "<group>"; };
+		F92D4FC6243B029700AE788D /* ExtentionProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionProfileViewController.swift; sourceTree = "<group>"; };
+		F92D4FC8243B02C700AE788D /* ProtocolProfileFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolProfileFavorite.swift; sourceTree = "<group>"; };
+		F92D4FCC243B04CF00AE788D /* ExtentionCreateRecipePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionCreateRecipePicker.swift; sourceTree = "<group>"; };
+		F92D4FCE243B059900AE788D /* ProtocolRecipeRatingAvg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolRecipeRatingAvg.swift; sourceTree = "<group>"; };
+		F92D4FD0243B431F00AE788D /* ExtentionUIImageViewAndUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionUIImageViewAndUIImage.swift; sourceTree = "<group>"; };
+		F92D4FD2243B456A00AE788D /* ProtocolRecipeCellFavoriteStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolRecipeCellFavoriteStatus.swift; sourceTree = "<group>"; };
+		F92D4FDA243FA55600AE788D /* ExtentionUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionUIViewController.swift; sourceTree = "<group>"; };
+		F92D4FDC243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeInstrcuctionTableViewCell.swift; sourceTree = "<group>"; };
+		F92D4FDE2442144400AE788D /* PopUpIngredientsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpIngredientsController.swift; sourceTree = "<group>"; };
+		F92D4FE0244216A200AE788D /* CreateRecipeIngredientsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeIngredientsTableViewCell.swift; sourceTree = "<group>"; };
+		F938D8F02437787D00EF3A9B /* CreateRecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeController.swift; sourceTree = "<group>"; };
 		F938FA7423BB3AB700896198 /* MainScreenController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController1.swift; sourceTree = "<group>"; };
 		F93CA9202350C21D00289AD6 /* RoundedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCollectionViewCell.swift; sourceTree = "<group>"; };
 		F93CB85F234E0B6300136DA6 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -115,9 +135,29 @@
 			isa = PBXGroup;
 			children = (
 				F93CB863234E23FF00136DA6 /* HelperFuncs.swift */,
-				F90537AD2358ED3600245626 /* Extensions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		F92D4FC4243B024100AE788D /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				F92D4FC6243B029700AE788D /* ExtentionProfileViewController.swift */,
+				F92D4FCC243B04CF00AE788D /* ExtentionCreateRecipePicker.swift */,
+				F92D4FD0243B431F00AE788D /* ExtentionUIImageViewAndUIImage.swift */,
+				F92D4FDA243FA55600AE788D /* ExtentionUIViewController.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		F92D4FC5243B025000AE788D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F92D4FC8243B02C700AE788D /* ProtocolProfileFavorite.swift */,
+				F92D4FCE243B059900AE788D /* ProtocolRecipeRatingAvg.swift */,
+				F92D4FD2243B456A00AE788D /* ProtocolRecipeCellFavoriteStatus.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		F94296AC234DF511005CB018 /* Model */ = {
@@ -145,6 +185,8 @@
 				F9929D3223550CDD00DDC0ED /* IngredientsTableViewCell.swift */,
 				F9929D342355165700DDC0ED /* InstructionsTableViewCell.swift */,
 				F90B0F22235B1EED00370A9F /* CreditsTableViewCell.swift */,
+				F92D4FDC243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift */,
+				F92D4FE0244216A200AE788D /* CreateRecipeIngredientsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,6 +205,8 @@
 				F95B26F6235237E30034CE84 /* RecipesController.swift */,
 				F95B26F8235238030034CE84 /* InstructionsController.swift */,
 				F938FA7423BB3AB700896198 /* MainScreenController1.swift */,
+				F938D8F02437787D00EF3A9B /* CreateRecipeController.swift */,
+				F92D4FDE2442144400AE788D /* PopUpIngredientsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -198,6 +242,8 @@
 		F94EC3582325946C007AEAB5 /* MeatMarket */ = {
 			isa = PBXGroup;
 			children = (
+				F92D4FC5243B025000AE788D /* Protocols */,
+				F92D4FC4243B024100AE788D /* Extentions */,
 				F90537AC2358ECD000245626 /* Utils */,
 				F94296AE234DF521005CB018 /* Controller */,
 				F94296AD234DF51A005CB018 /* View */,
@@ -326,14 +372,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				F938FA7523BB3AB700896198 /* MainScreenController1.swift in Sources */,
+				F938D8F12437787D00EF3A9B /* CreateRecipeController.swift in Sources */,
 				F95B26F9235238030034CE84 /* InstructionsController.swift in Sources */,
 				F95336EC235138650060BD4F /* FavoriteViewCell.swift in Sources */,
 				F99B7C7A234F628200EB8C59 /* Levels.swift in Sources */,
 				F94296B1234E02FD005CB018 /* SplashScreenController.swift in Sources */,
 				F93CA9212350C21D00289AD6 /* RoundedCollectionViewCell.swift in Sources */,
 				F93CB864234E23FF00136DA6 /* HelperFuncs.swift in Sources */,
+				F92D4FDB243FA55600AE788D /* ExtentionUIViewController.swift in Sources */,
+				F92D4FC9243B02C700AE788D /* ProtocolProfileFavorite.swift in Sources */,
 				F93CB86A234E2D1B00136DA6 /* PageRootController.swift in Sources */,
+				F92D4FC7243B029700AE788D /* ExtentionProfileViewController.swift in Sources */,
 				F9929D352355165700DDC0ED /* InstructionsTableViewCell.swift in Sources */,
+				F92D4FCD243B04CF00AE788D /* ExtentionCreateRecipePicker.swift in Sources */,
+				F92D4FDD243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift in Sources */,
+				F92D4FD3243B456A00AE788D /* ProtocolRecipeCellFavoriteStatus.swift in Sources */,
 				F99B7C76234F614500EB8C59 /* MeatCut.swift in Sources */,
 				F95B26F7235237E30034CE84 /* RecipesController.swift in Sources */,
 				F98AABCC234DDC99002CC05D /* User.swift in Sources */,
@@ -343,16 +396,19 @@
 				F94EC3622325946C007AEAB5 /* MeatMarket.xcdatamodeld in Sources */,
 				F93CB868234E2CC700136DA6 /* NavigationController.swift in Sources */,
 				F9AE12C82361B36F00814F4B /* CurrentUser.swift in Sources */,
+				F92D4FE1244216A200AE788D /* CreateRecipeIngredientsTableViewCell.swift in Sources */,
 				F9ED4BAE23528EDD005CB3E7 /* RecipeViewCell.swift in Sources */,
+				F92D4FCF243B059900AE788D /* ProtocolRecipeRatingAvg.swift in Sources */,
 				F90B0F23235B1EED00370A9F /* CreditsTableViewCell.swift in Sources */,
 				F94EC35A2325946C007AEAB5 /* AppDelegate.swift in Sources */,
+				F92D4FDF2442144400AE788D /* PopUpIngredientsController.swift in Sources */,
 				F99B7C78234F61AF00EB8C59 /* Recipe.swift in Sources */,
 				F93CB86C234E35BE00136DA6 /* ProfileController.swift in Sources */,
-				F90537AE2358ED3600245626 /* Extensions.swift in Sources */,
 				F93CB862234E19FE00136DA6 /* RegistrationController.swift in Sources */,
 				F98D9442235116BE007AE4D9 /* MeatCutViewCell.swift in Sources */,
 				F93CB866234E25E200136DA6 /* MainScreenController.swift in Sources */,
 				F93CB860234E0B6300136DA6 /* LoginController.swift in Sources */,
+				F92D4FD1243B431F00AE788D /* ExtentionUIImageViewAndUIImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +556,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TDSLN88YRD;
 				INFOPLIST_FILE = MeatMarket/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -518,6 +575,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TDSLN88YRD;
 				INFOPLIST_FILE = MeatMarket/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

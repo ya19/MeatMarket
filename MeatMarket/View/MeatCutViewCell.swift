@@ -9,6 +9,7 @@
 import UIKit
 
 class MeatCutViewCell: RoundedCollectionViewCell {
+    
     //MARK: Outlets
     @IBOutlet weak var meatCutName: UILabel!
     @IBOutlet weak var meatCutImageView: UIImageView!

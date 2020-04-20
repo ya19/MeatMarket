@@ -12,5 +12,5 @@ struct MeatCut{
     let id:String
     let name:String
     let image:URL?
-    var recipes:[Recipe]
+    var recipes:[Recipe]?
 }

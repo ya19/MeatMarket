@@ -8,11 +8,61 @@
 
 import UIKit
 import SDWebImage
+import Firebase
+
+//MARK: Protocols
+//protocol CreateRecipeDelegate: class{
+//    func getRecipeMeatCuts(meatCuts:[MeatCut])
+//}
+
+//MARK: Global Propertie 
+var globalOnce = true
 
 class MainScreenController: UIViewController{
     
+    
+    
     //MARK: Outlets
     @IBOutlet weak var meatCutCollectionView: UICollectionView!
+    
+    
+    //MARK: Properties
+    //    weak var createRecipeDelegate:CreateRecipeDelegate?
+    
+    var allMeatCuts:[MeatCut]?
+    var allRecipes:[Recipe]?
+    
+    //MARK: LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let navigationVC = self.navigationController as? NavigationController{
+            self.allMeatCuts = navigationVC.allMeatCuts
+            self.liveRating(navigationVC:navigationVC)
+        }
+        
+        self.allMeatCuts!.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
+        
+        
+        print(allMeatCuts?.count, "MainVC allMeatCuts.count")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let recipesVC = segue.destination as? RecipesController{
+            guard let recipes = sender as? [Recipe] else {return}
+            recipesVC.allRecipes = recipes
+            guard let meatCuts = sender as? [MeatCut] else {return}
+            recipesVC.allMeatCuts = meatCuts
+        }
+        // test delegate
+        if let createRecipeVC = segue.destination as? CreateRecipeController{
+            guard let allMeatCuts = sender as? [MeatCut] else {return}
+            createRecipeVC.allMeatCuts = allMeatCuts
+        }
+    }
     
     //MARK: Actions
     @IBAction func brisketTapped(_ sender: UIButton) {
@@ -46,79 +96,38 @@ class MainScreenController: UIViewController{
         HelperFuncs.showToast(message: "No have Recipes for Round cut right now", view: self.view)
     }
     
-    
-    
-    
-    
-    
-    
-    //MARK: Properties
-    var allMeatCuts:[MeatCut]?
-
-    //MARK: LifeCycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if let navigationVC = self.navigationController as? NavigationController{
-            self.allMeatCuts = navigationVC.allMeatCuts
-        }
-        
-        self.allMeatCuts!.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
-        
-//        for meatCut in allMeatCuts!{
-//            print(meatCut.name)
-//        }
-        
-        
-//        cellVisuality()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let recipesVC = segue.destination as? RecipesController{
-            guard let recipes = sender as? [Recipe] else {return}
-            recipesVC.allRecipes = recipes
+    //MARK: Live Rating
+    func liveRating(navigationVC:NavigationController){
+        if globalOnce{
+            globalOnce = false
+            let dataRef = Database.database().reference()
+            
+            for i in 0..<allMeatCuts!.count{
+                for x in 0..<allMeatCuts![i].recipes!.count{
+                    let recipe = allMeatCuts![i].recipes![x]
+                    dataRef.child("UsersRate").child(recipe.id).observe(.value) { (ratingsData) in
+                        
+                        var ratingsAvg = 0.0
+                        
+                        if let ratingsData = ratingsData.value as? [String:Any]{
+                            
+                            for userRatingId in ratingsData.keys{
+                                ratingsAvg = ratingsAvg + (ratingsData[userRatingId] as! Double)
+                            }
+                            ratingsAvg = ratingsAvg / Double(ratingsData.keys.count)
+                            //have the updated average of a recipe.
+                            //                            print("Success! recipeId \(recipe.id) add with average rating of: \(ratingsAvg)")
+                        }else{
+                            //                            print("Couldn't! find ratings for recipe id: \(recipe.id) set the rate to 0 (default)")
+                            ratingsAvg = 1.0
+                        }
+                        //                        print("mainVC liverating called - avg is \(ratingsAvg)")
+                        
+                        navigationVC.allMeatCuts![i].recipes![x].rating = ratingsAvg
+                        
+                    }
+                }
+            }
         }
     }
-    
-    
-    //MARK: CollectionView
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets (top: 8, left: 0, bottom: 0, right: 0)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return allMeatCuts!.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//       let meatCutCell = collectionView.dequeueReusableCell(withReuseIdentifier: "meatCutsCellID", for: indexPath) as! MeatCutViewCell
-//        meatCutCell.meatCutName.text = allMeatCuts![indexPath.row].name
-//        meatCutCell.meatCutImageView.sd_setImage(with: allMeatCuts![indexPath.row].image)
-//        meatCutCell.layer.borderWidth = 2
-//        meatCutCell.layer.borderColor = #colorLiteral(red: 0.9611939788, green: 0.507047832, blue: 0.497117877, alpha: 1)
-//        return meatCutCell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("cell \(indexPath.row) tapped")
-//        performSegue(withIdentifier: "meatCutsToRecipes", sender: allMeatCuts![indexPath.row].recipes)
-//    }
-//
-//    func cellVisuality(){
-//        let cellSize = CGSize(width:meatCutCollectionView.bounds.width * 0.8, height:meatCutCollectionView.bounds.height * 0.25)
-//        let layout = UICollectionViewFlowLayout()
-//
-//        layout.scrollDirection = .vertical
-//        layout.itemSize = cellSize
-//        layout.minimumLineSpacing = 25
-//        meatCutCollectionView.setCollectionViewLayout(layout, animated: true)
-//
-//        meatCutCollectionView.reloadData()
-//    }
-//
 }
-
-

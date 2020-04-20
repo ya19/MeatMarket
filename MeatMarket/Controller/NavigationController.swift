@@ -17,5 +17,15 @@ class NavigationController: UINavigationController {
     //MARK: LifeCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let mainVC = segue.destination as? MainScreenController{
+            guard let dictionary = sender as? [String:Any] else {return}
+            mainVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+        }
+    }
+    
 }

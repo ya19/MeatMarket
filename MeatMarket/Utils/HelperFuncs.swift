@@ -6,7 +6,10 @@
 import UIKit
 import SDWebImage
 import Firebase
+
 struct  HelperFuncs {
+    
+    //MARK: Show Toast
     static func showToast(message : String, view: UIView) {
         let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 150 , y: view.frame.size.height-100, width: 300 , height: 60))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.8)
@@ -26,6 +29,7 @@ struct  HelperFuncs {
         })
     }
 
+    //MARK: Data Funcs
     static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?)->()){
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
@@ -57,23 +61,10 @@ struct  HelperFuncs {
         let datesWeek = Calendar.current.component(Calendar.Component.weekOfYear, from: date)
         return (currentWeek == datesWeek)
     }
-}
-//MARK: Extensions
-extension UIImageView {
-//    public func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-//        let maskPath = UIBezierPath(roundedRect: bounds,
-//                                    byRoundingCorners: corners,
-//                                    cornerRadii: CGSize(width: radius, height: radius))
-//        let shape = CAShapeLayer()
-//        shape.path = maskPath.cgPath
-//        layer.mask = shape
-//    }
     
-//    public func loadImageWithURL(imageViewForGIF: UIImageView, imageURL:String){
-//        let urlImage = URL(string: imageURL)
-//        imageViewForGIF.sd_setImage(with: urlImage)
-//    }
+    
 }
+
 
 
 

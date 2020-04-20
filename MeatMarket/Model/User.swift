@@ -6,6 +6,7 @@
 
 import UIKit
 import Firebase
+
 class User: CustomStringConvertible{
     
     //MARK: Properties
@@ -39,6 +40,8 @@ class User: CustomStringConvertible{
         self.timeStamp = nil
         self.recipes = []
     }
+    
+    //MARK: Load Current User Details
     func loadCurrentUserDetails(id:String, firstName:String, lastName:String, email:String, timeStemp:TimeInterval?) {
         self.id = id
         self.firstName = firstName
@@ -48,6 +51,8 @@ class User: CustomStringConvertible{
         self.recipes = []
         
     }
+    
+    //MARK: Add/Remove Favorite
     func addFavorite(recipe:Recipe){
         var alreadyHasIt = false
         for myRecipe in recipes{
@@ -70,6 +75,8 @@ class User: CustomStringConvertible{
             self.recipes.remove(at: remember)
         }
     }
+    
+    //MARK: Set Recipe/ImageUrl
     func setRecipes(recipes:[Recipe]){
         self.recipes = recipes
     }

@@ -1,15 +1,14 @@
 //
-//  Extensions.swift
+//  ExtentionUIImageViewAndUIImage.swift
 //  MeatMarket
 //
-//  Created by YardenSwisa on 17/10/2019.
-//  Copyright © 2019 YardenSwisa. All rights reserved.
+//  Created by YardenSwisa on 06/04/2020.
+//  Copyright © 2020 YardenSwisa. All rights reserved.
 //
 
 import UIKit
 
 extension UIImageView {
-
     func setRounded(borderWidth: CGFloat = 0.0, borderColor: UIColor = UIColor.clear) {
         print(" Height: \(frame.height), Witdh: \(frame.width)")
         layer.cornerRadius = frame.height / 2

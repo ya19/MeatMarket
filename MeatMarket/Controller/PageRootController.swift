@@ -10,7 +10,39 @@ import UIKit
 import Firebase
 
 class PageRootController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    //MARK: Properties
+    lazy var viewCntrollersList:[UIViewController] = {
+        let mainScreenVC = self.storyboard!.instantiateViewController(withIdentifier: "mainScreenStoryboardID") as! MainScreenController
+        let profileVC = self.storyboard!.instantiateViewController(withIdentifier: "profileStoryboardID") as! ProfileController
+        let creditsVC = self.storyboard!.instantiateViewController(withIdentifier: "creditsStoryboardID") as! CreditsController
+        let createRecipe = self.storyboard!.instantiateViewController(withIdentifier: "createRecipeStoryboardID") as! CreateRecipeController
+        
+        return [mainScreenVC, profileVC, createRecipe, creditsVC]
+    }()
+    var pageControl = UIPageControl()
+    var credits:[String:String] = [:]
+    var allMeatCuts:[MeatCut] = []
     
+    //MARK: LifeCycle View
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.delegate = self
+        self.dataSource = self
+        
+            if let firstVC = viewCntrollersList.first {
+                self.setViewControllers([firstVC], direction: .forward, animated: true)
+            }
+            if let navigationVC = self.navigationController as? NavigationController{
+                credits = navigationVC.credits!
+                allMeatCuts = navigationVC.allMeatCuts!
+            }
+
+        self.navigationItem.title = "Meat Cuts"
+        
+//        setupNavigation()
+        configurePageControl()
+    }
     
     //MARK: Actions
     @IBAction func logoutTapped(_ sender: UIBarButtonItem) {
@@ -26,40 +58,8 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             self.present(loginVC, animated: true, completion: nil)
         } catch let signOutError as NSError {
             HelperFuncs.showToast(message: signOutError.localizedDescription, view: view)
-            print ("Error signing out: %@", signOutError)
+            print ("---Error signing out: \(signOutError.localizedDescription)---")
         }
-    }
-    
-    //MARK: Properties
-    lazy var viewCntrollersList:[UIViewController] = {
-        
-        let mainScreenVC = self.storyboard!.instantiateViewController(withIdentifier: "mainScreenStoryboardID") as! MainScreenController
-        let profileVC = self.storyboard!.instantiateViewController(withIdentifier: "profileStoryboardID") as! ProfileController
-        let creditsVC = self.storyboard!.instantiateViewController(withIdentifier: "creditsStoryboardID") as! CreditsController
-        
-        return [mainScreenVC, profileVC, creditsVC]
-    }()
-    
-    var pageControl = UIPageControl()
-    var credits:[String:String] = [:]
-   
-
-    
-    //MARK: LifeCycle View
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.delegate = self
-        self.dataSource = self
-        
-        if let firstVC = viewCntrollersList.first {
-            self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
-        }
-        if let navigationVC = self.navigationController as? NavigationController{
-            credits = navigationVC.credits!
-        }
-        
-        self.navigationItem.title = "Meat Cuts"
-        configurePageControl()
     }
     
     //MARK: PageViewController
@@ -69,17 +69,23 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         setTitle(vcIndex: previusIndex)
         guard previusIndex >= 0 else {return nil}
         guard viewCntrollersList.count > previusIndex else {return nil}
-        if previusIndex == 1{
-                  let profileVC = viewCntrollersList[previusIndex] as! ProfileController
-            if profileVC.favoriteCollectionView != nil{
-                  profileVC.favoriteCollectionView.reloadData()
-            }
-        }else if previusIndex == 0{
+        
+        if previusIndex == 0{
             let mainVC = viewCntrollersList[previusIndex] as! MainScreenController
             if mainVC.meatCutCollectionView != nil{
                 mainVC.meatCutCollectionView.reloadData()
             }
-        }else if previusIndex == 2{
+        }else if previusIndex == 1{
+            let profileVC = viewCntrollersList[previusIndex] as! ProfileController
+            if profileVC.favoriteCollectionView != nil{
+                profileVC.favoriteCollectionView.reloadData()
+                
+            }else if previusIndex == 2{
+                let createRecipe = viewCntrollersList[previusIndex] as! CreateRecipeController
+                createRecipe.allMeatCuts = allMeatCuts
+
+            }
+        }else if previusIndex == 3{
             let creditsVC = viewCntrollersList[previusIndex] as! CreditsController
             creditsVC.credits = credits
         }
@@ -92,25 +98,33 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         setTitle(vcIndex: nextIndex)
         guard viewCntrollersList.count != nextIndex else {return nil}
         guard viewCntrollersList.count > nextIndex else {return nil}
-        if nextIndex == 1{
+        
+        if nextIndex == 0{
+            let mainVC = viewCntrollersList[nextIndex] as! MainScreenController
+            if mainVC.meatCutCollectionView != nil{
+                mainVC.meatCutCollectionView.reloadData()
+                
+            }
+        }else if nextIndex == 1{
             let profileVC = viewCntrollersList[nextIndex] as! ProfileController
             if profileVC.favoriteCollectionView != nil{
                 profileVC.favoriteCollectionView.reloadData()
             }
-        }else if nextIndex == 0{
-            let mainVC = viewCntrollersList[nextIndex] as! MainScreenController
-            if mainVC.meatCutCollectionView != nil{
-                mainVC.meatCutCollectionView.reloadData()
-            }
         }else if nextIndex == 2{
+
+            let createRecipe = viewCntrollersList[nextIndex] as! CreateRecipeController
+            createRecipe.allMeatCuts = allMeatCuts
+
             
-                let creditsVC = viewCntrollersList[nextIndex] as! CreditsController
-                creditsVC.credits = credits
+        }else if nextIndex == 3{
+            
+            let creditsVC = viewCntrollersList[nextIndex] as! CreditsController
+            creditsVC.credits = credits
             
         }
         return viewCntrollersList[nextIndex]
     }
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = viewCntrollersList.firstIndex(of: pageContentViewController)!
@@ -140,10 +154,18 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             self.navigationItem.title = "Profile"
             break
         case 2:
+            self.navigationItem.title = "Create Recipe"
+            break
+        case 3:
             self.navigationItem.title = "Credits"
             break
         default:
             return
         }
+    }
+    
+    //MARK: Navigation
+    func setupNavigation() {
+
     }
 }

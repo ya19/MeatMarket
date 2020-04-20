@@ -1,4 +1,5 @@
 PODS:
+  - Cosmos (21.0.0)
   - Firebase/Auth (6.10.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.3.0)
@@ -62,18 +63,22 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Prestyler (1.1.0)
   - SDWebImage (5.2.3):
     - SDWebImage/Core (= 5.2.3)
   - SDWebImage/Core (5.2.3)
 
 DEPENDENCIES:
+  - Cosmos
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
+  - Prestyler
   - SDWebImage
 
 SPEC REPOS:
   trunk:
+    - Cosmos
     - Firebase
     - FirebaseAuth
     - FirebaseAuthInterop
@@ -88,9 +93,11 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - Prestyler
     - SDWebImage
 
 SPEC CHECKSUMS:
+  Cosmos: 3dfb6e4ba48bd48b8c9aa2a77048ae11ed114f96
   Firebase: 5e6b7b12bf9adb90986688edc06b156c37e109cd
   FirebaseAuth: c66e990f79d1d3429165391f6cd70ace6143c25e
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
@@ -105,8 +112,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Prestyler: 738297750a0e56ba2664197413e5eac4b3ef72c4
   SDWebImage: 46a7f73228f84ce80990c786e4372cf4db5875ce
 
-PODFILE CHECKSUM: f6459d544cb38c1d6f5882d42d27bd52299500aa
+PODFILE CHECKSUM: 70572c5d14d22f75364f15aa8176d552b11799e9
 
 COCOAPODS: 1.8.3

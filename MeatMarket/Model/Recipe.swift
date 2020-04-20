@@ -16,4 +16,5 @@ struct Recipe{
     let instructions:[String]
     let level:Levels
     let time:String
+    var rating:Double
 }

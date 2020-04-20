@@ -8,7 +8,8 @@
 
 import UIKit
 import Firebase
-class CreditsController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreditsCellDelegate {
+
+class CreditsController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     //MARK: Outlets
     @IBOutlet weak var creditsTableView: UITableView!

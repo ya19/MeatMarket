@@ -22,6 +22,25 @@ class RegistrationController: UIViewController {
     var allMeatCuts:[MeatCut]?
     var credits:[String:String]?
     
+    //MARK: LifeCycle View
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: .plain, target: self, action: #selector(backAction))
+
+        self.observeKeybordForPushUpTheView()
+        self.hideKeyboardWhenTappedAround()
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navigationVC = segue.destination as? NavigationController{
+            guard let dictionary = sender as? [String:Any] else {return}
+            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+            navigationVC.credits = dictionary["credits"] as? [String:String]
+        }
+    }
+    
     //MARK: Actions
     @IBAction func registerTapped(_ sender: UIButton) {
         guard let firstName = firstNameField.text else {return}
@@ -42,25 +61,17 @@ class RegistrationController: UIViewController {
         }else{
             creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
         }
-        
+    }
+    @objc func backAction(){
+        //print("Back Button Clicked")
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func loginTapped(_ sender: UIButton) {
+
+        dismiss(animated: true, completion: nil)
     }
     
-    
-    //MARK: LifeCycle View
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigationVC = segue.destination as? NavigationController{
-            guard let dictionary = sender as? [String:Any] else {return}
-            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
-            navigationVC.credits = dictionary["credits"] as? [String:String]
-        }
-    }
-    
-    //MARK: Funcs
+    //MARK: Create User
     func creatUserWith(firstName:String, lastName:String, email: String, password: String ){
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let error = error {
@@ -69,7 +80,7 @@ class RegistrationController: UIViewController {
                 return
             }
             Auth.auth().signIn(withEmail: email, password: password)
-            print("---user LoggedIn with Firebase---")
+            print("---user: \(String(describing: Auth.auth().currentUser?.displayName)) LoggedIn with Firebase---")
             
             guard let id = Auth.auth().currentUser?.uid else {return}
             let userData:[String:Any?] = [
@@ -83,7 +94,8 @@ class RegistrationController: UIViewController {
             self.databaseRef.child("Users").child(id).setValue(userData)
 
             CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil)
-            print("----New user created with User-----", CurrentUser.shared.user!.description)
+            print("----New user created with User----->", CurrentUser.shared.user!.description)
+            
             let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
             self.performSegue(withIdentifier: "registerToNavigation", sender: dic)
             

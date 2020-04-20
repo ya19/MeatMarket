@@ -8,15 +8,19 @@
 
 import UIKit
 import SafariServices
-protocol CreditsCellDelegate: CreditsController {
-    
-}
+
 
 class CreditsTableViewCell: UITableViewCell{
     
     //MARK: Outlets
     @IBOutlet weak var recipeNameLable: UILabel!
     @IBOutlet weak var websiteBtn: UIButton!
+    
+    //MARK: Properties
+    var creditCellDelegate: CreditsController?
+    func populate(recipeName:String){
+        recipeNameLable.text = recipeName
+    }
     
     //MARK: Actions
     @IBAction func creditBtnTapped(_ sender: UIButton) {
@@ -27,11 +31,6 @@ class CreditsTableViewCell: UITableViewCell{
         }
     }
 
-    //MARK: Properties
-    var creditCellDelegate: CreditsController?
-    func populate(recipeName:String){
-        recipeNameLable.text = recipeName
-    
-    }
+
     
 }
