@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 class LoginController: UIViewController {
     //MARK: Properties
     var allMeatCuts:[MeatCut]?
@@ -25,7 +26,6 @@ class LoginController: UIViewController {
      
         self.observeKeybordForPushUpTheView()
         self.hideKeyboardWhenTappedAround()
-        
         
     }
     
@@ -47,6 +47,9 @@ class LoginController: UIViewController {
     
     //MARK: Actions
     @IBAction func loginTapped(_ sender: UIButton) {
+        sender.layer.cornerRadius = 10
+        sender.backgroundColor = UIColor(hex: "#FFCDB2")
+        
         guard let email = emailField.text else {return}
         guard let password = passwordField.text else {return}
         
@@ -58,6 +61,8 @@ class LoginController: UIViewController {
     }
     
     @IBAction func regiserTapped(_ sender: UIButton) {
+        sender.layer.cornerRadius = 10
+        sender.backgroundColor = UIColor(hex: "#FFCDB2")
         let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
         self.performSegue(withIdentifier: "loginToRegistration", sender: dic)
     }

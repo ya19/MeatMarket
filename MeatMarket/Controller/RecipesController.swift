@@ -35,6 +35,9 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let instructionsVC = segue.destination as? InstructionsController{
             instructionsVC.ratingDelegate = self
@@ -86,8 +89,8 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         let recipe = allRecipes![indexPath.row]
         recipeCell.populate(recipe: recipe)
         recipeCell.vc = self
-        recipeCell.layer.borderWidth = 2
-        recipeCell.layer.borderColor = #colorLiteral(red: 0.9611939788, green: 0.507047832, blue: 0.497117877, alpha: 1)
+//        recipeCell.layer.borderWidth = 1
+//        recipeCell.layer.borderColor = #colorLiteral(red: 0.9450980392, green: 0.6, blue: 0.3254901961, alpha: 1)
         recipeCell.rating.rating = updateRates(recipeId: recipe.id)
         
         return recipeCell
@@ -98,7 +101,8 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func cellVisuality(){
-        let cellSize = CGSize(width:recipeCollectionView.bounds.width * 0.9, height:recipeCollectionView.bounds.height * 0.25)
+        let cellSize = CGSize(width:recipeCollectionView.bounds.width * 0.9, height:recipeCollectionView.bounds.height * 0.40
+        )
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .vertical

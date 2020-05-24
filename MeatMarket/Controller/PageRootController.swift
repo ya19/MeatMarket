@@ -141,7 +141,8 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         self.pageControl.currentPage = viewCntrollersList.startIndex
         self.pageControl.alpha = 1
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
-        self.pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.8862006068, green: 0.4702017307, blue: 0.3049917817, alpha: 1)
+        self.pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.2666666667, green: 0.2549019608, blue: 0.2509803922, alpha: 1)
+        self.pageControl.layer.bounds.size = .init(width: 10, height: 50)
         self.view.addSubview(pageControl)
     }
     

@@ -10,27 +10,30 @@ import UIKit
 
 extension UIViewController {
     
-    //hide keyboard when tapped on the View
+    //MARK: Hide keyboard when tapped on the View
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
+    //MARK: Dismiss Keyboard
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    //observer on keybord, if its came out the view push up with him
+    //MARK: Observer on keybord, if its came out the view push up with him
     func observeKeybordForPushUpTheView() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    //MARK: Keyboard show/hide
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
+                print(keyboardSize.size.height)
+                self.view.frame.origin.y -= keyboardSize.size.height / 2
             }
         }
     }
@@ -41,5 +44,4 @@ extension UIViewController {
         }
     }
     
-
 }

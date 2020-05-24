@@ -37,6 +37,9 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
         ingredientsTableView.delegate = self
         ingredientsTableView.dataSource = self
         
+        ingredientsTableView.layer.cornerRadius = 8
+        instructionsTableView.layer.cornerRadius = 8
+        
         self.navigationItem.title = recipe?.name
 
         setBarRatingWithRecipeRate()
@@ -46,7 +49,9 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         setImageRecipe()
-        
+        //Prestler colors
+        Prestyler.defineRule("^", "#CF5C36")
+
 
      }
     
@@ -61,34 +66,31 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == ingredientsTableView{
-            Prestyler.defineRule("*", UIColor.darkGray)
-            Prestyler.defineRule("^", "#901928")
-            let ingredientsCell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCellID") as! IngredientsTableViewCell
+            //Text setup
             let dotStr = "•"
             let ingredientsStr = "\(recipe?.ingredients[indexPath.row] ?? "No Ingredients")"
             let finalText = "\(dotStr) \(ingredientsStr)"
-            let prefilteredText1 = finalText.prefilter(text: ingredientsStr, by: "*").prefilter(text: "•", by: "^")
+            let prefilteredText1 = finalText.prefilter(text: "•", by: "^")
             
+            //cell setup
+            let ingredientsCell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCellID") as! IngredientsTableViewCell
             ingredientsCell.ingredientLable.attributedText = prefilteredText1.prestyled()
             
             return ingredientsCell
         }else{
-            let instructionsCell = tableView.dequeueReusableCell(withIdentifier: "InstructionsCellID") as! InstructionsTableViewCell
             //create arry with all the index for present instructions order
             var counterArray:[Int] = []
-            for index in 0...(recipe!.instructions.count){
+            for index in 0...recipe!.instructions.count{
                 counterArray.append(index)
             }
-            //custom the nums and text separately
-            let nums = "\(counterArray[indexPath.row]).".prefilter(type: .numbers, by: "^").prefilter(text: ".", by: "^")
+            //Text
+            let preNum = "\(counterArray[indexPath.row + 1]).".prefilter(type: .numbers, by: "^").prefilter(text: ".", by: "^")
             let instructionsStr = "\(recipe?.instructions[indexPath.row] ?? "No Instructions")"
-            let finalText2 = "\(nums) \(instructionsStr)"
-            
-            //prefilter all the text
-            let prefilterText2 = finalText2.prefilter(text: instructionsStr, by: "*")
+            let finalInstructionsText = "\(preNum) \(instructionsStr)"
 
-            
-            instructionsCell.instructionLable.attributedText =  prefilterText2.prestyled()
+            //Cell setup
+            let instructionsCell = tableView.dequeueReusableCell(withIdentifier: "InstructionsCellID") as! InstructionsTableViewCell
+            instructionsCell.instructionLable.attributedText =  finalInstructionsText.prestyled()
 
             return instructionsCell
         }

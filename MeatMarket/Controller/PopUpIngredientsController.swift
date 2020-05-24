@@ -7,17 +7,25 @@
 //
 
 import UIKit
+import Prestyler
 
+//MARK: Protocols
+protocol MovePopupsDataToCreateRecipe: class {
+    func getIngredients(ingredients: [String])
+    func getInstructions(instructions: [String])
+}
 
+//MARK: Class
 class PopUpIngredientsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: Outlets
     @IBOutlet weak var ingredientsTV: UITableView!
     @IBOutlet weak var ingredientsTF: UITextField!
     
+    //MARK:
     var userIngredient =  ""
     var userIngredients:[String] = []
-    var counterForIngredients = 0
+    weak var delegate:MovePopupsDataToCreateRecipe?
     
     //MARK: LifeSycle
     override func viewDidLoad() {
@@ -25,37 +33,73 @@ class PopUpIngredientsController: UIViewController, UITableViewDelegate, UITable
         
         ingredientsTV.delegate = self
         ingredientsTV.dataSource = self
+        ingredientsTV.setNoDataMassege(EnterMassege: "Add Ingredients...")
+        ingredientsTF.becomeFirstResponder()
+//        ingredientsTF.backgroundColor == UIColor(hex: <#T##String#>)
+        textFieldSetup()
         
         self.hideKeyboardWhenTappedAround()
         
+        print(userIngredients, "usetIngredients from popVC call from self.ViewDidLoad()")
+
     }
+
     
     //MARK: Actions
     @IBAction func addIngredientTapped(_ sender: UIButton) {
         if ingredientsTF.text?.count != 0{
-            counterForIngredients += 1
             userIngredient = ingredientsTF.text!
             userIngredients.append(userIngredient)
-            ingredientsTF.text = ""
+            
+            delegate?.getIngredients(ingredients: userIngredients)
 
+            ingredientsTF.text = ""
+            ingredientsTF.becomeFirstResponder()
         }else{
             HelperFuncs.showToast(message: "Please enter Ingredient", view: self.view)
         }
         ingredientsTV.reloadData()
         print(userIngredients)
     }
+
     
+    //MARK: TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userIngredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //Colors difineRules
+        Prestyler.defineRule("customOrange", "#CF5C36")
+        //Text setup
+        let dotStr = "•"
+        let ingredientsStr = "\(userIngredients[indexPath.row])"
+        //PreStyled Text setup
+        let finalText = "\(dotStr) \(ingredientsStr)".prefilter(text: dotStr, by: "customOrange")
+        //Cell setup
+        let cell = tableView.dequeueReusableCell(withIdentifier: "createIngredientsCellID") as! CreateRecipeIngredientsTableViewCell
+        cell.backgroundColor = .clear
+        cell.labelCell.textColor = .darkGray
+        cell.labelCell.attributedText = finalText.prestyled()
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "createIngrediwntsCellID") as! CreateRecipeIngredientsTableViewCell
-        cell.labelCell.text = "\(counterForIngredients). \(userIngredients[indexPath.row])"
+        ingredientsTV.removeNoDataMassege()
+        ingredientsTV.setNoDataMassege(EnterMassege: "To Remove Ingredient Swipe Left")
         
         return cell
     }
     
+    // delete in swipe
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            userIngredients.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
     
+    //MARK: TextField Setup
+    fileprivate func textFieldSetup() {
+        ingredientsTF.backgroundColor = .white
+        ingredientsTF.borderStyle = .roundedRect
+        ingredientsTF.attributedPlaceholder = NSAttributedString(string: "Enter ingredient for your recipe...", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
+    }
 }

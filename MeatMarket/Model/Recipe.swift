@@ -5,7 +5,7 @@
 
 import UIKit
 
-struct Recipe{
+struct Recipe: Equatable{
     
     //MARK: Properties
     let id:String

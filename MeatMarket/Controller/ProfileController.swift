@@ -10,7 +10,20 @@ import UIKit
 import SDWebImage
 import Firebase
 
+//MARK: Extension Protocol Remove Favorite
+extension ProfileController:RemoveFavoriteProtocol{
+    func refresh(recipeId:String){
+        for i in 0..<CurrentUser.shared.user!.recipes.count {
+            if recipeId == CurrentUser.shared.user!.recipes[i].id{
+                    self.favoriteCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
+            }
+        }
+        self.favoriteCollectionView.reloadData()
+        
+    }
+}
 
+//MARK: Class
 class ProfileController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate, UINavigationControllerDelegate , UIImagePickerControllerDelegate{
     //MARK: Outlets
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
@@ -18,12 +31,6 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
     @IBOutlet weak var userNameLabel: UILabel!
     
     //MARK: Properties
-
-
-
-    
-
-    
     
     //MARK: LiveCycle View
     override func viewDidLoad() {
@@ -85,11 +92,12 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         favoriteCell.favoriteRecipeLevel.text =  recipe.level.description
         favoriteCell.favoriteRecipeTime.text = recipe.time
         favoriteCell.favoriteImageView.sd_setImage(with: recipe.image)
+        favoriteCell.favoriteImageView.layer.cornerRadius = 10
         favoriteCell.recipe = recipe
         favoriteCell.vc = self
         favoriteCell.delegate = self
         favoriteCell.layer.borderWidth = 2
-        favoriteCell.layer.borderColor = #colorLiteral(red: 0.9611939788, green: 0.507047832, blue: 0.497117877, alpha: 1)
+        favoriteCell.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         
         return favoriteCell
     }

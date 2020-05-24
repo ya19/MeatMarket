@@ -13,16 +13,16 @@ class CreateRecipeInstrcuctionTableViewCell: UITableViewCell {
     //MARK: Outlets
     @IBOutlet weak var instructionCellLabel: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        setupVisualy()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func setupVisualy(){
+        instructionCellLabel.textColor = .darkGray
+        contentView.backgroundColor = .clear
     }
 
 }

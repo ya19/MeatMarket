@@ -20,15 +20,10 @@ var globalOnce = true
 
 class MainScreenController: UIViewController{
     
-    
-    
     //MARK: Outlets
     @IBOutlet weak var meatCutCollectionView: UICollectionView!
     
-    
     //MARK: Properties
-    //    weak var createRecipeDelegate:CreateRecipeDelegate?
-    
     var allMeatCuts:[MeatCut]?
     var allRecipes:[Recipe]?
     
@@ -46,8 +41,7 @@ class MainScreenController: UIViewController{
         
         self.allMeatCuts!.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
         
-        
-        print(allMeatCuts?.count, "MainVC allMeatCuts.count")
+        print(allMeatCuts!.count, "MainVC allMeatCuts.count")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

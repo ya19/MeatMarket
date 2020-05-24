@@ -16,13 +16,15 @@ class CreateRecipeIngredientsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+//        setupVisualy()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func setupVisualy(){
+        labelCell.textColor = .darkGray
+        contentView.backgroundColor = .clear
     }
+    
 
 }
 

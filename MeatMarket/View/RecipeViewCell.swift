@@ -50,7 +50,8 @@ class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelega
         recipeTimeCell.text = recipe.time
         recipeNameCell.text = recipe.name
         recipeImageCell.layer.cornerRadius = 10
-        recipeImageCell.sd_setImage(with: recipe.image!)
+        
+        recipeImageCell.sd_setImage(with: recipe.image ?? nil)
         
         for favorite in CurrentUser.shared.user!.recipes{
             if favorite.id == recipe.id{
@@ -62,9 +63,9 @@ class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelega
     
     func changeStar(full:Bool){
         if full{
-            favoriteBtn.setImage(UIImage(named:"star_filled"), for: .normal)
+            favoriteBtn.setImage(UIImage(named:"icons8-add_to_favorites_filled"), for: .normal)
         }else{
-            favoriteBtn.setImage(UIImage(named: "star_blunk"), for: .normal)
+            favoriteBtn.setImage(UIImage(named: "icons8-add_to_favorites"), for: .normal)
         }
     }
     
