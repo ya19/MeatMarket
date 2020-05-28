@@ -87,6 +87,7 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         
         let recipeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCellID", for: indexPath) as! RecipeViewCell
         let recipe = allRecipes![indexPath.row]
+        
         recipeCell.populate(recipe: recipe)
         recipeCell.vc = self
 //        recipeCell.layer.borderWidth = 1

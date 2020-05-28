@@ -78,6 +78,9 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         
         self.present(actionSheet, animated: true, completion: nil)
     }
+    @IBAction func myRecipesTapped(_ sender: UIButton) {
+
+    }
     
     //MARK: CollecionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -126,7 +129,7 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         let uid = CurrentUser.shared.user?.id
         let storageRef = Storage.storage().reference(forURL: "gs://meat-markett.appspot.com/images/")
         let storage = storageRef.child("profileImage").child(uid!)
-        guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {return}
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
         

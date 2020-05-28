@@ -93,7 +93,7 @@ class RegistrationController: UIViewController {
             self.databaseRef = Database.database().reference()
             self.databaseRef.child("Users").child(id).setValue(userData)
 
-            CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil)
+            CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil, myRecipes: nil) //MARK: need to add myRecipes
             print("----New user created with User----->", CurrentUser.shared.user!.description)
             
             let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]

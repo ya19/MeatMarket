@@ -34,6 +34,77 @@ class CurrentUser{
         allRecipesURL = [:]
     }
     
+    //MARK: Configure Current User
+    func configure(userId:String,segueId:String,meatCuts:[MeatCut],allRecipesURL:[String:URL],vc:UIViewController,credits:[String:String]){
+        print("configure called")
+        let dataBaseRef = Database.database().reference()
+        self.segueId = segueId
+        self.vc = vc
+        self.allRecipesURL = allRecipesURL
+        self.meatCuts = meatCuts
+        self.allRecipes = []
+        self.credits = credits
+        self.image = nil
+        self.didDownloadImage = false
+        self.serverFavoritesNum = nil
+        let storageRef = Storage.storage().reference(forURL: "gs://meat-markett.appspot.com/images/profileImage/")
+        let imageRef = storageRef.child(userId)
+        
+        imageRef.downloadURL { url, error in
+            if let error = error {
+                print("Image Download Error: \(error.localizedDescription)")
+                self.image = .none
+                self.didDownloadImage = true
+            } else {
+                if url != nil{
+                    self.image = url
+                }
+                self.didDownloadImage = true
+            }
+        }
+        
+        dataBaseRef.child("Users").child(userId).observeSingleEvent(of: .value) { (userData) in
+            guard let userDictionary = userData.value as? [String:Any] else {return}
+            self.user!.loadCurrentUserDetails(
+                                              id: userId,
+                                              firstName: userDictionary["firstName"] as! String,
+                                              lastName: userDictionary["lastName"] as! String,
+                                              email: userDictionary["email"] as! String,
+                                              timeStemp: nil,
+                                              myRecipes: nil ) //MARK: need to add myRecipes
+            dataBaseRef.child("Favorites").child(userId).observeSingleEvent(of: .value, with: { (userFavoritesData) in
+                guard let userFavoritesData = userFavoritesData.value as? [String:Any] else {
+                    self.serverFavoritesNum = 0
+                    self.allRecipes = []
+                    return
+                }
+                self.serverFavoritesNum = userFavoritesData.keys.count
+                self.allRecipes = []
+                //                    print("userFavoritesData.keys: \(userFavoritesData.keys)")
+                for recipeId in userFavoritesData.keys{
+                    dataBaseRef.child("AllRecipes").child(recipeId).observeSingleEvent(of: .value) { (recipeData) in
+                        guard let recipeData = recipeData.value as? [String:Any] else {return}
+                        let recipe = Recipe(
+                                            id: recipeData["id"] as! String,
+                                            name: recipeData["name"] as! String,
+                                            imageName: recipeData["image"] as! String,
+                                            image: allRecipesURL[recipeId],
+                                            ingredients: recipeData["ingredients"] as! [String],
+                                            instructions: recipeData["instructions"] as! [String],
+                                            level: Levels(rawValue: (recipeData["level"] as! Int))!,
+                                            time: recipeData["time"] as! String,
+                                            rating: 1.0)
+                        self.allRecipes.append(recipe)
+                        //                            print("userFavoritesData.keys.count: \(userFavoritesData.keys.count)")
+                    }
+                }
+            })
+            
+        }
+        Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.loadUser(_:)), userInfo: nil, repeats: true)
+        
+    }
+    
     //MARK: Logout
     func logout(){
         credits = [:]
@@ -79,73 +150,7 @@ class CurrentUser{
         HelperFuncs.showToast(message: "Removed from favorites", view: vc.view)
     }
     
-    //MARK: Configure Current User
-    func configure(userId:String,segueId:String,meatCuts:[MeatCut],allRecipesURL:[String:URL],vc:UIViewController,credits:[String:String]){
-        print("configure called")
-        let dataBaseRef = Database.database().reference()
-        self.segueId = segueId
-        self.vc = vc
-        self.allRecipesURL = allRecipesURL
-        self.meatCuts = meatCuts
-        self.allRecipes = []
-        self.credits = credits
-        self.image = nil
-        self.didDownloadImage = false
-        self.serverFavoritesNum = nil
-        let storageRef = Storage.storage().reference(forURL: "gs://meat-markett.appspot.com/images/profileImage/")
-        let imageRef = storageRef.child(userId)
-        
-        imageRef.downloadURL { url, error in
-            if let error = error {
-                print("Image Download Error: \(error.localizedDescription)")
-                self.image = .none
-                self.didDownloadImage = true
-            } else {
-                if url != nil{
-                    self.image = url
-                }
-                self.didDownloadImage = true
-            }
-        }
-        
-        dataBaseRef.child("Users").child(userId).observeSingleEvent(of: .value) { (userData) in
-            guard let userDictionary = userData.value as? [String:Any] else {return}
-            self.user!.loadCurrentUserDetails(id: userId,
-                                              firstName: userDictionary["firstName"] as! String,
-                                              lastName: userDictionary["lastName"] as! String,
-                                              email: userDictionary["email"] as! String,
-                                              timeStemp: nil)
-            dataBaseRef.child("Favorites").child(userId).observeSingleEvent(of: .value, with: { (userFavoritesData) in
-                guard let userFavoritesData = userFavoritesData.value as? [String:Any] else {
-                    self.serverFavoritesNum = 0
-                    self.allRecipes = []
-                    return
-                }
-                self.serverFavoritesNum = userFavoritesData.keys.count
-                self.allRecipes = []
-                //                    print("userFavoritesData.keys: \(userFavoritesData.keys)")
-                for recipeId in userFavoritesData.keys{
-                    dataBaseRef.child("AllRecipes").child(recipeId).observeSingleEvent(of: .value) { (recipeData) in
-                        guard let recipeData = recipeData.value as? [String:Any] else {return}
-                        let recipe = Recipe(id: recipeData["id"] as! String,
-                                            name: recipeData["name"] as! String,
-                                            imageName: recipeData["image"] as! String,
-                                            image: allRecipesURL[recipeId],
-                                            ingredients: recipeData["ingredients"] as! [String],
-                                            instructions: recipeData["instructions"] as! [String],
-                                            level: Levels(rawValue: (recipeData["level"] as! Int))!,
-                                            time: recipeData["time"] as! String,
-                                            rating: 1.0)
-                        self.allRecipes.append(recipe)
-                        //                            print("userFavoritesData.keys.count: \(userFavoritesData.keys.count)")
-                    }
-                }
-            })
-            
-        }
-        Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(self.loadUser(_:)), userInfo: nil, repeats: true)
-        
-    }
+
 }
 
 

@@ -17,6 +17,7 @@ class User: CustomStringConvertible{
     var image:URL?
     var timeStamp: TimeInterval?
     var recipes:[Recipe]
+    var myRecipes:[Recipe]?
     var description: String{
         return "id: \(id!) , firstName: \(firstName!) ,lastName: \(lastName!), Email: \(email!), timeStemp: \(String(describing: timeStamp))"
     }
@@ -30,6 +31,7 @@ class User: CustomStringConvertible{
         self.timeStamp = nil
         self.image = nil
         self.recipes = []
+        self.myRecipes = []
     }
     func clear(){
         self.id = nil
@@ -39,17 +41,18 @@ class User: CustomStringConvertible{
         self.image = nil
         self.timeStamp = nil
         self.recipes = []
+        self.myRecipes = []
     }
     
     //MARK: Load Current User Details
-    func loadCurrentUserDetails(id:String, firstName:String, lastName:String, email:String, timeStemp:TimeInterval?) {
+    func loadCurrentUserDetails(id:String, firstName:String, lastName:String, email:String, timeStemp:TimeInterval?, myRecipes:[Recipe]?) {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
         self.timeStamp = timeStemp
         self.recipes = []
-        
+        self.myRecipes = myRecipes
     }
     
     //MARK: Add/Remove Favorite
@@ -73,6 +76,29 @@ class User: CustomStringConvertible{
         }
         if remember != -1{
             self.recipes.remove(at: remember)
+        }
+    }
+    //MARK: Add/Remove myRecipes
+    func addRecipe(recipe:Recipe, view:UIView){
+        if self.myRecipes == nil{
+            self.myRecipes = []
+        }
+        for rec in self.myRecipes!{
+            if rec.name != recipe.name {
+                self.myRecipes?.append(recipe)
+            }
+            HelperFuncs.showToast(message: "Name recipe exist, Choose another name", view: view)
+        }
+        
+    }
+    func removeRecipe(recipe:Recipe, view:UIView){
+        if self.myRecipes == nil{
+            HelperFuncs.showToast(message: "You dont have recipes to delete", view: view)
+        }
+        for i in 0..<self.myRecipes!.count {
+            if self.myRecipes![i].id == recipe.id{
+                self.myRecipes!.remove(at: i)
+            }
         }
     }
     

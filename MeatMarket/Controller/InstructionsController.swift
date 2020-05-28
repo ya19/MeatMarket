@@ -71,14 +71,13 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
             let ingredientsStr = "\(recipe?.ingredients[indexPath.row] ?? "No Ingredients")"
             let finalText = "\(dotStr) \(ingredientsStr)"
             let prefilteredText1 = finalText.prefilter(text: "•", by: "^")
-            
             //cell setup
             let ingredientsCell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCellID") as! IngredientsTableViewCell
             ingredientsCell.ingredientLable.attributedText = prefilteredText1.prestyled()
             
             return ingredientsCell
         }else{
-            //create arry with all the index for present instructions order
+            //create array with all the index for present instructions order
             var counterArray:[Int] = []
             for index in 0...recipe!.instructions.count{
                 counterArray.append(index)

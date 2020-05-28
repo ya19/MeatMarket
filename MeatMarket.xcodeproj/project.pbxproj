@@ -29,6 +29,8 @@
 		F93CB86C234E35BE00136DA6 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB86B234E35BE00136DA6 /* ProfileController.swift */; };
 		F93CB86E234E35FD00136DA6 /* CreditsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB86D234E35FD00136DA6 /* CreditsController.swift */; };
 		F94296B1234E02FD005CB018 /* SplashScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94296B0234E02FD005CB018 /* SplashScreenController.swift */; };
+		F94BCFB8247FEB380083837B /* MyRecipesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94BCFB7247FEB380083837B /* MyRecipesViewCell.swift */; };
+		F94BCFBA247FF8EE0083837B /* MyRecipesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94BCFB9247FF8EE0083837B /* MyRecipesController.swift */; };
 		F94EC35A2325946C007AEAB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94EC3592325946C007AEAB5 /* AppDelegate.swift */; };
 		F94EC35F2325946C007AEAB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94EC35D2325946C007AEAB5 /* Main.storyboard */; };
 		F94EC3622325946C007AEAB5 /* MeatMarket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F94EC3602325946C007AEAB5 /* MeatMarket.xcdatamodeld */; };
@@ -78,6 +80,8 @@
 		F93CB86B234E35BE00136DA6 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		F93CB86D234E35FD00136DA6 /* CreditsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsController.swift; sourceTree = "<group>"; };
 		F94296B0234E02FD005CB018 /* SplashScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenController.swift; sourceTree = "<group>"; };
+		F94BCFB7247FEB380083837B /* MyRecipesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesViewCell.swift; sourceTree = "<group>"; };
+		F94BCFB9247FF8EE0083837B /* MyRecipesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesController.swift; sourceTree = "<group>"; };
 		F94EC3562325946C007AEAB5 /* MeatMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeatMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F94EC3592325946C007AEAB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F94EC35E2325946C007AEAB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 				F90B0F22235B1EED00370A9F /* CreditsTableViewCell.swift */,
 				F92D4FDC243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift */,
 				F92D4FE0244216A200AE788D /* CreateRecipeIngredientsTableViewCell.swift */,
+				F94BCFB7247FEB380083837B /* MyRecipesViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				F938D8F02437787D00EF3A9B /* CreateRecipeController.swift */,
 				F92D4FDE2442144400AE788D /* PopUpIngredientsController.swift */,
 				F9B5FD11244F22F30069B2D4 /* PopUpInstructionsController.swift */,
+				F94BCFB9247FF8EE0083837B /* MyRecipesController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -388,6 +394,7 @@
 				F9929D352355165700DDC0ED /* InstructionsTableViewCell.swift in Sources */,
 				F92D4FDD243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift in Sources */,
 				F92D4FD3243B456A00AE788D /* ProtocolRecipeCellFavoriteStatus.swift in Sources */,
+				F94BCFB8247FEB380083837B /* MyRecipesViewCell.swift in Sources */,
 				F9EA64112451A7CA0021C4E0 /* ExtentionTableView.swift in Sources */,
 				F93229C52454BEA600E80436 /* ExtentionUIImage.swift in Sources */,
 				F99B7C76234F614500EB8C59 /* MeatCut.swift in Sources */,
@@ -405,6 +412,7 @@
 				F92D4FCF243B059900AE788D /* ProtocolRecipeRatingAvg.swift in Sources */,
 				F90B0F23235B1EED00370A9F /* CreditsTableViewCell.swift in Sources */,
 				F94EC35A2325946C007AEAB5 /* AppDelegate.swift in Sources */,
+				F94BCFBA247FF8EE0083837B /* MyRecipesController.swift in Sources */,
 				F92D4FDF2442144400AE788D /* PopUpIngredientsController.swift in Sources */,
 				F99B7C78234F61AF00EB8C59 /* Recipe.swift in Sources */,
 				F93CB86C234E35BE00136DA6 /* ProfileController.swift in Sources */,

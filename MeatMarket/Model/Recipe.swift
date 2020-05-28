@@ -17,4 +17,5 @@ struct Recipe: Equatable{
     let level:Levels
     let time:String
     var rating:Double
+    var creator:String?
 }
