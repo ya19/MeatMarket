@@ -18,6 +18,7 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     var allRecipes:[Recipe]?
     var allMeatCuts:[MeatCut]?
     var ratingPassed = 0.0
+    var meatCutName = ""
     
     //MARK: LifeCycle View
     override func viewDidLoad() {
@@ -25,9 +26,8 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         
         recipeCollectionView.delegate = self
         recipeCollectionView.dataSource = self
-        
         allRecipes!.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
-        
+        title = meatCutName
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,11 +43,11 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
             instructionsVC.ratingDelegate = self
             guard let recipe = sender as? Recipe else {return}
             instructionsVC.recipe = recipe
-            print("\(recipe.name)<--- recipe.name RecipeVC")
+//            print("\(recipe.name)<--- recipe.name RecipeVC")
             //test
             guard let meatcut = sender as? MeatCut else {return}
             instructionsVC.meatCut = meatcut
-            print("\(meatcut.name)<--- meatCut.name RecipeVC")
+//            print("\(meatcut.name)<--- meatCut.name RecipeVC")
             instructionsVC.ratingDelegate = self
         }
     }
@@ -86,13 +86,16 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let recipeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCellID", for: indexPath) as! RecipeViewCell
-        let recipe = allRecipes![indexPath.row]
-        
+        var recipe = allRecipes![indexPath.row]
+        let rate = updateRates(recipeId: recipe.id)
+        recipe.rating = rate
         recipeCell.populate(recipe: recipe)
+//        print(recipe.rating, "rate")
+//        print(updateRates(recipeId: recipe.id),"method rate")
         recipeCell.vc = self
 //        recipeCell.layer.borderWidth = 1
 //        recipeCell.layer.borderColor = #colorLiteral(red: 0.9450980392, green: 0.6, blue: 0.3254901961, alpha: 1)
-        recipeCell.rating.rating = updateRates(recipeId: recipe.id)
+//        recipeCell.rating.rating = updateRates(recipeId: recipe.id)
         
         return recipeCell
     }

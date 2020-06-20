@@ -18,7 +18,7 @@ class RegistrationController: UIViewController {
     @IBOutlet weak var verifyPasswordField: UITextField!
     
     //MARK: Properties
-    var databaseRef: DatabaseReference!
+    var databaseRef = Database.database().reference()
     var allMeatCuts:[MeatCut]?
     var credits:[String:String]?
     
@@ -63,11 +63,9 @@ class RegistrationController: UIViewController {
         }
     }
     @objc func backAction(){
-        //print("Back Button Clicked")
         dismiss(animated: true, completion: nil)
     }
     @IBAction func loginTapped(_ sender: UIButton) {
-
         dismiss(animated: true, completion: nil)
     }
     
@@ -90,10 +88,10 @@ class RegistrationController: UIViewController {
                 "email": email,
                 "timeStemp": ServerValue.timestamp()
             ]
-            self.databaseRef = Database.database().reference()
+            
             self.databaseRef.child("Users").child(id).setValue(userData)
 
-            CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil, myRecipes: nil) //MARK: need to add myRecipes
+            CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil ) //MARK: need to add myRecipes
             print("----New user created with User----->", CurrentUser.shared.user!.description)
             
             let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]

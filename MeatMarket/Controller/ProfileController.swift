@@ -13,12 +13,12 @@ import Firebase
 //MARK: Extension Protocol Remove Favorite
 extension ProfileController:RemoveFavoriteProtocol{
     func refresh(recipeId:String){
-        for i in 0..<CurrentUser.shared.user!.recipes.count {
-            if recipeId == CurrentUser.shared.user!.recipes[i].id{
-                    self.favoriteCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
+        for i in 0..<CurrentUser.shared.user!.favoriteRecipes.count {
+            if recipeId == CurrentUser.shared.user!.favoriteRecipes[i].id{
+                    self.profileCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
             }
         }
-        self.favoriteCollectionView.reloadData()
+        self.profileCollectionView.reloadData()
         
     }
 }
@@ -26,11 +26,14 @@ extension ProfileController:RemoveFavoriteProtocol{
 //MARK: Class
 class ProfileController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate, UINavigationControllerDelegate , UIImagePickerControllerDelegate{
     //MARK: Outlets
-    @IBOutlet weak var favoriteCollectionView: UICollectionView!
+    @IBOutlet weak var profileCollectionView: UICollectionView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var segmentCV: UISegmentedControl!
+    
     
     //MARK: Properties
+    var userNameStr:String = ""
     
     //MARK: LiveCycle View
     override func viewDidLoad() {
@@ -38,13 +41,16 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         
         checkAndLoadProfileImage()
 
-        favoriteCollectionView.delegate = self
-        favoriteCollectionView.dataSource = self
+        profileCollectionView.delegate = self
+        profileCollectionView.dataSource = self
         
-        userNameLabel.text = "\(CurrentUser.shared.user!.firstName!) \(CurrentUser.shared.user!.lastName!)"
+        userNameStr = "\(CurrentUser.shared.user!.firstName!) \(CurrentUser.shared.user!.lastName!)"
+        userNameLabel.text = userNameStr
         
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear() ProfileVC")
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let instructionsVC = segue.destination as? InstructionsController{
             guard let recipe = sender as? Recipe else {return}
@@ -53,6 +59,10 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
     }
     
     //MARK: Actions
+    @IBAction func segmentTapped(_ sender: UISegmentedControl) {
+        profileCollectionView.reloadData()
+     }
+    
     @IBAction func addImageTapped(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -78,36 +88,51 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         
         self.present(actionSheet, animated: true, completion: nil)
     }
-    @IBAction func myRecipesTapped(_ sender: UIButton) {
-
-    }
     
     //MARK: CollecionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return CurrentUser.shared.user!.recipes.count
+        switch segmentCV.selectedSegmentIndex {
+        case 0:
+            return CurrentUser.shared.user!.favoriteRecipes.count
+        case 1:
+            return CurrentUser.shared.user!.myRecipes.count
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let favoriteCell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: "favoriteCell", for: indexPath) as! FavoriteViewCell
-        let recipe = CurrentUser.shared.user!.recipes[indexPath.row]
-        
-        favoriteCell.favoriteRecipeName.text = recipe.name
-        favoriteCell.favoriteRecipeLevel.text =  recipe.level.description
-        favoriteCell.favoriteRecipeTime.text = recipe.time
-        favoriteCell.favoriteImageView.sd_setImage(with: recipe.image)
-        favoriteCell.favoriteImageView.layer.cornerRadius = 10
-        favoriteCell.recipe = recipe
-        favoriteCell.vc = self
-        favoriteCell.delegate = self
-        favoriteCell.layer.borderWidth = 2
-        favoriteCell.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        let favoriteCell = profileCollectionView.dequeueReusableCell(withReuseIdentifier: "favoriteCell", for: indexPath) as! FavoriteViewCell
+        switch segmentCV.selectedSegmentIndex {
+        case 0:
+            
+            let recipe = CurrentUser.shared.user!.favoriteRecipes[indexPath.row]
+            favoriteCell.populate(recipe: recipe, vc: self)
+            break
+        case 1:
+            let recipe = CurrentUser.shared.user!.myRecipes[indexPath.row]
+            favoriteCell.populate(recipe: recipe, vc: self)
+            break
+        default:
+            break
+        }
         
         return favoriteCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("cell: \(indexPath.row) tapped")
-        self.performSegue(withIdentifier: "profileToInstructions", sender: CurrentUser.shared.user!.recipes[indexPath.row])
+        switch segmentCV.selectedSegmentIndex {
+        case 0:
+            self.performSegue(withIdentifier: "profileToInstructions", sender: CurrentUser.shared.user!.favoriteRecipes[indexPath.row])
+            break
+        case 1:
+            self.performSegue(withIdentifier: "profileToInstructions", sender: CurrentUser.shared.user!.myRecipes[indexPath.row])
+            break
+        default:
+            break
+        }
+
     }
 
     //MARK:Picker Profile Image

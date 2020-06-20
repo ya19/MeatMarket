@@ -55,6 +55,22 @@ struct  HelperFuncs {
             return dateFormatter.string(from: date)
         }
     }
+    //MARK: Calculate Recipe Rating
+    static func calculateRecipeRating(ratingsData: DataSnapshot)->Double{
+        var ratingsAvg = 0.0
+        if let ratingsData = ratingsData.value as? [String:Any]{
+
+            for userRatingId in ratingsData.keys{
+                ratingsAvg = ratingsAvg + (ratingsData[userRatingId] as! Double)
+            }
+             ratingsAvg = ratingsAvg / Double(ratingsData.keys.count)
+            return ratingsAvg 
+        }else{
+            //                        print("Couldn't! find ratings for recipe id: \(recipeId) set the rate to 1 (default)")
+            ratingsAvg = 1.0
+            return ratingsAvg
+        }
+    }
     
     static func dateFallsInCurrentWeek(date: Date) -> Bool {
         let currentWeek = Calendar.current.component(Calendar.Component.weekOfYear, from: Date())

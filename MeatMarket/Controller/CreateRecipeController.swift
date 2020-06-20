@@ -74,7 +74,8 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
     var userRecipeImage:UIImage? = nil
     let checkImage = #imageLiteral(resourceName: "icons8-checked-1")
     var idPickerMeatCut:String = ""
-    
+    var recipeImageURL:URL?
+
     //MARK: LifeSycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,16 +84,19 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
         meatCutPicker.dataSource = self
         
         setupTimePicker(minuteInterval: 5)
-
-
+        allMeatCuts?.sort(by: {$0.name.lowercased() < $1.name.lowercased()})
         
         self.observeKeybordForPushUpTheView()
         self.hideKeyboardWhenTappedAround()
         
-        createRecipeBtn.layer.cornerRadius = 8
         
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear() CreatRecipeVC")
+        createRecipeBtn.layer.cornerRadius = 8
+
+        
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "ingredientsCreateID"){
             let displayVC = segue.destination as! PopUpIngredientsController
@@ -163,7 +167,7 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
         guard let currentUser = CurrentUser.shared.user else {return}
         guard let userRecipeName = recipeNameTF.text else{return}
         let userTimeRecipe  = String(recipeTimePicker.countDownDuration / 60)
-        let userRecipeImageName = userRecipeName.replacingOccurrences(of: " ", with: "_").lowercased()//TODO: check in the storage if the name on the image exist if true popup msg to replase name
+        let userRecipeImageName = userRecipeName.replacingOccurrences(of: " ", with: "_").lowercased()
         let databaseRef = Database.database().reference()
         
         //validation
@@ -184,7 +188,18 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
         }else{
             //create user recipe and update the database
             guard let autoKeyForRecipe = databaseRef.child("AllRecipes").childByAutoId().key else{return}
-            let userRecipe = Recipe(id: autoKeyForRecipe, name: userRecipeName, imageName: userRecipeImageName, image: nil, ingredients: userRecipeIngredients, instructions: userRecipeInstructions, level: userRecipeLevel, time: userTimeRecipe, rating: 1, creator: currentUser.id)
+            let userRecipe = Recipe(
+                                    id: autoKeyForRecipe,
+                                    name: userRecipeName,
+                                    imageName: userRecipeImageName,
+                                    image: recipeImageURL ?? nil,
+                                    ingredients: userRecipeIngredients,
+                                    instructions: userRecipeInstructions,
+                                    level: userRecipeLevel,
+                                    time: userTimeRecipe,
+                                    rating: 1.0,
+                                    creator: currentUser.id ,
+                                    meatcutID: idPickerMeatCut)
             
             let postRecipe = [
                 "id" : userRecipe.id,
@@ -194,17 +209,19 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
                 "level" : userRecipe.level.rawValue,
                 "name" : userRecipe.name,
                 "time" : userRecipe.time,
-                "creator" : currentUser.id!] as [String : Any]
+                "creator" : currentUser.id!,
+                "meatcutID" : userRecipe.meatcutID,
+                "meatcutName": userRecipeMeatCut] as [String : Any] // add to test meatcutName
             
             //upload image to storage
-            
             uploadRecipeImage(quality: 0.5, recipe: userRecipe)
-            
-            
             //upload recipe to database
             databaseRef.child("AllRecipes").child(autoKeyForRecipe).setValue(postRecipe)
             databaseRef.child("Recipes").child(idPickerMeatCut).updateChildValues([autoKeyForRecipe : "x"])
-           
+            databaseRef.child("MyRecipes").child(currentUser.id!).updateChildValues([autoKeyForRecipe : "x"])
+            
+            CurrentUser.shared.user?.myRecipes.append(userRecipe)
+            
             print("Create Recipe", userRecipe)
             resetAllTheFields()
         }
@@ -222,7 +239,7 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let image = info[.originalImage] as! UIImage
-        
+        recipeImageURL = (info[.imageURL] as! URL)
         recipeImageIV.image = image
         userRecipeImage = image
         recipeImageCheckIV.image = checkImage
@@ -240,7 +257,6 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
         instructionsCheckIV.image = nil
         recipeImageIV.image = nil
         
-        
         userRecipeMeatCut = allMeatCuts![0].name
         userRecipeLevel = .EASY
         userRecipeIngredients = []
@@ -256,13 +272,17 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
         let metaData = StorageMetadata()
         
         metaData.contentType = "image/jpeg"
+        
         storageRefRecipesImages.putData(recipeData, metadata: metaData) { (storageMetaData, error) in
             if error != nil{
                 HelperFuncs.showToast(message: error!.localizedDescription, view: self.view)
                 return
             }
         }
+        
+        
     }
+    
 }
 
 

@@ -40,7 +40,7 @@ class PopUpIngredientsController: UIViewController, UITableViewDelegate, UITable
         
         self.hideKeyboardWhenTappedAround()
         
-        print(userIngredients, "usetIngredients from popVC call from self.ViewDidLoad()")
+//        print(userIngredients, "usetIngredients from popVC call from self.ViewDidLoad()")
 
     }
 
@@ -59,7 +59,7 @@ class PopUpIngredientsController: UIViewController, UITableViewDelegate, UITable
             HelperFuncs.showToast(message: "Please enter Ingredient", view: self.view)
         }
         ingredientsTV.reloadData()
-        print(userIngredients)
+//        print(userIngredients)
     }
 
     

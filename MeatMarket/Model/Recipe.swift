@@ -18,4 +18,6 @@ struct Recipe: Equatable{
     let time:String
     var rating:Double
     var creator:String?
+    var meatcutID:String
+    var meatcutName:String?
 }

@@ -248,120 +248,6 @@
             </objects>
             <point key="canvasLocation" x="3142" y="550"/>
         </scene>
-        <!--My Recipes Controller-->
-        <scene sceneID="GNE-iP-3xo">
-            <objects>
-                <viewController id="lyT-WA-KAR" customClass="MyRecipesController" customModule="MeatMarket" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GiI-db-oVe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SiV-PW-OyU">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cAu-nT-nx9">
-                                    <size key="itemSize" width="386" height="147"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="myRecipesCellID" id="kI6-sC-cga" customClass="MyRecipesViewCell" customModule="MeatMarket" customModuleProvider="target">
-                                        <rect key="frame" x="14" y="0.0" width="386" height="147"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bul-zv-fSP" customClass="MyRecipesViewCell" customModule="MeatMarket" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="386" height="147"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HwY-S8-Byu">
-                                                    <rect key="frame" x="315.5" y="93" width="38.5" height="38.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="HwY-S8-Byu" secondAttribute="height" multiplier="1:1" id="nP0-4Q-0qj"/>
-                                                    </constraints>
-                                                    <state key="normal" image="delete_image"/>
-                                                    <connections>
-                                                        <action selector="deleteTapped:" destination="kI6-sC-cga" eventType="touchUpInside" id="Dec-iM-k4u"/>
-                                                    </connections>
-                                                </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_is_missing" translatesAutoresizingMaskIntoConstraints="NO" id="h4H-HC-m6X">
-                                                    <rect key="frame" x="19.5" y="15.5" width="115.5" height="116"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="h4H-HC-m6X" secondAttribute="height" multiplier="1:1" id="N7D-ab-btz"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qkm-VO-6xe">
-                                                    <rect key="frame" x="154.5" y="7.5" width="231.5" height="117.5"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recipe name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9f-TC-5Cu">
-                                                            <rect key="frame" x="0.0" y="0.0" width="231.5" height="39"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recipe level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apN-Yj-dbl">
-                                                            <rect key="frame" x="0.0" y="39" width="231.5" height="39.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recipe time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBx-rK-kXa">
-                                                            <rect key="frame" x="0.0" y="78.5" width="231.5" height="39"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <color key="backgroundColor" red="1" green="0.80392156859999997" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="qkm-VO-6xe" firstAttribute="centerY" secondItem="0Fm-JC-eFp" secondAttribute="centerY" multiplier="0.9" id="5nV-v0-1qA"/>
-                                                <constraint firstItem="qkm-VO-6xe" firstAttribute="centerX" secondItem="0Fm-JC-eFp" secondAttribute="centerX" multiplier="1.4" id="F6E-oy-fVd"/>
-                                                <constraint firstItem="0Fm-JC-eFp" firstAttribute="trailing" secondItem="HwY-S8-Byu" secondAttribute="trailing" constant="32" id="Jkr-dd-zd8"/>
-                                                <constraint firstItem="h4H-HC-m6X" firstAttribute="width" secondItem="0Fm-JC-eFp" secondAttribute="width" multiplier="0.3" id="Lwg-b1-VC2"/>
-                                                <constraint firstItem="HwY-S8-Byu" firstAttribute="width" secondItem="bul-zv-fSP" secondAttribute="width" multiplier="0.1" id="ObA-nj-aY2"/>
-                                                <constraint firstItem="qkm-VO-6xe" firstAttribute="height" secondItem="bul-zv-fSP" secondAttribute="height" multiplier="0.8" id="TKv-O6-pHE"/>
-                                                <constraint firstItem="HwY-S8-Byu" firstAttribute="bottom" secondItem="h4H-HC-m6X" secondAttribute="bottom" id="TtP-ds-0C7"/>
-                                                <constraint firstItem="h4H-HC-m6X" firstAttribute="centerX" secondItem="0Fm-JC-eFp" secondAttribute="centerX" multiplier="0.4" id="bBD-Du-9oM"/>
-                                                <constraint firstItem="h4H-HC-m6X" firstAttribute="centerY" secondItem="0Fm-JC-eFp" secondAttribute="centerY" id="hkt-cX-hgN"/>
-                                                <constraint firstItem="qkm-VO-6xe" firstAttribute="width" secondItem="bul-zv-fSP" secondAttribute="width" multiplier="0.6" id="tSU-hP-PKd"/>
-                                            </constraints>
-                                            <viewLayoutGuide key="safeArea" id="0Fm-JC-eFp"/>
-                                        </collectionViewCellContentView>
-                                        <color key="backgroundColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <viewLayoutGuide key="safeArea" id="QwG-ra-uS8"/>
-                                        <size key="customSize" width="386" height="147"/>
-                                        <connections>
-                                            <outlet property="imageView" destination="h4H-HC-m6X" id="xwC-Qf-FsT"/>
-                                            <outlet property="levelTextField" destination="apN-Yj-dbl" id="BA8-m6-9Q9"/>
-                                            <outlet property="nameTextField" destination="n9f-TC-5Cu" id="SC0-ZH-rHr"/>
-                                            <outlet property="timeTextField" destination="ZBx-rK-kXa" id="hm0-FW-j95"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="lyT-WA-KAR" id="gfD-ll-NOo"/>
-                                    <outlet property="delegate" destination="lyT-WA-KAR" id="yZy-JD-RpP"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.94509803920000002" green="0.59999999999999998" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="SiV-PW-OyU" firstAttribute="centerX" secondItem="hps-c6-ZzC" secondAttribute="centerX" id="4td-nc-Cqg"/>
-                            <constraint firstItem="SiV-PW-OyU" firstAttribute="height" secondItem="hps-c6-ZzC" secondAttribute="height" id="Och-IY-IDM"/>
-                            <constraint firstItem="SiV-PW-OyU" firstAttribute="width" secondItem="hps-c6-ZzC" secondAttribute="width" id="bYk-mn-HFJ"/>
-                            <constraint firstItem="SiV-PW-OyU" firstAttribute="centerY" secondItem="hps-c6-ZzC" secondAttribute="centerY" id="hV6-Ua-gVg"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="hps-c6-ZzC"/>
-                    </view>
-                    <connections>
-                        <outlet property="myRecipesCollectionView" destination="SiV-PW-OyU" id="oZS-XN-8Tp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yZT-G5-z8C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4707.2463768115949" y="-156.02678571428569"/>
-        </scene>
         <!--Profile Controller-->
         <scene sceneID="vzL-mi-hej">
             <objects>
@@ -398,37 +284,30 @@
                                                 <color key="textColor" red="0.94509803920000002" green="0.59999999999999998" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-qc-Aq1">
-                                                <rect key="frame" x="303" y="225.5" width="79" height="30"/>
-                                                <state key="normal" title="My Recipes">
-                                                    <color key="titleColor" red="0.94509803920000002" green="0.59999999999999998" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5Vi-iH-Ir0">
+                                                <rect key="frame" x="20.5" y="292.5" width="373" height="34.5"/>
+                                                <segments>
+                                                    <segment title="My Favorites"/>
+                                                    <segment title="My Recipes"/>
+                                                </segments>
                                                 <connections>
-                                                    <action selector="myRecipesTapped:" destination="grE-B1-I9I" eventType="touchUpInside" id="PmX-Pl-1ua"/>
-                                                    <segue destination="lyT-WA-KAR" kind="presentation" modalPresentationStyle="fullScreen" id="YCm-hd-IWF"/>
+                                                    <action selector="segmentTapped:" destination="grE-B1-I9I" eventType="valueChanged" id="C3X-QT-f5g"/>
                                                 </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorite Recipes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oTy-wE-eWU">
-                                                <rect key="frame" x="118.5" y="287" width="177.5" height="32.5"/>
-                                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="25"/>
-                                                <color key="textColor" red="0.81176470590000005" green="0.36078431370000003" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" red="0.26666666666666666" green="0.25490196078431371" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="fjW-I5-viw" firstAttribute="centerX" secondItem="5Bb-mO-0iw" secondAttribute="centerX" id="0ts-eW-m4T"/>
                                             <constraint firstItem="fjW-I5-viw" firstAttribute="top" secondItem="5Bb-mO-0iw" secondAttribute="bottom" constant="16" id="4Px-so-fbV"/>
-                                            <constraint firstAttribute="bottom" secondItem="oTy-wE-eWU" secondAttribute="bottom" constant="16" id="56U-qz-Ljo"/>
                                             <constraint firstItem="5qX-k4-r0e" firstAttribute="top" secondItem="5Bb-mO-0iw" secondAttribute="top" multiplier="0.3" id="6dm-fi-N9s"/>
                                             <constraint firstItem="5Bb-mO-0iw" firstAttribute="centerX" secondItem="m6t-Hj-FqJ" secondAttribute="centerX" id="6ox-8s-1wq"/>
                                             <constraint firstItem="5qX-k4-r0e" firstAttribute="trailing" secondItem="5Bb-mO-0iw" secondAttribute="trailing" multiplier="1.1" id="Jlr-jr-iBK"/>
+                                            <constraint firstAttribute="bottom" secondItem="5Vi-iH-Ir0" secondAttribute="bottom" constant="9.5" id="NzA-aB-nLg"/>
                                             <constraint firstItem="5Bb-mO-0iw" firstAttribute="width" secondItem="m6t-Hj-FqJ" secondAttribute="width" multiplier="0.35" id="VVN-aI-tDX"/>
-                                            <constraint firstAttribute="trailing" secondItem="qOc-qc-Aq1" secondAttribute="trailing" constant="32" id="b2Z-Po-JpW"/>
-                                            <constraint firstItem="oTy-wE-eWU" firstAttribute="centerX" secondItem="m6t-Hj-FqJ" secondAttribute="centerX" id="epY-Xi-sHI"/>
+                                            <constraint firstItem="5Vi-iH-Ir0" firstAttribute="height" secondItem="m6t-Hj-FqJ" secondAttribute="height" multiplier="0.1" id="dgr-f4-3m8"/>
+                                            <constraint firstItem="5Vi-iH-Ir0" firstAttribute="centerX" secondItem="m6t-Hj-FqJ" secondAttribute="centerX" id="qBO-yT-JXi"/>
                                             <constraint firstItem="5Bb-mO-0iw" firstAttribute="centerY" secondItem="m6t-Hj-FqJ" secondAttribute="centerY" multiplier="0.55" id="qgU-wv-BSm"/>
-                                            <constraint firstItem="qOc-qc-Aq1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m6t-Hj-FqJ" secondAttribute="leading" constant="20" symbolic="YES" id="xQa-4b-boH"/>
-                                            <constraint firstItem="qOc-qc-Aq1" firstAttribute="top" secondItem="fjW-I5-viw" secondAttribute="bottom" constant="16" id="yPJ-yN-LXL"/>
+                                            <constraint firstItem="5Vi-iH-Ir0" firstAttribute="width" secondItem="m6t-Hj-FqJ" secondAttribute="width" multiplier="0.9" id="zco-w6-kJp"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -472,19 +351,25 @@
                                                             <rect key="frame" x="141.5" y="0.0" width="212.5" height="95"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Recipe Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebY-y1-9Qa">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="212.5" height="26.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="212.5" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcf-af-W8A">
-                                                                    <rect key="frame" x="0.0" y="34.5" width="212.5" height="26.5"/>
+                                                                    <rect key="frame" x="0.0" y="26" width="212.5" height="17.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTP-n4-5Rc">
-                                                                    <rect key="frame" x="0.0" y="69" width="212.5" height="26"/>
+                                                                    <rect key="frame" x="0.0" y="51.5" width="212.5" height="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeatCut Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-oK-NSC" userLabel="Favorite Meatcut Name">
+                                                                    <rect key="frame" x="0.0" y="77.5" width="212.5" height="17.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -520,6 +405,7 @@
                                                 <size key="customSize" width="354" height="136"/>
                                                 <connections>
                                                     <outlet property="favoriteImageView" destination="d68-6L-a0C" id="ydU-Uh-IgL"/>
+                                                    <outlet property="favoriteMeatCutName" destination="mZL-oK-NSC" id="z1t-sR-rMI"/>
                                                     <outlet property="favoriteRecipeLevel" destination="qcf-af-W8A" id="UzP-Tl-3bJ"/>
                                                     <outlet property="favoriteRecipeName" destination="ebY-y1-9Qa" id="vGn-iX-umJ"/>
                                                     <outlet property="favoriteRecipeTime" destination="DTP-n4-5Rc" id="Pne-zt-yZl"/>
@@ -555,8 +441,9 @@
                         <viewLayoutGuide key="safeArea" id="Xz7-Nq-gKQ"/>
                     </view>
                     <connections>
-                        <outlet property="favoriteCollectionView" destination="vaI-rK-yha" id="dOb-c3-fPF"/>
+                        <outlet property="profileCollectionView" destination="vaI-rK-yha" id="dOb-c3-fPF"/>
                         <outlet property="profileImageView" destination="5Bb-mO-0iw" id="vTH-z9-yhB"/>
+                        <outlet property="segmentCV" destination="5Vi-iH-Ir0" id="fX2-42-HAI"/>
                         <outlet property="userNameLabel" destination="fjW-I5-viw" id="ffS-kd-Wzk"/>
                         <segue destination="PXt-mA-Qd6" kind="show" identifier="profileToInstructions" id="1pn-eQ-TrP"/>
                     </connections>

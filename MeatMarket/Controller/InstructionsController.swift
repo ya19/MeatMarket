@@ -24,8 +24,8 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
     var recipe:Recipe?
     var meatCut:MeatCut?
     let dataBaseRef = Database.database().reference()
-    var ratingsAvg = 0.0
     var ratingDelegate:RatingProtocol?
+    var titleName:String = ""
     
     //MARK: LifeCycle View
     override func viewDidLoad() {
@@ -37,17 +37,16 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
         ingredientsTableView.delegate = self
         ingredientsTableView.dataSource = self
         
-        ingredientsTableView.layer.cornerRadius = 8
-        instructionsTableView.layer.cornerRadius = 8
-        
-        self.navigationItem.title = recipe?.name
-
         setBarRatingWithRecipeRate()
         ratingBarTapped()
     }
 
     
     override func viewWillAppear(_ animated: Bool) {
+        titleName = recipe!.name
+        self.navigationItem.title = titleName
+        ingredientsTableView.layer.cornerRadius = 8
+        instructionsTableView.layer.cornerRadius = 8
         setImageRecipe()
         //Prestler colors
         Prestyler.defineRule("^", "#CF5C36")
@@ -112,40 +111,33 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
         // rating stars was tapped
         ratingBar.didTouchCosmos = { userRate in
             //TODO: save the rate of the user at the recipe.
-            self.writeUsersRateToDatabase(userRate: userRate)
-            HelperFuncs.showToast(message: "You Rate \(userRate)", view: self.view)
+            self.writeUsersRateToDatabase(userRating: userRate)
+            HelperFuncs.showToast(message: "You Rate \(String(format: "%.1f", userRate))", view: self.view)
         }
     }
     
     //MARK: Write Rate to Database
-    func writeUsersRateToDatabase(userRate: Double){
+    func writeUsersRateToDatabase(userRating: Double){
         guard let currentUserID = CurrentUser.shared.user?.id else {return}
         guard let recipe = recipe else {return}
-        
+        let userRate = Double(String(format: "%.1f", userRating))
+       
         dataBaseRef.child("UsersRate").child(recipe.id).child(currentUserID).setValue(userRate)
         dataBaseRef.child("UsersRate").child(recipe.id).observeSingleEvent(of: .value) { (ratingsData) in
-            if let ratingsData = ratingsData.value as? [String:Any]{
-                for userRatingId in ratingsData.keys{
-                    self.ratingsAvg = self.ratingsAvg + (ratingsData[userRatingId] as! Double)
-                }
-                self.ratingsAvg = self.ratingsAvg / Double(ratingsData.keys.count)
-                //have the updated average of a recipe.
-                //print("Success! recipeId \(recipeId) add with average rating of: \(ratingsAvg)")
-            }else{
-                //print("Couldn't! find ratings for recipe id: \(recipeId) set the rate to 0 (default)")
-                self.ratingsAvg = 1.0
-            }
+            var ratingsAvg = 0.0
+
+            ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
             
             if let navigationVC = self.navigationController as? NavigationController {
                 for i in 0..<navigationVC.allMeatCuts!.count{
                     for x in 0..<navigationVC.allMeatCuts![i].recipes!.count{
                         if recipe.id == navigationVC.allMeatCuts![i].recipes![x].id{
-                            navigationVC.allMeatCuts![i].recipes![x].rating = self.ratingsAvg
-                            print("rating avg is done! avg is \(self.ratingsAvg)")
+                            navigationVC.allMeatCuts![i].recipes![x].rating = ratingsAvg
+                            print("rating avg is done! avg is \(ratingsAvg)")
                             
                             if (self.ratingDelegate != nil){
                                 
-                                self.ratingDelegate?.ratingAverage(rating: self.ratingsAvg)
+                                self.ratingDelegate?.ratingAverage(rating: ratingsAvg)
                             }
                         }
                     }

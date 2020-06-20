@@ -50,14 +50,14 @@ class PopUpInstructionsController: UIViewController, UITableViewDelegate, UITabl
             
             delegateUserInstruction?.getInstructions(instructions: userInstructions)
             
-            print(userInstructions)
+//            print(userInstructions)
             instructionTF.text = ""
             instructionTF.becomeFirstResponder()
         }else{
             HelperFuncs.showToast(message: "Please enter Instraction", view: self.view)
         }
         instructionsTV.reloadData()
-        print(userInstructions)
+//        print(userInstructions)
     }
     
     

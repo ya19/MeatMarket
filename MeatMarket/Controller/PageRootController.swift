@@ -25,23 +25,32 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
     
     //MARK: LifeCycle View
     override func viewDidLoad() {
+        print("pageControllerVC viewDidLoad")
         super.viewDidLoad()
         
         self.delegate = self
         self.dataSource = self
         
-            if let firstVC = viewCntrollersList.first {
-                self.setViewControllers([firstVC], direction: .forward, animated: true)
-            }
-            if let navigationVC = self.navigationController as? NavigationController{
-                credits = navigationVC.credits!
-                allMeatCuts = navigationVC.allMeatCuts!
-            }
-
+        if let firstVC = viewCntrollersList.first {
+            self.setViewControllers([firstVC], direction: .forward, animated: true)
+        }
+        
+        
+        
+        //        setupNavigation()
+        
+        configurePageControl()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("pageControllerVC viewWillApear")
         self.navigationItem.title = "Meat Cuts"
         
-//        setupNavigation()
-        configurePageControl()
+
+        if let navigationVC = self.navigationController as? NavigationController{
+            credits = navigationVC.credits!
+            allMeatCuts = navigationVC.allMeatCuts!
+        }
     }
     
     //MARK: Actions
@@ -69,7 +78,8 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         setTitle(vcIndex: previusIndex)
         guard previusIndex >= 0 else {return nil}
         guard viewCntrollersList.count > previusIndex else {return nil}
-        
+        print(self.navigationController,"nav con")
+        print("------------------------")
         if previusIndex == 0{
             let mainVC = viewCntrollersList[previusIndex] as! MainScreenController
             if mainVC.meatCutCollectionView != nil{
@@ -77,13 +87,13 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             }
         }else if previusIndex == 1{
             let profileVC = viewCntrollersList[previusIndex] as! ProfileController
-            if profileVC.favoriteCollectionView != nil{
-                profileVC.favoriteCollectionView.reloadData()
+            if profileVC.profileCollectionView != nil{
+                profileVC.profileCollectionView.reloadData()
                 
             }else if previusIndex == 2{
                 let createRecipe = viewCntrollersList[previusIndex] as! CreateRecipeController
                 createRecipe.allMeatCuts = allMeatCuts
-
+                
             }
         }else if previusIndex == 3{
             let creditsVC = viewCntrollersList[previusIndex] as! CreditsController
@@ -107,14 +117,14 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             }
         }else if nextIndex == 1{
             let profileVC = viewCntrollersList[nextIndex] as! ProfileController
-            if profileVC.favoriteCollectionView != nil{
-                profileVC.favoriteCollectionView.reloadData()
+            if profileVC.profileCollectionView != nil{
+                profileVC.profileCollectionView.reloadData()
             }
         }else if nextIndex == 2{
-
+            
             let createRecipe = viewCntrollersList[nextIndex] as! CreateRecipeController
             createRecipe.allMeatCuts = allMeatCuts
-
+            
             
         }else if nextIndex == 3{
             
@@ -128,10 +138,13 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = viewCntrollersList.firstIndex(of: pageContentViewController)!
+        
     }
+    
     
     //MARK: Page Control
     func configurePageControl() {
+//        loadAndSortMeatCutsMainVC()
         let positionX = UIScreen.main.bounds.width / 2 - 25
         let positionY = UIScreen.main.bounds.maxY - 45
         let width = CGFloat(50)
@@ -146,10 +159,29 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         self.view.addSubview(pageControl)
     }
     
+
+    
+//    func loadAndSortMeatCutsMainVC() {
+//        print("_______loading mainVC---------")
+//        if let navigationVC = self.navigationController as? NavigationController{
+//            if let mainVC = viewCntrollersList[0] as? MainScreenController{
+//                mainVC.allMeatCuts = navigationVC.allMeatCuts
+//                mainVC.liveRating(navigationVC:navigationVC)
+//                mainVC.allMeatCuts!.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
+//
+//
+//                //MARK: do the observe in the main instead of the navigation
+//
+//            }
+//            print("INSIDE print")
+//        }
+//    }
+    
     func setTitle(vcIndex:Int){
         switch vcIndex{
         case 0:
             self.navigationItem.title = "Meat Cuts"
+//            loadAndSortMeatCutsMainVC()
             break
         case 1:
             self.navigationItem.title = "Profile"
@@ -165,8 +197,5 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         }
     }
     
-    //MARK: Navigation
-    func setupNavigation() {
-
-    }
+    
 }

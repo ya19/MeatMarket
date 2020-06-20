@@ -27,9 +27,11 @@ class SplashScreenController: UIViewController {
     var credits:[String:String] = [:]
     var currentRecipesCount = 0
     var serverRecipesCount = 0
-    var myRecipes:[String:[Recipe]] = [:]
     var currentAllMeatCuts:[String:MeatCut] = [:]
     var once = true
+    var startTimerOnce = true
+    var myRecipes:[String:[Recipe]] = [:]
+//    var userRecipes:[String:[Recipe]] = [:]
     
     //MARK: Lifecycle View
     override func viewDidLoad() {
@@ -41,6 +43,7 @@ class SplashScreenController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         readRealTimeDatabase()
+        
         splashScreenImageGIF.sd_setImage(with: URL(string: splashScreenGif))
     }
     
@@ -78,148 +81,160 @@ class SplashScreenController: UIViewController {
         let recipeRef = databaseRef.child("Recipes")
         let ratingRef = databaseRef.child("UsersRate")
         let allRecipesRef = databaseRef.child("AllRecipes")
+        //        let myRecipesRef = databaseRef.child("MyRecipes")
         
         meatCutsRef.observeSingleEvent(of: .value, with: { (meatCutsData) in
             let meatCuts = meatCutsData.value as! [String:Any]
-            
+            //            print(meatCuts,"<-------meatcutsData")
             self.allMeatCuts = []
             self.serverMeatCutsCount = meatCuts.keys.count
-            print("serverMeatCutsCount = meatCuts.keys.count:", self.serverMeatCutsCount)
             
             for meatCutID in meatCuts.keys{
                 
                 self.myRecipes[meatCutID] = []
+                
                 recipeRef.child(meatCutID).observeSingleEvent(of: .value) { (recipesData) in
                     
-                    let recipesData = recipesData.value as! [String:Any]
-
+                    let recipesData = recipesData.value as! [String:Any?]
                     self.serverRecipesCount += recipesData.keys.count
-                    
+                    //                    print(self.serverRecipesCount,"live server recipes count grows")
                     for recipeId in recipesData.keys{
-                        ratingRef.child(recipeId).observe( .value, with: { (ratingsData) in
+                        ratingRef.child(recipeId).observeSingleEvent(of: .value, with: { (ratingsData) in
                             var ratingsAvg = 0.0
-                            
-                            if let ratingsData = ratingsData.value as? [String:Any]{
-                                
-                                for userRatingId in ratingsData.keys{
-                                    ratingsAvg = ratingsAvg + (ratingsData[userRatingId] as! Double)
-                                }
-                                ratingsAvg = ratingsAvg / Double(ratingsData.keys.count)
-                                //have the updated average of a recipe.
-                            }else{
-                                print("Couldn't! find ratings for recipe id: \(recipeId) set the rate to 1 (default)")
-                                ratingsAvg = 1.0
-                            }
+                            ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
                             
                             if self.once{
                                 //create and add the recipe to myRecipes(contain all the recipes from the server with rating)
                                 allRecipesRef.child(recipeId).observeSingleEvent(of: .value) { (DataSnapshot) in
                                     let data = DataSnapshot.value as! [String:Any]
+                                    
                                     let recipe = Recipe(
-                                                        id: data["id"] as! String,
-                                                        name: data["name"] as! String,
-                                                        imageName: data["image"] as! String,
-                                                        image: nil,
-                                                        ingredients: data["ingredients"] as! [String],
-                                                        instructions: data["instructions"] as! [String],
-                                                        level: Levels(rawValue: data["level"] as! Int)!,
-                                                        time: data["time"] as! String,
-                                                        rating: ratingsAvg )
+                                        id: data["id"] as! String,
+                                        name: data["name"] as! String,
+                                        imageName: data["image"] as! String,
+                                        image: nil,
+                                        ingredients: data["ingredients"] as! [String],
+                                        instructions: data["instructions"] as! [String],
+                                        level: Levels(rawValue: data["level"] as! Int)!,
+                                        time: data["time"] as! String,
+                                        rating: ratingsAvg,
+                                        creator: data["creator"] as? String ?? nil,
+                                        meatcutID: data["meatcutID"] as! String,
+                                        meatcutName: data["meatcutName"] as? String ?? nil)
                                     self.myRecipes[meatCutID]!.append(recipe)
                                     self.allRecipesSize += 1
-                                    
-//                                    storageRefRecipesImages.child(recipe.id).downloadURL { (url, error) in
-//                                        if error != nil{
-//                                            print(error!.localizedDescription)
-//                                        }
-//                                        self.allImagesRecipes[recipe.id] = url
-//                                        print(self.allImagesRecipes[recipe.id]," read real time database")
-//                                    }
-                                    
+//                                    print(recipe.meatcutName ?? "\(recipe.id) no have meatcutName")
                                     storageRecipesRef.child("\(recipe.id).jpeg").downloadURL {(URL, error) in
                                         if error != nil{
                                             print(error!.localizedDescription)
                                         }
                                         self.allRecipesURL[recipe.id] = URL
                                     }
+                                    
                                 } //observe data
                             }
                         })
                     }
                     
                     
-                    let cut = meatCuts[meatCutID] as! [String:Any]
-                    let meatCut = MeatCut(
-                                          id: cut["id"] as! String,
-                                          name: cut["name"] as! String,
-                                          image: nil,
-                                          recipes: nil )
-                    self.currentAllMeatCuts[meatCutID] = (meatCut)
                     
+                    
+                    let cut = meatCuts[meatCutID] as! [String:Any?]
+                    let meatCut = MeatCut(
+                        id: cut["id"] as! String,
+                        name: cut["name"] as! String,
+                        image: nil,
+                        recipes: nil )
+                    
+                    self.currentAllMeatCuts[meatCutID] = meatCut
+                    //                    print(self.currentAllMeatCuts.keys.count,"live count of currentAllMeatCuts")
+                    //                    print(self.myRecipes,"curr .. ..entAllMeatCuts.count in recipes observer")
+                    
+                    if self.startTimerOnce{
+                        self.startTimerOnce = false
+                        Timer.scheduledTimer(
+                            timeInterval: 0.1,
+                            target: self,
+                            selector: #selector(self.checkRecipesCount(_:)),
+                            userInfo: nil,
+                            repeats: true )
+                    }
                 }
-                print("last for meatCut in meatCutRef allRecipesSize:", self.allRecipesSize)
+                
+                //                print(self.currentAllMeatCuts.keys.count,"currentAllMeatCuts.count in meatCuts observer")
+                
             }
+            
+            //            print(self.currentAllMeatCuts.count,"currentAllMeatCuts.count above timer")
+            
             //            MARK: Timer
-            Timer.scheduledTimer(
-                                timeInterval: 0.3,
-                                target: self,
-                                selector: #selector(self.checkRecipesCount(_:)),
-                                userInfo: nil,
-                                repeats: true )
+            
             //MARK: Credits
-            Database.database().reference().child("Credits").child("RecipesCredits").observe(.value) { (creditsData) in
+            databaseRef.child("Credits").child("RecipesCredits").observeSingleEvent(of: .value) { (creditsData) in
                 guard let creditsDictionary = creditsData.value as? [String:String] else {return}
                 self.credits = creditsDictionary
                 self.readCredits = true
             }
+            
         })
+        
+        
     }// realTimeDatabase
     
-    
-    //MARK: CheckUserStateLogin
-    func checkUserStateLogin(meatCuts: [MeatCut]){
-        print("checkUserStateLogin")
-        if Auth.auth().currentUser != nil {
-            self.once = false
-            CurrentUser.shared.configure(
-                                        userId: Auth.auth().currentUser!.uid,
-                                        segueId: "splashScreenToNavigation",
-                                        meatCuts: meatCuts,
-                                        allRecipesURL: self.allRecipesURL, // test
-                                        vc: self,
-                                        credits: self.credits )
-        }else{
-            self.once = false
-            let dic:[String:Any] = [
-                "meatCuts": meatCuts,
-                "allRecipesURL":self.allRecipesURL,// test
-                "credits":self.credits ]
-            self.performSegue(withIdentifier: "splashScreenToLogin", sender: dic)
+    @objc func checkRecipesCount(_ timer:Timer){
+        print("splashScreen checkRecipesCount")
+        //        print("checkRecipesCount before if allRecipes:\(self.allRecipesSize)  serverRecipes:\(self.serverRecipesCount)")
+        let meatCutsStorageRef = Storage.storage().reference().child("images/png/")
+        if self.allRecipesSize  == self.serverRecipesCount{
+            //            print("checkRecipesCount passed if allRecipes:\(self.allRecipesSize)  serverRecipes:\(self.serverRecipesCount)")
+            timer.invalidate()
+            //            print("\(currentAllMeatCuts.keys) currentAllMeatCuts.keys")
+            for meatCutId in self.currentAllMeatCuts.keys{
+                let meatCut = self.currentAllMeatCuts[meatCutId]
+                meatCutsStorageRef.child("\(meatCut!.name).png").downloadURL { (url, error) in
+                    if let error = error {
+                        print("----Error Get images from Storage----", error.localizedDescription)
+                        return
+                    }
+                    
+                    let meatCut = MeatCut(
+                        id: meatCut!.id,
+                        name: meatCut!.name,
+                        image: url!,
+                        recipes: self.myRecipes[meatCutId]! ) //self.myRecipes[meatCutId]!
+                    self.allMeatCuts.append(meatCut)
+                    
+                }
+                
+            }
+            print(self.allMeatCuts.count,"<------ allMeatCuts.count")
+            Timer.scheduledTimer(
+                timeInterval: 0.3,
+                target: self,
+                selector: #selector(self.loadDataEvery(_:)),
+                userInfo: nil,
+                repeats: true )
         }
     }
     
-    
     //MARK: @Objc funcs
     @objc func loadDataEvery(_ timer:Timer){
-        print("loadDataEvery")
-        print("serverMeatCutCount:",serverMeatCutsCount, "   allMeatCuts.count:", allMeatCuts.count, "    Out")
-        if serverMeatCutsCount == allMeatCuts.count{
-            print("serverMeatCutCount:",serverMeatCutsCount, "   allMeatCuts.count:", allMeatCuts.count, "  In")
-
-            print("allRecipesSize:",allRecipesSize,"   serverRecipesCount:", serverRecipesCount, "  Out")
-            if allRecipesSize == self.allRecipesURL.count { //serverRecipesCount self.allRecipesURL
-                print("allRecipesSize:",allRecipesSize,"   serverRecipesCount:", serverRecipesCount, "  In")
+        print("splashScreen loadDataEvery")
+        //        print("\(self.serverMeatCutsCount) == \(self.allMeatCuts.count) loadDataEvery first if")
+        if self.serverMeatCutsCount == self.allMeatCuts.count{ //MARK:TODO: sometime stuck here, 10 == 0 loadDataEvery first if
+            //            print("\(self.allRecipesSize) == \(self.allRecipesURL.count) loadDataEvery second if")
+            if self.allRecipesSize == self.allRecipesURL.count {
                 if self.readCredits == true{
                     var meatCuts:[MeatCut] = []
                     
-                    for meatCut in allMeatCuts{
+                    for meatCut in self.allMeatCuts{
                         var myMeatCut = meatCut
                         
                         myMeatCut.recipes = []
                         
                         for recipe in meatCut.recipes!{
                             var myRecipe = recipe
-
+                            
                             myRecipe.image = allRecipesURL[recipe.id]
                             myMeatCut.recipes!.append(myRecipe)
                         }
@@ -234,40 +249,33 @@ class SplashScreenController: UIViewController {
         }
     }
     
-    @objc func checkRecipesCount(_ timer:Timer){
-        print("checkRecipesCount")
-        let meatCutsStorageRef = Storage.storage().reference().child("images/png/")
-        
-        if allRecipesSize == serverRecipesCount{
-            timer.invalidate()
-            for meatCutId in self.currentAllMeatCuts.keys{
-                let meatCut = self.currentAllMeatCuts[meatCutId]
-                meatCutsStorageRef.child("\(meatCut!.name).png").downloadURL { (url, error) in
-                    if let error = error {
-                        print("----Error Get images from Storage----", error.localizedDescription)
-                        return
-                    }
-                    
-                    let meatCut = MeatCut(
-                                          id: meatCut!.id,
-                                          name: meatCut!.name,
-                                          image: url!,
-                                          recipes: self.myRecipes[meatCutId]! )
-                    self.allMeatCuts.append(meatCut)
-                }
-                
-            }
-            Timer.scheduledTimer(
-                timeInterval: 0.3,
-                target: self,
-                selector: #selector(self.loadDataEvery(_:)),
-                userInfo: nil,
-                repeats: true )
+    
+    
+    //MARK: CheckUserStateLogin
+    func checkUserStateLogin(meatCuts: [MeatCut]){
+        print("splashScreen checkUserStateLogin")
+
+        if Auth.auth().currentUser != nil {
+//            guard let userID = CurrentUser.shared.user?.id else { return  }
+            self.once = false
+            CurrentUser.shared.configure(
+                userId: Auth.auth().currentUser!.uid,
+                segueId: "splashScreenToNavigation",
+                meatCuts: meatCuts,
+                allRecipesURL: allRecipesURL, // test
+                vc: self,
+                credits: credits)
+        }else{
+            self.once = false
+            let dic:[String:Any] = [
+                "meatCuts": meatCuts,
+                "allRecipesURL": allRecipesURL,// test
+                "credits": credits ]
+            self.performSegue(withIdentifier: "splashScreenToLogin", sender: dic)
         }
     }
-    
-    
-    
+
+
+
+
 }
-
-

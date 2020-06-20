@@ -50,10 +50,10 @@ class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelega
         recipeTimeCell.text = recipe.time
         recipeNameCell.text = recipe.name
         recipeImageCell.layer.cornerRadius = 10
-        
+        self.rating.rating = recipe.rating
         recipeImageCell.sd_setImage(with: recipe.image ?? nil)
         
-        for favorite in CurrentUser.shared.user!.recipes{
+        for favorite in CurrentUser.shared.user!.favoriteRecipes{
             if favorite.id == recipe.id{
                 isFavorite = true
             }
