@@ -59,7 +59,7 @@ class User: CustomStringConvertible{
     }
     
     //MARK: Add/Remove Favorite
-    func addFavorite(recipe:Recipe){
+    func addToFavorite(recipe:Recipe){
         var alreadyHasIt = false
         for myRecipe in favoriteRecipes{
             if myRecipe.id == recipe.id{
@@ -70,7 +70,7 @@ class User: CustomStringConvertible{
             self.favoriteRecipes.append(recipe)
         }
     }
-    func removeFavorite(recipeId:String){
+    func removeFromFavorite(recipeId:String){
         var remember = -1
         for i in 0 ..< self.favoriteRecipes.count{
             if self.favoriteRecipes[i].id == recipeId{
@@ -83,7 +83,7 @@ class User: CustomStringConvertible{
     }
     
     //MARK: Add/Remove myRecipes
-    func addRecipe(recipe:Recipe, view:UIView){
+    func addToMyRecipes(recipe:Recipe, view:UIView){
         for rec in self.myRecipes{
             if rec.name != recipe.name {
                 self.myRecipes.append(recipe)
@@ -92,7 +92,7 @@ class User: CustomStringConvertible{
         }
         
     }
-    func removeRecipe(recipe:Recipe, view:UIView){
+    func removeFromMyRecipes(recipe:Recipe, view:UIView){
         if self.myRecipes == []{
             HelperFuncs.showToast(message: "You dont have recipes to delete", view: view)
         }

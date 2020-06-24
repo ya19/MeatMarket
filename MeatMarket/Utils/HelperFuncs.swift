@@ -78,6 +78,13 @@ struct  HelperFuncs {
         return (currentWeek == datesWeek)
     }
     
+//    static func visualRecipeTime(time:String){
+//        guard let time = Int(time) else {return}
+//        
+//        if time < 60{
+//            print(time)
+//        }
+//    }
     
 }
 

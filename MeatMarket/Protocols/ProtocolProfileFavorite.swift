@@ -12,3 +12,12 @@ import Foundation
 protocol RemoveFavoriteProtocol {
     func refresh(recipeId:String)
 }
+
+protocol RemoveMyRecipesProtocol{
+    func remove(recipeId:String)
+}
+
+protocol RemoveRecipe {
+    func removeFavoritesRecipe(recipeId: String)
+    func removeMyRecipes(recipeId: String)
+}

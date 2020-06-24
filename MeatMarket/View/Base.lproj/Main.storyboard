@@ -348,42 +348,42 @@
                                                             </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OiO-yF-Mqa">
-                                                            <rect key="frame" x="141.5" y="0.0" width="212.5" height="95"/>
+                                                            <rect key="frame" x="141.5" y="13.5" width="212.5" height="109"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Recipe Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebY-y1-9Qa">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="212.5" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="212.5" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcf-af-W8A">
-                                                                    <rect key="frame" x="0.0" y="26" width="212.5" height="17.5"/>
+                                                                    <rect key="frame" x="0.0" y="29.5" width="212.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTP-n4-5Rc">
-                                                                    <rect key="frame" x="0.0" y="51.5" width="212.5" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="58.5" width="212.5" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeatCut Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-oK-NSC" userLabel="Favorite Meatcut Name">
-                                                                    <rect key="frame" x="0.0" y="77.5" width="212.5" height="17.5"/>
+                                                                    <rect key="frame" x="0.0" y="87.5" width="212.5" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.2666666667" green="0.25490196079999999" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqa-uS-dUn">
+                                                        <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="favoriteDeleteId" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqa-uS-dUn">
                                                             <rect key="frame" x="291" y="99" width="31" height="31"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="hqa-uS-dUn" secondAttribute="height" multiplier="1:1" id="1OW-Cb-LFw"/>
                                                             </constraints>
                                                             <state key="normal" image="delete_image"/>
                                                             <connections>
-                                                                <action selector="deletTapped:" destination="Q2w-c9-uY4" eventType="touchUpInside" id="n7Y-kW-lfh"/>
+                                                                <action selector="favoriteDeletTapped:" destination="Q2w-c9-uY4" eventType="touchUpInside" id="n7Y-kW-lfh"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -393,9 +393,9 @@
                                                         <constraint firstItem="d68-6L-a0C" firstAttribute="width" secondItem="uRS-f2-eK6" secondAttribute="width" multiplier="0.35" id="BHN-Gj-z8x"/>
                                                         <constraint firstItem="OiO-yF-Mqa" firstAttribute="centerX" secondItem="uRS-f2-eK6" secondAttribute="centerX" multiplier="1.4" id="Dnt-K5-M0C"/>
                                                         <constraint firstItem="d68-6L-a0C" firstAttribute="centerY" secondItem="uRS-f2-eK6" secondAttribute="centerY" id="HdD-Xf-b1C"/>
-                                                        <constraint firstItem="OiO-yF-Mqa" firstAttribute="centerY" secondItem="uRS-f2-eK6" secondAttribute="centerY" multiplier="0.7" id="KYq-cW-ce8"/>
+                                                        <constraint firstItem="OiO-yF-Mqa" firstAttribute="centerY" secondItem="uRS-f2-eK6" secondAttribute="centerY" id="KYq-cW-ce8"/>
                                                         <constraint firstItem="hqa-uS-dUn" firstAttribute="width" secondItem="d68-6L-a0C" secondAttribute="width" multiplier="0.25" id="MRB-PL-cfw"/>
-                                                        <constraint firstItem="OiO-yF-Mqa" firstAttribute="height" secondItem="GLG-l5-kpt" secondAttribute="height" multiplier="0.7" id="PKQ-of-G8d"/>
+                                                        <constraint firstItem="OiO-yF-Mqa" firstAttribute="height" secondItem="GLG-l5-kpt" secondAttribute="height" multiplier="0.8" id="PKQ-of-G8d"/>
                                                         <constraint firstItem="OiO-yF-Mqa" firstAttribute="width" secondItem="GLG-l5-kpt" secondAttribute="width" multiplier="0.6" id="lDC-Ps-5b8"/>
                                                         <constraint firstItem="hqa-uS-dUn" firstAttribute="bottom" secondItem="d68-6L-a0C" secondAttribute="bottom" id="pGm-z6-bwA"/>
                                                     </constraints>
@@ -404,6 +404,7 @@
                                                 <color key="backgroundColor" red="1" green="0.80392156859999997" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <size key="customSize" width="354" height="136"/>
                                                 <connections>
+                                                    <outlet property="favoriteDeleteBtn" destination="hqa-uS-dUn" id="mrJ-d0-w2e"/>
                                                     <outlet property="favoriteImageView" destination="d68-6L-a0C" id="ydU-Uh-IgL"/>
                                                     <outlet property="favoriteMeatCutName" destination="mZL-oK-NSC" id="z1t-sR-rMI"/>
                                                     <outlet property="favoriteRecipeLevel" destination="qcf-af-W8A" id="UzP-Tl-3bJ"/>
@@ -1594,7 +1595,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ogp-cJ-spr"/>
-        <segue reference="1pn-eQ-TrP"/>
+        <segue reference="YLt-8n-ImA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="allMeatCutsPNG" width="800" height="478"/>

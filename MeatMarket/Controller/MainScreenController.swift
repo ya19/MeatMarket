@@ -34,7 +34,7 @@ class MainScreenController: UIViewController{
 //            observeMeatCuts()
         }
         
-        print(CurrentUser.shared.user?.myRecipes ?? "none","Main myRecipes")
+//        print(CurrentUser.shared.user?.myRecipes ?? "none","Main myRecipes")
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -114,15 +114,7 @@ class MainScreenController: UIViewController{
                     dataRef.child("UsersRate").child(recipe.id).observe(.value) { (ratingsData) in
                         var ratingsAvg = 0.0
                         ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
-//                        if let ratingsData = ratingsData.value as? [String:Any]{
-//                            for userRatingId in ratingsData.keys{
-//                                ratingsAvg = ratingsAvg + (ratingsData[userRatingId] as! Double)
-//                            }
-//
-//                            ratingsAvg = ratingsAvg / Double(ratingsData.keys.count)
-//                        }
-//
-//                        ratingsAvg = 1.0
+
                         navigationVC.allMeatCuts![i].recipes![x].rating = ratingsAvg
                     } //observer
                 }// for recipe
@@ -177,7 +169,9 @@ class MainScreenController: UIViewController{
                             time: data["time"] as! String,
                             rating: ratingsAvg,
                             creator: data["creator"] as? String ?? nil,
-                            meatcutID: data["meatcutID"] as! String)
+                            meatcutID: data["meatcutID"] as! String,
+                            meatcutName: data["meatcutName"] as? String)
+                        print(recipe.meatcutName,"meatcutname")
                         //self.myRecipes[meatCutID]!.append(recipe)
 
                         storageRecipesRef.child("\(recipe.id).jpeg").downloadURL {(URL, error) in
@@ -204,27 +198,11 @@ class MainScreenController: UIViewController{
         }// observe
     }// end func
 
-//    func calculateRecipeRating(ratingsData: DataSnapshot)->Double{
-//        var ratingsAvg = 0.0
-//        if let ratingsData = ratingsData.value as? [String:Any]{
-//
-//            for userRatingId in ratingsData.keys{
-//                ratingsAvg = ratingsAvg + (ratingsData[userRatingId] as! Double)
-//            }
-//             ratingsAvg = ratingsAvg / Double(ratingsData.keys.count)
-//            return ratingsAvg
-//        }else{
-//            //                        print("Couldn't! find ratings for recipe id: \(recipeId) set the rate to 1 (default)")
-//            ratingsAvg = 1.0
-//            return ratingsAvg
-//        }
-//    }
-
     //MARK: Check if recipe in allMeatCut
     func checkRecipeInAllMeatCuts(checkRecipe: Recipe)-> Bool{
         for meatcut in allMeatCuts!{
             for recipe in meatcut.recipes!{
-                if checkRecipe.id+"@" == recipe.id{
+                if checkRecipe.id == recipe.id{
                     print(checkRecipe.id , checkRecipe.name, recipe.id , recipe.name , meatcut.name)
                     isRecipeExist = true
                     return isRecipeExist

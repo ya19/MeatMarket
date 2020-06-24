@@ -199,7 +199,8 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
                                     time: userTimeRecipe,
                                     rating: 1.0,
                                     creator: currentUser.id ,
-                                    meatcutID: idPickerMeatCut)
+                                    meatcutID: idPickerMeatCut,
+                                    meatcutName: userRecipeMeatCut )
             
             let postRecipe = [
                 "id" : userRecipe.id,
@@ -211,7 +212,7 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
                 "time" : userRecipe.time,
                 "creator" : currentUser.id!,
                 "meatcutID" : userRecipe.meatcutID,
-                "meatcutName": userRecipeMeatCut] as [String : Any] // add to test meatcutName
+                "meatcutName": userRecipeMeatCut] as [String : Any] 
             
             //upload image to storage
             uploadRecipeImage(quality: 0.5, recipe: userRecipe)

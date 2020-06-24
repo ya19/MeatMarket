@@ -27,7 +27,10 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
         recipeCollectionView.delegate = self
         recipeCollectionView.dataSource = self
         allRecipes!.sort(by: { $0.name.lowercased() < $1.name.lowercased() })
-        title = meatCutName
+        for recipe in allRecipes!{
+            meatCutName = recipe.meatcutName!
+            title = "Recipes of \(meatCutName.capitalized)" // need to get meatCutName here
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

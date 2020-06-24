@@ -42,8 +42,8 @@ class SplashScreenController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
+
         readRealTimeDatabase()
-        
         splashScreenImageGIF.sd_setImage(with: URL(string: splashScreenGif))
     }
     
@@ -120,7 +120,7 @@ class SplashScreenController: UIViewController {
                                         rating: ratingsAvg,
                                         creator: data["creator"] as? String ?? nil,
                                         meatcutID: data["meatcutID"] as! String,
-                                        meatcutName: data["meatcutName"] as? String ?? nil)
+                                        meatcutName: data["meatcutName"] as? String ?? "none")
                                     self.myRecipes[meatCutID]!.append(recipe)
                                     self.allRecipesSize += 1
 //                                    print(recipe.meatcutName ?? "\(recipe.id) no have meatcutName")
@@ -207,7 +207,7 @@ class SplashScreenController: UIViewController {
                 }
                 
             }
-            print(self.allMeatCuts.count,"<------ allMeatCuts.count")
+//            print(self.allMeatCuts.count,"<------ allMeatCuts.count")
             Timer.scheduledTimer(
                 timeInterval: 0.3,
                 target: self,
@@ -274,7 +274,6 @@ class SplashScreenController: UIViewController {
             self.performSegue(withIdentifier: "splashScreenToLogin", sender: dic)
         }
     }
-
 
 
 

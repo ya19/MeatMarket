@@ -29,7 +29,6 @@
 		F93CB86C234E35BE00136DA6 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB86B234E35BE00136DA6 /* ProfileController.swift */; };
 		F93CB86E234E35FD00136DA6 /* CreditsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CB86D234E35FD00136DA6 /* CreditsController.swift */; };
 		F94296B1234E02FD005CB018 /* SplashScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94296B0234E02FD005CB018 /* SplashScreenController.swift */; };
-		F94BCFB8247FEB380083837B /* MyRecipesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94BCFB7247FEB380083837B /* MyRecipesViewCell.swift */; };
 		F94EC35A2325946C007AEAB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94EC3592325946C007AEAB5 /* AppDelegate.swift */; };
 		F94EC35F2325946C007AEAB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94EC35D2325946C007AEAB5 /* Main.storyboard */; };
 		F94EC3622325946C007AEAB5 /* MeatMarket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F94EC3602325946C007AEAB5 /* MeatMarket.xcdatamodeld */; };
@@ -40,7 +39,6 @@
 		F95B26F9235238030034CE84 /* InstructionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B26F8235238030034CE84 /* InstructionsController.swift */; };
 		F96BFD97235F0D6200B72489 /* RoundedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96BFD96235F0D6200B72489 /* RoundedTableViewCell.swift */; };
 		F98AABCC234DDC99002CC05D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98AABCB234DDC99002CC05D /* User.swift */; };
-		F98D9442235116BE007AE4D9 /* MeatCutViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98D9441235116BE007AE4D9 /* MeatCutViewCell.swift */; };
 		F98F86F2234DD0E90090737A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F98F86F1234DD0E90090737A /* GoogleService-Info.plist */; };
 		F9929D3323550CDD00DDC0ED /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9929D3223550CDD00DDC0ED /* IngredientsTableViewCell.swift */; };
 		F9929D352355165700DDC0ED /* InstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9929D342355165700DDC0ED /* InstructionsTableViewCell.swift */; };
@@ -79,7 +77,6 @@
 		F93CB86B234E35BE00136DA6 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		F93CB86D234E35FD00136DA6 /* CreditsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsController.swift; sourceTree = "<group>"; };
 		F94296B0234E02FD005CB018 /* SplashScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenController.swift; sourceTree = "<group>"; };
-		F94BCFB7247FEB380083837B /* MyRecipesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesViewCell.swift; sourceTree = "<group>"; };
 		F94EC3562325946C007AEAB5 /* MeatMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeatMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F94EC3592325946C007AEAB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F94EC35E2325946C007AEAB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,7 +89,6 @@
 		F95B26F8235238030034CE84 /* InstructionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsController.swift; sourceTree = "<group>"; };
 		F96BFD96235F0D6200B72489 /* RoundedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTableViewCell.swift; sourceTree = "<group>"; };
 		F98AABCB234DDC99002CC05D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		F98D9441235116BE007AE4D9 /* MeatCutViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeatCutViewCell.swift; sourceTree = "<group>"; };
 		F98F86F1234DD0E90090737A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F9929D3223550CDD00DDC0ED /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		F9929D342355165700DDC0ED /* InstructionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsTableViewCell.swift; sourceTree = "<group>"; };
@@ -184,7 +180,6 @@
 			children = (
 				F94EC35D2325946C007AEAB5 /* Main.storyboard */,
 				F94EC3652325946C007AEAB5 /* LaunchScreen.storyboard */,
-				F98D9441235116BE007AE4D9 /* MeatCutViewCell.swift */,
 				F95336EB235138650060BD4F /* FavoriteViewCell.swift */,
 				F9ED4BAD23528EDD005CB3E7 /* RecipeViewCell.swift */,
 				F9929D3223550CDD00DDC0ED /* IngredientsTableViewCell.swift */,
@@ -192,7 +187,6 @@
 				F90B0F22235B1EED00370A9F /* CreditsTableViewCell.swift */,
 				F92D4FDC243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift */,
 				F92D4FE0244216A200AE788D /* CreateRecipeIngredientsTableViewCell.swift */,
-				F94BCFB7247FEB380083837B /* MyRecipesViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -391,7 +385,6 @@
 				F9929D352355165700DDC0ED /* InstructionsTableViewCell.swift in Sources */,
 				F92D4FDD243FCA1800AE788D /* CreateRecipeInstrcuctionTableViewCell.swift in Sources */,
 				F92D4FD3243B456A00AE788D /* ProtocolRecipeCellFavoriteStatus.swift in Sources */,
-				F94BCFB8247FEB380083837B /* MyRecipesViewCell.swift in Sources */,
 				F9EA64112451A7CA0021C4E0 /* ExtentionTableView.swift in Sources */,
 				F93229C52454BEA600E80436 /* ExtentionUIImage.swift in Sources */,
 				F99B7C76234F614500EB8C59 /* MeatCut.swift in Sources */,
@@ -413,7 +406,6 @@
 				F99B7C78234F61AF00EB8C59 /* Recipe.swift in Sources */,
 				F93CB86C234E35BE00136DA6 /* ProfileController.swift in Sources */,
 				F93CB862234E19FE00136DA6 /* RegistrationController.swift in Sources */,
-				F98D9442235116BE007AE4D9 /* MeatCutViewCell.swift in Sources */,
 				F93CB866234E25E200136DA6 /* MainScreenController.swift in Sources */,
 				F93CB860234E0B6300136DA6 /* LoginController.swift in Sources */,
 				F92D4FD1243B431F00AE788D /* ExtentionUIImageView.swift in Sources */,
