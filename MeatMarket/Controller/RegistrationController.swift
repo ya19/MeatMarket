@@ -18,8 +18,28 @@ class RegistrationController: UIViewController {
     @IBOutlet weak var verifyPasswordField: UITextField!
     
     //MARK: Properties
-    var databaseRef: DatabaseReference!
+    var databaseRef = Database.database().reference()
     var allMeatCuts:[MeatCut]?
+    var credits:[String:String]?
+    
+    //MARK: LifeCycle View
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: .plain, target: self, action: #selector(backAction))
+
+        self.observeKeybordForPushUpTheView()
+        self.hideKeyboardWhenTappedAround()
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navigationVC = segue.destination as? NavigationController{
+            guard let dictionary = sender as? [String:Any] else {return}
+            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+            navigationVC.credits = dictionary["credits"] as? [String:String]
+        }
+    }
     
     //MARK: Actions
     @IBAction func registerTapped(_ sender: UIButton) {
@@ -28,7 +48,6 @@ class RegistrationController: UIViewController {
         guard let email = emailField.text else {return}
         guard let password = passwordField.text else {return}
         guard let verifyPassword = verifyPasswordField.text else {return}
-        let timeStamp =  Date().timeIntervalSince1970
         
         if  email.count == 0 ||
             firstName.count == 0 ||
@@ -40,49 +59,26 @@ class RegistrationController: UIViewController {
         }else if password != verifyPassword {
             HelperFuncs.showToast(message: "Password Incompatible", view: view)
         }else{
-            creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password, timeStamp: timeStamp)
-            performSegue(withIdentifier: "registerToNavigation", sender: self.allMeatCuts)
-//            let mainScreenVC = self.storyboard!.instantiateViewController(withIdentifier: "navigationStoryboardID")
-//            self.present(mainScreenVC, animated: true, completion: nil)
-        }
-        
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-                if let navigationVC = segue.destination as? NavigationController{
-            guard let meatCuts = sender as? [MeatCut] else {return}
-            navigationVC.allMeatCuts = meatCuts
+            creatUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
         }
     }
-    //MARK: LifeCycle View
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        
-        
+    @objc func backAction(){
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func loginTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-    //MARK: Funcs
-
-    func creatUserWith(firstName:String, lastName:String, email: String, password: String ,timeStamp: TimeInterval?){
-        //Create user with Firebase Auth
+    //MARK: Create User
+    func creatUserWith(firstName:String, lastName:String, email: String, password: String ){
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let error = error {
                 print("-----Error Creat FireBase User----",error.localizedDescription)
+                HelperFuncs.showToast(message: error.localizedDescription, view: self.view)
+                return
             }
             Auth.auth().signIn(withEmail: email, password: password)
-            print("---user LoggedIn with Firebase---")
+            print("---user: \(String(describing: Auth.auth().currentUser?.displayName)) LoggedIn with Firebase---")
             
             guard let id = Auth.auth().currentUser?.uid else {return}
             let userData:[String:Any?] = [
@@ -90,15 +86,17 @@ class RegistrationController: UIViewController {
                 "firstName": firstName,
                 "lastName": lastName,
                 "email": email,
-                "timeStemp": timeStamp
+                "timeStemp": ServerValue.timestamp()
             ]
-            self.databaseRef = Database.database().reference()
-            self.databaseRef.child("Users").child(id).setValue(userData)
-            //Create user with User
-            let user = User(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: timeStamp)
-            print("----New user created with User-----", user.description)
             
+            self.databaseRef.child("Users").child(id).setValue(userData)
 
+            CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil ) //MARK: need to add myRecipes
+            print("----New user created with User----->", CurrentUser.shared.user!.description)
+            
+            let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
+            self.performSegue(withIdentifier: "registerToNavigation", sender: dic)
+            
         }
     }
     

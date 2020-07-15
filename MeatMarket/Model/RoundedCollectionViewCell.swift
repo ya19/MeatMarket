@@ -1,18 +1,14 @@
 //
 //  RoundedCollectionViewCell.swift
 //  MeatMarket
-//
-//  Created by YardenSwisa on 11/10/2019.
 //  Copyright © 2019 YardenSwisa. All rights reserved.
-//
 
+/**
+    Rounded the corners of  CollectionViewCell
+ */
 import UIKit
 
 class RoundedCollectionViewCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.layer.cornerRadius = 13
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

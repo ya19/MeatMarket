@@ -1,14 +1,13 @@
 //
 //  Recipe.swift
 //  MeatMarket
-//
-//  Created by YardenSwisa on 10/10/2019.
 //  Copyright © 2019 YardenSwisa. All rights reserved.
-//
 
 import UIKit
 
-struct Recipe{
+struct Recipe: Equatable{
+    
+    //MARK: Properties
     let id:String
     let name:String
     let imageName:String
@@ -17,4 +16,8 @@ struct Recipe{
     let instructions:[String]
     let level:Levels
     let time:String
+    var rating:Double
+    var creator:String?
+    var meatcutID:String
+    var meatcutName:String?
 }
