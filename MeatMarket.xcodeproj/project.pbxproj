@@ -194,19 +194,19 @@
 		F94296AE234DF521005CB018 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F94296B0234E02FD005CB018 /* SplashScreenController.swift */,
+				F938D8F02437787D00EF3A9B /* CreateRecipeController.swift */,
+				F93CB86D234E35FD00136DA6 /* CreditsController.swift */,
+				F95B26F8235238030034CE84 /* InstructionsController.swift */,
 				F93CB85F234E0B6300136DA6 /* LoginController.swift */,
-				F93CB861234E19FE00136DA6 /* RegistrationController.swift */,
 				F93CB865234E25E200136DA6 /* MainScreenController.swift */,
 				F93CB867234E2CC700136DA6 /* NavigationController.swift */,
 				F93CB869234E2D1B00136DA6 /* PageRootController.swift */,
-				F93CB86B234E35BE00136DA6 /* ProfileController.swift */,
-				F93CB86D234E35FD00136DA6 /* CreditsController.swift */,
-				F95B26F6235237E30034CE84 /* RecipesController.swift */,
-				F95B26F8235238030034CE84 /* InstructionsController.swift */,
-				F938D8F02437787D00EF3A9B /* CreateRecipeController.swift */,
 				F92D4FDE2442144400AE788D /* PopUpIngredientsController.swift */,
 				F9B5FD11244F22F30069B2D4 /* PopUpInstructionsController.swift */,
+				F93CB86B234E35BE00136DA6 /* ProfileController.swift */,
+				F95B26F6235237E30034CE84 /* RecipesController.swift */,
+				F93CB861234E19FE00136DA6 /* RegistrationController.swift */,
+				F94296B0234E02FD005CB018 /* SplashScreenController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
