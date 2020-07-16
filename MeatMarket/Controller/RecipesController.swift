@@ -16,7 +16,7 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     
     //MARK:Properties
     var allRecipes:[Recipe]?
-    var allMeatCuts:[MeatCut]?
+//    var allMeatCuts:[MeatCut]?
     var ratingPassed = 0.0
     var meatCutName = ""
     
@@ -64,15 +64,14 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     
     
     func updateRates(recipeId:String) -> Double{
-        if let navigationVC = self.navigationController as? NavigationController {
-            for i in 0..<navigationVC.allMeatCuts!.count{
-                for x in 0..<navigationVC.allMeatCuts![i].recipes!.count{
-                    if recipeId == navigationVC.allMeatCuts![i].recipes![x].id{
-                        return navigationVC.allMeatCuts![i].recipes![x].rating
+            for i in 0..<MyData.shared.allMeatCuts.count{
+                for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+                    if recipeId == MyData.shared.allMeatCuts[i].recipes![x].id{
+                        return MyData.shared.allMeatCuts[i].recipes![x].rating
                     }
                 }
             }
-        }
+        
         return 0.0
     }
     

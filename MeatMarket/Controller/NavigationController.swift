@@ -12,7 +12,7 @@ import FirebaseStorage
 
 class NavigationController: UINavigationController {
     //MARK: Properties
-    var allMeatCuts:[MeatCut]?
+//    var allMeatCuts:[MeatCut]?
     var allRecipesURL:[String:URL]?
     var credits:[String:String]?
     var isRecipeExist = false
@@ -90,7 +90,7 @@ class NavigationController: UINavigationController {
                                         print("recipe ID: \(recipe.id) is missing and added to allMEatCuts[\("?")].recipes.append(recipe)")
     //                                    if self.meatcutIndex != -1{
                                         // need to bring the right meatcut index or id and add the recipe at that meatcut
-                                            self.allMeatCuts![0].recipes!.append(recipe)
+                                        MyData.shared.allMeatCuts[0].recipes!.append(recipe)
     //                                    }
                                     }
                                     
@@ -110,8 +110,8 @@ class NavigationController: UINavigationController {
         //MARK: Check if recipe in allMeatCut
         func checkRecipeInAllMeatCuts(checkRecipe: Recipe)-> Bool{
             print("navigationVC checkRecipeInAllMeatCuts")
-            for i in 0..<allMeatCuts!.count{
-                let meatcut = allMeatCuts![i]
+            for i in 0..<MyData.shared.allMeatCuts.count{
+                let meatcut = MyData.shared.allMeatCuts[i]
                 for recipe in meatcut.recipes!{
                     if checkRecipe.id == recipe.id{
                         print(checkRecipe.id , checkRecipe.name, recipe.id , recipe.name , meatcut.name)

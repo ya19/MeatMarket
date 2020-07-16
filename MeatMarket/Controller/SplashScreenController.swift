@@ -37,9 +37,7 @@ class SplashScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
 
@@ -50,8 +48,8 @@ class SplashScreenController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigationVC = segue.destination as? NavigationController{
             guard let dictionary = sender as? [String:Any] else {return}
-            
-            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+            MyData.shared.allMeatCuts = dictionary["meatCuts"] as! [MeatCut]
+//            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
             navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
             navigationVC.credits = dictionary["credits"] as? [String:String]
             print("SplashScreen finish, loading NavigationVC")
@@ -59,8 +57,9 @@ class SplashScreenController: UIViewController {
         
         if let loginVC = segue.destination as? LoginController{
             guard let dictionary = sender as? [String:Any] else {return}
-            
-            loginVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+            MyData.shared.allMeatCuts = dictionary["meatCuts"] as! [MeatCut]
+
+//            loginVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
             loginVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
             loginVC.credits = dictionary["credits"] as? [String:String]
             

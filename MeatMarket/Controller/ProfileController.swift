@@ -60,6 +60,9 @@ extension ProfileController:RemoveRecipe{
 
     }
 
+    //delete from database/storage
+    //delete from CurrentUser.shared.user!.myRecipes
+    //delete from CurrentUser.shared.user!.myRecipes
     func removeMyRecipes(recipeId: String) {
         let myRecipesCount = CurrentUser.shared.user!.myRecipes.count
 

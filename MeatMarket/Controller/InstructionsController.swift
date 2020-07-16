@@ -128,11 +128,11 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
 
             ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
             
-            if let navigationVC = self.navigationController as? NavigationController {
-                for i in 0..<navigationVC.allMeatCuts!.count{
-                    for x in 0..<navigationVC.allMeatCuts![i].recipes!.count{
-                        if recipe.id == navigationVC.allMeatCuts![i].recipes![x].id{
-                            navigationVC.allMeatCuts![i].recipes![x].rating = ratingsAvg
+//            if let navigationVC = self.navigationController as? NavigationController {
+                for i in 0..<MyData.shared.allMeatCuts.count{
+                    for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+                        if recipe.id == MyData.shared.allMeatCuts[i].recipes![x].id{
+                            MyData.shared.allMeatCuts[i].recipes![x].rating = ratingsAvg
                             print("rating avg is done! avg is \(ratingsAvg)")
                             
                             if (self.ratingDelegate != nil){
@@ -141,7 +141,7 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
                             }
                         }
                     }
-                }
+//                }
             }
             
         }

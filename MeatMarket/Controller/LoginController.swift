@@ -12,7 +12,7 @@ import Firebase
 
 class LoginController: UIViewController {
     //MARK: Properties
-    var allMeatCuts:[MeatCut]?
+//    var allMeatCuts:[MeatCut]?
     var allRecipesURL:[String:URL]?
     var credits:[String:String]?
     
@@ -32,14 +32,18 @@ class LoginController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigationVC = segue.destination as? NavigationController{
             guard let dictionary = sender as? [String:Any] else {return}
-            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+//            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+            MyData.shared.configure(allMeatCuts: dictionary["meatCuts"] as! [MeatCut], allImagesLinks: [])
+
             navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
             navigationVC.credits = dictionary["credits"] as? [String:String]
         }
         
         if let registerVC = segue.destination as? RegistrationController{
             guard let dictionary = sender as? [String:Any] else {return}
-            registerVC.allMeatCuts = (dictionary["meatCuts"] as! [MeatCut])
+            MyData.shared.configure(allMeatCuts: dictionary["meatCuts"] as! [MeatCut], allImagesLinks: [])
+
+//            registerVC.allMeatCuts = (dictionary["meatCuts"] as! [MeatCut])
             registerVC.credits = dictionary["credits"] as? [String:String]
             
         }
@@ -63,7 +67,7 @@ class LoginController: UIViewController {
     @IBAction func regiserTapped(_ sender: UIButton) {
         sender.layer.cornerRadius = 10
         sender.backgroundColor = UIColor(hex: "#FFCDB2")
-        let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
+        let dic:[String:Any] = ["meatCuts":[], "credits": self.credits!]
         self.performSegue(withIdentifier: "loginToRegistration", sender: dic)
     }
     
@@ -85,7 +89,8 @@ class LoginController: UIViewController {
                 
                 self.present(alert, animated: true, completion: nil)
             }else{
-                CurrentUser.shared.configure(userId: Auth.auth().currentUser!.uid, segueId: "loginToNavigation", meatCuts: self.allMeatCuts!, allRecipesURL: self.allRecipesURL!, vc: self,credits: self.credits!) //added myRecipes
+                //MARK: Check user - Mydata
+                CurrentUser.shared.configure(userId: Auth.auth().currentUser!.uid, segueId: "loginToNavigation", meatCuts: MyData.shared.allMeatCuts, allRecipesURL: self.allRecipesURL!, vc: self,credits: self.credits!) //added myRecipes
             }
         }
     }

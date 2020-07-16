@@ -15,13 +15,9 @@ var globalOnce = true
 
 class MainScreenController: UIViewController{
     
-    //MARK: Outlets
-    @IBOutlet weak var meatCutCollectionView: UICollectionView!
-    
     //MARK: Properties
     var allMeatCuts:[MeatCut]?
-    var isRecipeExist = false
-    var once = true
+//    var once = true
     
     
 
@@ -29,18 +25,20 @@ class MainScreenController: UIViewController{
     override func viewDidLoad() {
         print("MainScreen viewDidLoad")
         super.viewDidLoad()
-        if once{
-            once = false
-//            observeMeatCuts()
+        if MyData.shared.initRecipeObserverOnce{
+            print("starting to observe")
+            MyData.shared.initRecipeObserverOnce = false
+            allRecipesObserve()
         }
         
 //        print(CurrentUser.shared.user?.myRecipes ?? "none","Main myRecipes")
 
     }
     override func viewWillAppear(_ animated: Bool) {
+        self.allMeatCuts = MyData.shared.allMeatCuts
         print("MainScreen viewWillAppear")
         if let navigationVC = self.navigationController as? NavigationController{
-            self.allMeatCuts = navigationVC.allMeatCuts
+//            self.allMeatCuts = navigationVC.allMeatCuts
             self.liveRating(navigationVC:navigationVC)
         }
 //        print(allMeatCuts?.count,"test yossi")
@@ -57,9 +55,8 @@ class MainScreenController: UIViewController{
         if let recipesVC = segue.destination as? RecipesController{
             guard let recipes = sender as? [Recipe] else {return}
             recipesVC.allRecipes = recipes
-            
-            guard let meatCuts = sender as? [MeatCut] else {return}
-            recipesVC.allMeatCuts = meatCuts
+//            guard let meatCuts = sender as? [MeatCut] else {return}
+//            recipesVC.allMeatCuts = meatCuts
             print("finish MainScreen move to RecipesVC")
         }
         if let createRecipeVC = segue.destination as? CreateRecipeController{
@@ -115,7 +112,7 @@ class MainScreenController: UIViewController{
                         var ratingsAvg = 0.0
                         ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
 
-                        navigationVC.allMeatCuts![i].recipes![x].rating = ratingsAvg
+                        MyData.shared.allMeatCuts[i].recipes![x].rating = ratingsAvg
                     } //observer
                 }// for recipe
             }// for meatcut
@@ -148,6 +145,7 @@ class MainScreenController: UIViewController{
         allRecipesRef.observe(.value) { (allRecipesData) in
             let allRecipes = allRecipesData.value as! [String:Any?]
             var countRecipes = 0 //test
+            print("observing recipes live now")
             for recipeId in allRecipes.keys{
                 countRecipes += 1 //test
                 
@@ -171,9 +169,9 @@ class MainScreenController: UIViewController{
                             creator: data["creator"] as? String ?? nil,
                             meatcutID: data["meatcutID"] as! String,
                             meatcutName: data["meatcutName"] as? String)
-                        print(recipe.meatcutName,"meatcutname")
                         //self.myRecipes[meatCutID]!.append(recipe)
-
+                            print(recipe,"")
+                        print(self.checkRecipeInAllMeatCuts(checkRecipe: recipe), "looking for false")
                         storageRecipesRef.child("\(recipe.id).jpeg").downloadURL {(URL, error) in
                             if URL != nil{
                                 recipe.image = URL!
@@ -183,7 +181,14 @@ class MainScreenController: UIViewController{
                                 if self.checkRecipeInAllMeatCuts(checkRecipe: recipe){
                                     print("already exist in allMeatCuts")
                                 }else{
-                                    print("recipe ID: \(recipe.id) is missing and added to allMEatCuts[\("?")].recipes.append(recipe)")
+                                    print("New Recipe Found")
+                                    for i in 0..<MyData.shared.allMeatCuts.count{
+                                        if MyData.shared.allMeatCuts[i].id == recipe.meatcutID{
+                                            MyData.shared.allMeatCuts[i].recipes!.append(recipe)
+                                            self.allMeatCuts = MyData.shared.allMeatCuts
+                                            print("New Recipe Added to allMeatCuts")
+                                        }
+                                    }
                                 }
 
                             }
@@ -200,10 +205,11 @@ class MainScreenController: UIViewController{
 
     //MARK: Check if recipe in allMeatCut
     func checkRecipeInAllMeatCuts(checkRecipe: Recipe)-> Bool{
+        var isRecipeExist = false
         for meatcut in allMeatCuts!{
             for recipe in meatcut.recipes!{
                 if checkRecipe.id == recipe.id{
-                    print(checkRecipe.id , checkRecipe.name, recipe.id , recipe.name , meatcut.name)
+//                    print(checkRecipe.id , checkRecipe.name, recipe.id , recipe.name , meatcut.name)
                     isRecipeExist = true
                     return isRecipeExist
                 }

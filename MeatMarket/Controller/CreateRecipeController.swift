@@ -215,16 +215,30 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
                 "meatcutName": userRecipeMeatCut] as [String : Any] 
             
             //upload image to storage
-            uploadRecipeImage(quality: 0.5, recipe: userRecipe)
-            //upload recipe to database
-            databaseRef.child("AllRecipes").child(autoKeyForRecipe).setValue(postRecipe)
-            databaseRef.child("Recipes").child(idPickerMeatCut).updateChildValues([autoKeyForRecipe : "x"])
-            databaseRef.child("MyRecipes").child(currentUser.id!).updateChildValues([autoKeyForRecipe : "x"])
+            let storageRefRecipesImages = Storage.storage().reference(forURL: "gs://meat-markett.appspot.com/images/recipesImages/").child("\(userRecipe.id).jpeg")
             
-            CurrentUser.shared.user?.myRecipes.append(userRecipe)
+            guard let recipeData = userRecipeImage?.jpegData(compressionQuality: 0.5) else {return}
+            let metaData = StorageMetadata()
             
-            print("Create Recipe", userRecipe)
-            resetAllTheFields()
+            metaData.contentType = "image/jpeg"
+            
+            storageRefRecipesImages.putData(recipeData, metadata: metaData) { (storageMetaData, error) in
+                if error != nil{
+                    HelperFuncs.showToast(message: error!.localizedDescription, view: self.view)
+                    return
+                }else{
+                                //upload recipe to database
+                    databaseRef.child("AllRecipes").child(autoKeyForRecipe).setValue(postRecipe)
+                    databaseRef.child("Recipes").child(self.idPickerMeatCut).updateChildValues([autoKeyForRecipe : "x"])
+                    databaseRef.child("MyRecipes").child(currentUser.id!).updateChildValues([autoKeyForRecipe : "x"])
+                    
+                    CurrentUser.shared.user?.myRecipes.append(userRecipe)
+                    
+                    print("Create Recipe", userRecipe)
+                    self.resetAllTheFields()
+                }
+            }
+
         }
         
         
@@ -266,7 +280,7 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     //MARK: upload Image
-    fileprivate func uploadRecipeImage(quality: CGFloat, recipe:Recipe){
+    fileprivate func uploadRecipe(quality: CGFloat, recipe:Recipe, postRecipe: [String:Any]){
         let storageRefRecipesImages = Storage.storage().reference(forURL: "gs://meat-markett.appspot.com/images/recipesImages/").child("\(recipe.id).jpeg")
         
         guard let recipeData = userRecipeImage?.jpegData(compressionQuality: quality) else {return}
