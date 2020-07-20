@@ -34,8 +34,8 @@ class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelega
                 CurrentUser.shared.addToFavorite(recipe: recipe!, vc: vc!,delegate: self)
                 changeStar(full: true)
             }else{
-//                CurrentUser.shared.removeFromFavorite(recipe: recipe!, vc: vc!,delegate: self)
-                CurrentUser.shared.removeFromFavorites(recipeId: recipe!.id)
+                CurrentUser.shared.removeFromFavorite(recipe: recipe!, vc: vc!,delegate: self)
+//                CurrentUser.shared.removeFromFavorites(recipeId: recipe!.id)
                 changeStar(full: false)
             }
             isFavorite = !isFavorite!

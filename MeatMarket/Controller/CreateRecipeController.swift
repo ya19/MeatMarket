@@ -6,6 +6,15 @@
 //  Copyright © 2020 YardenSwisa. All rights reserved.
 //
 
+/*
+    DELETE FROM SERVER:
+ - ALLRECIPES
+ - RECIPES
+ - MY RECIPES
+ -  STORAGE
+ - userate
+ */
+
 import UIKit
 import Firebase
 

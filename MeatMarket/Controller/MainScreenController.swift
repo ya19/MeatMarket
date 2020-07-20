@@ -39,7 +39,7 @@ class MainScreenController: UIViewController{
         print("MainScreen viewWillAppear")
         if let navigationVC = self.navigationController as? NavigationController{
 //            self.allMeatCuts = navigationVC.allMeatCuts
-            self.liveRating(navigationVC:navigationVC)
+//            self.liveRating(navigationVC:navigationVC)
         }
 //        print(allMeatCuts?.count,"test yossi")
         
@@ -190,6 +190,9 @@ class MainScreenController: UIViewController{
                                         }
                                     }
                                 }
+                                
+                                // if one recipe miss on the server
+                                
 
                             }
                             if error != nil{
@@ -216,6 +219,19 @@ class MainScreenController: UIViewController{
             }
         }
         return isRecipeExist
+    }
+    
+    func checkIfRecipeIsRemoved(checkRecipe: Recipe){
+        for i in 0..<MyData.shared.allMeatCuts.count {
+            if checkRecipe.meatcutID == MyData.shared.allMeatCuts[i].id{
+                for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+                    if checkRecipe.id == MyData.shared.allMeatCuts[i].recipes![x].id{
+                    }
+                }
+                
+            }
+
+        }
     }
 
 }

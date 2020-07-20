@@ -92,15 +92,21 @@ class User: CustomStringConvertible{
         }
         
     }
-    func removeFromMyRecipes(recipe:Recipe, view:UIView){
+    func removeFromMyRecipes(recipeId:String, vc:UIViewController){
         if self.myRecipes == []{
-            HelperFuncs.showToast(message: "You dont have recipes to delete", view: view)
+            HelperFuncs.showToast(message: "You dont have recipes to delete", view: vc.view)
         }
+        var remember = -1
         for i in 0 ..< self.myRecipes.count {
-            if self.myRecipes[i].id == recipe.id{
-                self.myRecipes.remove(at: i)
+            if self.myRecipes[i].id == recipeId{
+                remember = i
             }
         }
+        if remember != -1{
+            self.myRecipes.remove(at: remember)
+
+        }
+
     }
     
     //MARK: Set Recipe/ImageUrl
