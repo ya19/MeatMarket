@@ -45,7 +45,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         print("pageControllerVC viewWillApear")
         self.navigationItem.title = "Meat Cuts"
-        
+        MyData.shared.allMeatCuts.sort(by: {$0.name.lowercased() < $1.name.lowercased()})
         allMeatCuts = MyData.shared.allMeatCuts
         if let navigationVC = self.navigationController as? NavigationController{
             credits = navigationVC.credits!
@@ -61,7 +61,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             guard let loginVC = self.storyboard!.instantiateViewController(withIdentifier: "loginStoryboardID") as? LoginController else {return}
             guard let navigationVC = self.navigationController as? NavigationController else {return}
 //            loginVC.allMeatCuts = navigationVC.allMeatCuts
-            loginVC.allRecipesURL = navigationVC.allRecipesURL
+//            loginVC.allRecipesURL = navigationVC.allRecipesURL
             loginVC.credits = navigationVC.credits
             CurrentUser.shared.logout()
             self.present(loginVC, animated: true, completion: nil)

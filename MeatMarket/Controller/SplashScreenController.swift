@@ -50,7 +50,7 @@ class SplashScreenController: UIViewController {
             guard let dictionary = sender as? [String:Any] else {return}
             MyData.shared.allMeatCuts = dictionary["meatCuts"] as! [MeatCut]
 //            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
-            navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
+//            navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
             navigationVC.credits = dictionary["credits"] as? [String:String]
             print("SplashScreen finish, loading NavigationVC")
         }
@@ -253,6 +253,7 @@ class SplashScreenController: UIViewController {
     //MARK: CheckUserStateLogin
     func checkUserStateLogin(meatCuts: [MeatCut]){
         print("splashScreen checkUserStateLogin")
+        self.liveRating()
 
         if Auth.auth().currentUser != nil {
 //            guard let userID = CurrentUser.shared.user?.id else { return  }
@@ -274,6 +275,25 @@ class SplashScreenController: UIViewController {
         }
     }
 
+        //MARK: Live Rating
+        func liveRating(){
+            print("MainScreen liveRating func")
+    //        if globalOnce{
+    //            globalOnce = false
+                let dataRef = Database.database().reference()
+                
+                for i in 0..<MyData.shared.allMeatCuts.count{
+                    for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+                        let recipe = MyData.shared.allMeatCuts[i].recipes![x]
+                        dataRef.child("UsersRate").child(recipe.id).observe(.value) { (ratingsData) in
+                            var ratingsAvg = 0.0
+                            ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
 
-
+                            MyData.shared.allMeatCuts[i].recipes![x].rating = ratingsAvg
+                        } //observer
+                    }// for recipe
+                }// for meatcut
+    //        }
+        }
+        
 }

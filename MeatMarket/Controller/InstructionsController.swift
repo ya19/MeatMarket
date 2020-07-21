@@ -26,6 +26,7 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
     let dataBaseRef = Database.database().reference()
     var ratingDelegate:RatingProtocol?
     var titleName:String = ""
+    var currentUserRate:Double?
     
     //MARK: LifeCycle View
     override func viewDidLoad() {
@@ -103,8 +104,8 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
     fileprivate func setBarRatingWithRecipeRate() {
         let recipeRate = self.recipe!.rating
         
-        self.ratingBar.text = "(\(String(format: "%.2f", recipeRate))Avg) Rate Me!"
-        ratingBar.rating = recipeRate
+        self.ratingBar.text = "(\(recipeRate) Avg)"
+        ratingBar.rating = currentUserRate!
     }
     
     fileprivate func ratingBarTapped() {
@@ -120,6 +121,7 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
     func writeUsersRateToDatabase(userRating: Double){
         guard let currentUserID = CurrentUser.shared.user?.id else {return}
         guard let recipe = recipe else {return}
+        var currentRecipe = recipe
         let userRate = Double(String(format: "%.1f", userRating))
        
         dataBaseRef.child("UsersRate").child(recipe.id).child(currentUserID).setValue(userRate)
@@ -127,7 +129,8 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
             var ratingsAvg = 0.0
 
             ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
-            
+            self.ratingBar.text = "(\(ratingsAvg) Avg)"
+
 //            if let navigationVC = self.navigationController as? NavigationController {
                 for i in 0..<MyData.shared.allMeatCuts.count{
                     for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
@@ -136,8 +139,8 @@ class InstructionsController: UIViewController, UITableViewDelegate , UITableVie
                             print("rating avg is done! avg is \(ratingsAvg)")
                             
                             if (self.ratingDelegate != nil){
-                                
-                                self.ratingDelegate?.ratingAverage(rating: ratingsAvg)
+                                currentRecipe.rating = ratingsAvg
+                                self.ratingDelegate?.ratingAverage(recipe: currentRecipe)
                             }
                         }
                     }

@@ -51,6 +51,7 @@ class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelega
         recipeLevelCell.text = recipe.level.description
         recipeTimeCell.text = "\(timeString(time: TimeInterval(Double(recipe.time) ?? 0)))"
         recipeNameCell.text = recipe.name
+       
         recipeImageCell.layer.cornerRadius = 10
         self.rating.rating = recipe.rating
         recipeImageCell.sd_setImage(with: recipe.image ?? nil)

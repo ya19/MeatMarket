@@ -33,9 +33,9 @@ class LoginController: UIViewController {
         if let navigationVC = segue.destination as? NavigationController{
             guard let dictionary = sender as? [String:Any] else {return}
 //            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
-            MyData.shared.configure(allMeatCuts: dictionary["meatCuts"] as! [MeatCut], allImagesLinks: [])
+//            MyData.shared.configure(allMeatCuts: dictionary["meatCuts"] as! [MeatCut], allImagesLinks: [])
 
-            navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
+//            navigationVC.allRecipesURL = dictionary["allRecipesURL"] as? [String:URL]
             navigationVC.credits = dictionary["credits"] as? [String:String]
         }
         

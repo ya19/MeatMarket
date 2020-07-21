@@ -93,7 +93,6 @@ class CreateRecipeController: UIViewController, UIImagePickerControllerDelegate,
         meatCutPicker.dataSource = self
         
         setupTimePicker(minuteInterval: 5)
-        allMeatCuts?.sort(by: {$0.name.lowercased() < $1.name.lowercased()})
         
         self.observeKeybordForPushUpTheView()
         self.hideKeyboardWhenTappedAround()

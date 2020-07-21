@@ -37,10 +37,11 @@ class MainScreenController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         self.allMeatCuts = MyData.shared.allMeatCuts
         print("MainScreen viewWillAppear")
-        if let navigationVC = self.navigationController as? NavigationController{
+//        self.liveRating()
+//        if let navigationVC = self.navigationController as? NavigationController{
 //            self.allMeatCuts = navigationVC.allMeatCuts
 //            self.liveRating(navigationVC:navigationVC)
-        }
+//        }
 //        print(allMeatCuts?.count,"test yossi")
         
 //        print("viewWillAppear() mainScreen")
@@ -98,27 +99,27 @@ class MainScreenController: UIViewController{
         self.performSegue(withIdentifier: "meatCutsToRecipes", sender: allMeatCuts![9].recipes)
     }
 
-    //MARK: Live Rating
-    func liveRating(navigationVC:NavigationController){
-        print("MainScreen liveRating func")
-        if globalOnce{
-            globalOnce = false
-            let dataRef = Database.database().reference()
-            
-            for i in 0..<allMeatCuts!.count{
-                for x in 0..<allMeatCuts![i].recipes!.count{
-                    let recipe = allMeatCuts![i].recipes![x]
-                    dataRef.child("UsersRate").child(recipe.id).observe(.value) { (ratingsData) in
-                        var ratingsAvg = 0.0
-                        ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
-
-                        MyData.shared.allMeatCuts[i].recipes![x].rating = ratingsAvg
-                    } //observer
-                }// for recipe
-            }// for meatcut
-        }
-    }
-    
+//    //MARK: Live Rating
+//    func liveRating(){
+//        print("MainScreen liveRating func")
+////        if globalOnce{
+////            globalOnce = false
+//            let dataRef = Database.database().reference()
+//            
+//            for i in 0..<MyData.shared.allMeatCuts.count{
+//                for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+//                    let recipe = MyData.shared.allMeatCuts[i].recipes![x]
+//                    dataRef.child("UsersRate").child(recipe.id).observe(.value) { (ratingsData) in
+//                        var ratingsAvg = 0.0
+//                        ratingsAvg = HelperFuncs.calculateRecipeRating(ratingsData: ratingsData)
+//
+//                        MyData.shared.allMeatCuts[i].recipes![x].rating = ratingsAvg
+//                    } //observer
+//                }// for recipe
+//            }// for meatcut
+////        }
+//    }
+//    
     //MARK: meatCuts Observer
 
     func observeMeatCuts(){
