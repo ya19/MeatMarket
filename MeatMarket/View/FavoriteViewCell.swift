@@ -19,19 +19,22 @@ class FavoriteViewCell: RoundedCollectionViewCell {
     
     //MARK: Properties
     var recipe:Recipe?
-    var vc:UIViewController?
-    var delegate:RemoveFavoriteProtocol?
-    var delegate2:RemoveRecipe?
+    var vc:ProfileController?
+    var removeFavoriteDelegate:RemoveFavoriteProtocol?
+    var removeMyRecipeDelegate:RemoveMyRecipeProtocol?
+//    var delegate2:RemoveRecipe?
     var segmentIndex:Int = 0
     
     //MARK: Actions
     @IBAction func favoriteDeletTapped(_ sender: UIButton) {
         switch segmentIndex {
         case 0:
-//            CurrentUser.shared.removeFromFavorite(recipe: recipe!, vc: vc!, delegate: delegate!)
-                delegate2!.removeFavoritesRecipe(recipeId: recipe!.id)
+            CurrentUser.shared.removeFromFavorite(recipe: recipe!, vc: vc!, delegate: removeFavoriteDelegate!)
+//                delegate2!.removeFavoritesRecipe(recipeId: recipe!.id)
             break
         case 1:
+            CurrentUser.shared.removeFromMyRecipes(recipe: recipe!, vc: vc!, delegate: removeMyRecipeDelegate!)
+
 //                delegate2!.removeMyRecipes(recipeId: recipe!.id)
             break
         default:
@@ -51,8 +54,9 @@ class FavoriteViewCell: RoundedCollectionViewCell {
         self.favoriteImageView.layer.cornerRadius = 10
         self.recipe = recipe
         self.vc = vc
-//        self.delegate = vc
-        self.delegate2 = vc
+        self.removeFavoriteDelegate = vc
+        self.removeMyRecipeDelegate = vc
+//        self.delegate2 = vc
         self.layer.borderWidth = 2
         self.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         self.segmentIndex = segmentIndex

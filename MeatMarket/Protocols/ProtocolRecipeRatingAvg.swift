@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RatingProtocol: class {
-    func ratingAverage(rating:Double)
+    func ratingAverage(recipe:Recipe)
 }

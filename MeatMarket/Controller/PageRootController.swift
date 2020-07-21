@@ -45,11 +45,11 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         print("pageControllerVC viewWillApear")
         self.navigationItem.title = "Meat Cuts"
-        
-
+        MyData.shared.allMeatCuts.sort(by: {$0.name.lowercased() < $1.name.lowercased()})
+        allMeatCuts = MyData.shared.allMeatCuts
         if let navigationVC = self.navigationController as? NavigationController{
             credits = navigationVC.credits!
-            allMeatCuts = navigationVC.allMeatCuts!
+//            allMeatCuts = navigationVC.allMeatCuts!
         }
     }
     
@@ -60,8 +60,8 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
             try firebaseAuth.signOut()
             guard let loginVC = self.storyboard!.instantiateViewController(withIdentifier: "loginStoryboardID") as? LoginController else {return}
             guard let navigationVC = self.navigationController as? NavigationController else {return}
-            loginVC.allMeatCuts = navigationVC.allMeatCuts
-            loginVC.allRecipesURL = navigationVC.allRecipesURL
+//            loginVC.allMeatCuts = navigationVC.allMeatCuts
+//            loginVC.allRecipesURL = navigationVC.allRecipesURL
             loginVC.credits = navigationVC.credits
             CurrentUser.shared.logout()
             self.present(loginVC, animated: true, completion: nil)
@@ -81,10 +81,7 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         print(self.navigationController,"nav con")
         print("------------------------")
         if previusIndex == 0{
-            let mainVC = viewCntrollersList[previusIndex] as! MainScreenController
-            if mainVC.meatCutCollectionView != nil{
-                mainVC.meatCutCollectionView.reloadData()
-            }
+
         }else if previusIndex == 1{
             let profileVC = viewCntrollersList[previusIndex] as! ProfileController
             if profileVC.profileCollectionView != nil{
@@ -110,11 +107,11 @@ class PageRootController: UIPageViewController, UIPageViewControllerDataSource, 
         guard viewCntrollersList.count > nextIndex else {return nil}
         
         if nextIndex == 0{
-            let mainVC = viewCntrollersList[nextIndex] as! MainScreenController
-            if mainVC.meatCutCollectionView != nil{
-                mainVC.meatCutCollectionView.reloadData()
-                
-            }
+//            let mainVC = viewCntrollersList[nextIndex] as! MainScreenController
+//            if mainVC.meatCutCollectionView != nil{
+//                mainVC.meatCutCollectionView.reloadData()
+//                
+//            }
         }else if nextIndex == 1{
             let profileVC = viewCntrollersList[nextIndex] as! ProfileController
             if profileVC.profileCollectionView != nil{

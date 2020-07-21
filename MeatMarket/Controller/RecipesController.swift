@@ -16,8 +16,7 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     
     //MARK:Properties
     var allRecipes:[Recipe]?
-    var allMeatCuts:[MeatCut]?
-    var ratingPassed = 0.0
+//    var allMeatCuts:[MeatCut]?
     var meatCutName = ""
     
     //MARK: LifeCycle View
@@ -44,35 +43,49 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let instructionsVC = segue.destination as? InstructionsController{
             instructionsVC.ratingDelegate = self
-            guard let recipe = sender as? Recipe else {return}
+            guard let sender = sender as? [String:Any] else {return}
+            guard let recipe = sender["recipe"] as? Recipe else {return}
+            guard let currentUserRate = sender["currentUserRate"] as? Double else {return}
             instructionsVC.recipe = recipe
+            print(currentUserRate,"yossi")
+            instructionsVC.currentUserRate = currentUserRate
 //            print("\(recipe.name)<--- recipe.name RecipeVC")
             //test
-            guard let meatcut = sender as? MeatCut else {return}
-            instructionsVC.meatCut = meatcut
+//            guard let meatcut = sender as? MeatCut else {return}
+//            instructionsVC.meatCut = meatcut
 //            print("\(meatcut.name)<--- meatCut.name RecipeVC")
-            instructionsVC.ratingDelegate = self
+//            instructionsVC.ratingDelegate = self
         }
     }
     
     //MARK: Protocol Delegate
-    func ratingAverage(rating: Double) {
-        ratingPassed = rating
+    func ratingAverage(recipe: Recipe) {
+        for i in 0..<MyData.shared.allMeatCuts.count{
+            for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+                if recipe.id == MyData.shared.allMeatCuts[i].recipes![x].id{
+                    MyData.shared.allMeatCuts[i].recipes![x].rating = recipe.rating
+                    self.recipeCollectionView.reloadData()
+                }
+            }
+        }
+        for x in 0..<self.allRecipes!.count{
+            if recipe.id == self.allRecipes![x].id{
+                self.allRecipes![x].rating = recipe.rating
+                }
+            }
         
-        print(ratingPassed,"rating test delegate")
     }
     
     
     func updateRates(recipeId:String) -> Double{
-        if let navigationVC = self.navigationController as? NavigationController {
-            for i in 0..<navigationVC.allMeatCuts!.count{
-                for x in 0..<navigationVC.allMeatCuts![i].recipes!.count{
-                    if recipeId == navigationVC.allMeatCuts![i].recipes![x].id{
-                        return navigationVC.allMeatCuts![i].recipes![x].rating
+            for i in 0..<MyData.shared.allMeatCuts.count{
+                for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+                    if recipeId == MyData.shared.allMeatCuts[i].recipes![x].id{
+                        return MyData.shared.allMeatCuts[i].recipes![x].rating
                     }
                 }
             }
-        }
+        
         return 0.0
     }
     
@@ -104,7 +117,21 @@ class RecipesController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "recipesToInstructions", sender: allRecipes![indexPath.row])
+        var dic:[String:Any] = [:]
+        dic["recipe"] = allRecipes![indexPath.row]
+        Database.database().reference().child("UsersRate").child(allRecipes![indexPath.row].id).child(CurrentUser.shared.user!.id!).observeSingleEvent(of: .value, with: { (currentUserRateData) in
+            if let currentUserRateData = currentUserRateData.value as? Double{
+                dic["currentUserRate"] = currentUserRateData
+            }else{
+                dic["currentUserRate"] = 1.0
+            }
+            self.performSegue(withIdentifier: "recipesToInstructions", sender: dic)
+
+        }) { (Error) in
+            print("didnt rate", "yossiprint")
+            self.performSegue(withIdentifier: "recipesToInstructions", sender: dic)
+
+        }
     }
     
     func cellVisuality(){

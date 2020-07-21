@@ -190,37 +190,81 @@ class CurrentUser{
         HelperFuncs.showToast(message: "Added to favorites", view: vc.view)
     }
     
-    func removeFromFavorites(recipeId: String){
-                databaseRef.child("Favorites").child(user!.id!).child(recipeId).removeValue { (error, DatabaseReference) in
-                    
-                    if error == nil {
-                        print("DELETED?")
-                        self.user!.removeFromFavorite(recipeId: recipeId)
-                    }
-                }
-        
-                HelperFuncs.showToast(message: "Removed from favorites", view: vc.view)
-            
-    }
-    
-//    func removeFromFavorite(recipe:Recipe, vc:UIViewController, delegate:Any){
-//        databaseRef.child("Favorites").child(user!.id!).child(recipe.id).removeValue { (error, DatabaseReference) in
-//
-//            if error != nil {
-//                self.user!.removeFromFavorite(recipeId: recipe.id)
-//            }
-//            if let delegate = delegate as? RecipeCellFavoriteStatusDelegate{
-//                delegate.changeStatus()
-//            }
-//            if let delegate = delegate as? RemoveRecipe{
-//                delegate.removeFavoritesRecipe(recipeId: recipe.id)
-//            }
-//
-//
-//        }
-//        HelperFuncs.showToast(message: "Removed from favorites", view: vc.view)
+//    func removeFromFavorites(recipeId: String){
+//                databaseRef.child("Favorites").child(user!.id!).child(recipeId).removeValue { (error, DatabaseReference) in
+//                    
+//                    if error == nil {
+//                        print("DELETED?")
+//                        self.user!.removeFromFavorite(recipeId: recipeId)
+//                    }
+//                }
+//        
+//                HelperFuncs.showToast(message: "Removed from favorites", view: vc.view)
+//            
 //    }
     
+        func removeFromFavorite(recipe:Recipe, vc:UIViewController, delegate:Any){
+            databaseRef.child("Favorites").child(user!.id!).child(recipe.id).removeValue { (error, DatabaseReference) in
+
+                if error != nil {
+//                    self.user!.removeFromFavorite(recipeId: recipe.id)
+                }
+                if let delegate = delegate as? RecipeCellFavoriteStatusDelegate{
+                    print("trying to delete")
+                    delegate.changeStatus()
+                    self.user!.removeFromFavorite(recipeId: recipe.id)
+                }
+                if let delegate = delegate as? RemoveFavoriteProtocol{
+                    delegate.removeFavorite(recipeId: recipe.id)
+                }
+
+            }
+            HelperFuncs.showToast(message: "Removed from favorites", view: vc.view)
+        }
+            func removeFromMyRecipes(recipe:Recipe, vc:UIViewController, delegate:RemoveMyRecipeProtocol){
+                databaseRef.child("UsersRate").child(recipe.id).removeValue { (error, DatabaseReference) in      }
+                databaseRef.child("MyRecipes").child(user!.id!).child(recipe.id).removeValue { (error, DatabaseReference) in      }
+                databaseRef.child("AllRecipes").child(recipe.id).removeValue { (error, DatabaseReference) in      }
+                databaseRef.child("Recipes").child(recipe.meatcutID).child(recipe.id).removeValue { (error, DatabaseReference) in      }
+                Storage.storage().reference().child("images/recipesImages/").child(recipe.id).delete { (Error) in
+                    
+                }
+                
+//                - ALLRECIPES
+//                - RECIPES
+//                - MY RECIPES
+//                -  STORAGE
+//                - userate
+                for i in 0..<CurrentUser.shared.user!.favoriteRecipes.count {
+                    if recipe.id == CurrentUser.shared.user!.favoriteRecipes[i].id{
+                        databaseRef.child("Favorites").child(user!.id!).child(recipe.id).removeValue { (error, DatabaseReference) in
+                        }
+                    }
+
+                }
+                var rememberX = -1
+                var rememberI = -1
+                for i in 0..<MyData.shared.allMeatCuts.count {
+                    if recipe.meatcutID == MyData.shared.allMeatCuts[i].id{
+                        for x in 0..<MyData.shared.allMeatCuts[i].recipes!.count{
+                            if recipe.id == MyData.shared.allMeatCuts[i].recipes![x].id{
+                                rememberX = x
+                                rememberI = i
+                            }
+                        }
+                        
+                    }
+
+                }
+                if rememberX != -1 && rememberI != -1{
+                     MyData.shared.allMeatCuts[rememberI].recipes!.remove(at: rememberX)
+
+                }
+                delegate.removeMyRecipe(recipeId: recipe.id)
+
+                HelperFuncs.showToast(message: "Removed from favorites", view: vc.view)
+            }
+            
     //MARK: need to add/remove from myRecipes
 //    func addToMyRecipes(recipe: Recipe, view: UIView){
 //        databaseRef.child("MyRecipes").child(user!.id!).child(recipe.id).setValue(ServerValue.timestamp()) { (error, DatabaseReference) in

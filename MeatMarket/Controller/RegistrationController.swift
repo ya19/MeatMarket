@@ -19,7 +19,7 @@ class RegistrationController: UIViewController {
     
     //MARK: Properties
     var databaseRef = Database.database().reference()
-    var allMeatCuts:[MeatCut]?
+//    var allMeatCuts:[MeatCut]?
     var credits:[String:String]?
     
     //MARK: LifeCycle View
@@ -36,7 +36,7 @@ class RegistrationController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigationVC = segue.destination as? NavigationController{
             guard let dictionary = sender as? [String:Any] else {return}
-            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
+//            navigationVC.allMeatCuts = dictionary["meatCuts"] as? [MeatCut]
             navigationVC.credits = dictionary["credits"] as? [String:String]
         }
     }
@@ -94,7 +94,7 @@ class RegistrationController: UIViewController {
             CurrentUser.shared.user!.loadCurrentUserDetails(id: id, firstName: firstName, lastName: lastName, email: email, timeStemp: nil ) //MARK: need to add myRecipes
             print("----New user created with User----->", CurrentUser.shared.user!.description)
             
-            let dic:[String:Any] = ["meatCuts": self.allMeatCuts!, "credits": self.credits!]
+            let dic:[String:Any] = ["meatCuts": [], "credits": self.credits!]
             self.performSegue(withIdentifier: "registerToNavigation", sender: dic)
             
         }

@@ -34,8 +34,8 @@ class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelega
                 CurrentUser.shared.addToFavorite(recipe: recipe!, vc: vc!,delegate: self)
                 changeStar(full: true)
             }else{
-//                CurrentUser.shared.removeFromFavorite(recipe: recipe!, vc: vc!,delegate: self)
-                CurrentUser.shared.removeFromFavorites(recipeId: recipe!.id)
+                CurrentUser.shared.removeFromFavorite(recipe: recipe!, vc: vc!,delegate: self)
+//                CurrentUser.shared.removeFromFavorites(recipeId: recipe!.id)
                 changeStar(full: false)
             }
             isFavorite = !isFavorite!
@@ -51,6 +51,7 @@ class RecipeViewCell: RoundedCollectionViewCell , RecipeCellFavoriteStatusDelega
         recipeLevelCell.text = recipe.level.description
         recipeTimeCell.text = "\(timeString(time: TimeInterval(Double(recipe.time) ?? 0)))"
         recipeNameCell.text = recipe.name
+       
         recipeImageCell.layer.cornerRadius = 10
         self.rating.rating = recipe.rating
         recipeImageCell.sd_setImage(with: recipe.image ?? nil)

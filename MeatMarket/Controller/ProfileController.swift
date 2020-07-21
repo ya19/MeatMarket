@@ -13,7 +13,7 @@ import FirebaseDatabase
 import FirebaseStorage
 
 //MARK: Extension Protocol Remove Favorite
-//extension ProfileController:RemoveFavoriteProtocol, RemoveMyRecipesProtocol{
+extension ProfileController:RemoveFavoriteProtocol{ //RemoveMyRecipesProtocol
 //    func remove(recipeId: String) {
 ////        print(recipeId,"from delegate")
 //        for i in 0..<CurrentUser.shared.user!.myRecipes.count {
@@ -24,22 +24,49 @@ import FirebaseStorage
 //        }
 //        self.profileCollectionView.reloadData()
 //    }
-//
-//    func refresh(recipeId:String){
-//        for i in 0..<CurrentUser.shared.user!.favoriteRecipes.count {
-//            if recipeId == CurrentUser.shared.user!.favoriteRecipes[i].id{
-//                    self.profileCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
-//            }
-//
-//        }
-//        self.profileCollectionView.reloadData()
-//
-//    }
-//}
 
-extension ProfileController:RemoveRecipe{
-    func removeFavoritesRecipe(recipeId: String) {
-        print("HELLO FROM DELEGATE")
+    func removeFavorite(recipeId:String){
+        for i in 0..<CurrentUser.shared.user!.favoriteRecipes.count {
+            if recipeId == CurrentUser.shared.user!.favoriteRecipes[i].id{
+                    self.profileCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
+            }
+
+        }
+        CurrentUser.shared.user!.removeFromFavorite(recipeId: recipeId)
+
+        self.profileCollectionView.reloadData()
+//                DispatchQueue.main.asyncAfter(deadline: .now()+2.3) {
+//                    self.profileCollectionView.reloadData()
+//                }
+    }
+}
+extension ProfileController:RemoveMyRecipeProtocol{
+
+
+    func removeMyRecipe(recipeId:String){
+        for i in 0..<CurrentUser.shared.user!.myRecipes.count {
+            if recipeId == CurrentUser.shared.user!.myRecipes[i].id {
+                    self.profileCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
+            }
+
+        }
+        CurrentUser.shared.user!.removeFromMyRecipes(recipeId: recipeId, vc: self )
+        
+        for i in 0..<CurrentUser.shared.user!.favoriteRecipes.count {
+            if recipeId == CurrentUser.shared.user!.favoriteRecipes[i].id{
+                    CurrentUser.shared.user!.removeFromFavorite(recipeId: recipeId)
+            }
+
+        }
+
+        self.profileCollectionView.reloadData()
+
+    }
+}
+
+//extension ProfileController:RemoveRecipe{
+//    func removeFavoritesRecipe(recipeId: String) {
+//        print("HELLO FROM DELEGATE")
 //        var remember = -1
 //        for i in 0 ..< CurrentUser.shared.user!.favoriteRecipes.count {
 //            print(i,"in")
@@ -50,33 +77,36 @@ extension ProfileController:RemoveRecipe{
 //        }
 //        CurrentUser.shared.user!.removeFromFavorite(recipeId: recipeId)
         
-        CurrentUser.shared.removeFromFavorites(recipeId: recipeId)
-        print(CurrentUser.shared.user!.favoriteRecipes.count,"sdsdsdsdsdsd")
-        self.profileCollectionView.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-            self.profileCollectionView.reloadData()
-        }
-        print("pass")
+//        CurrentUser.shared.removeFromFavorites(recipeId: recipeId)
+//        print(CurrentUser.shared.user!.favoriteRecipes.count,"sdsdsdsdsdsd")
+//        self.profileCollectionView.reloadData()
+//        DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+//            self.profileCollectionView.reloadData()
+//        }
+//        print("pass")
 
-    }
+//    }
+//MARK: Remove my recipes
+    //delete from database/storage
+    //delete from CurrentUser.shared.user!.myRecipes
+    //delete from CurrentUser.shared.user!.myRecipes
+//    func removeMyRecipes(recipeId: String) {
+//        let myRecipesCount = CurrentUser.shared.user!.myRecipes.count
+//
+//        for i in 0 ..< myRecipesCount{
+//            if recipeId == CurrentUser.shared.user!.myRecipes[i].id{
+//
+//                CurrentUser.shared.user!.myRecipes.remove(at: i)
+//                self.profileCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
+//
+//            }
+//        }
+//        self.profileCollectionView.reloadData()
+//
+//    }
 
-    func removeMyRecipes(recipeId: String) {
-        let myRecipesCount = CurrentUser.shared.user!.myRecipes.count
 
-        for i in 0 ..< myRecipesCount{
-            if recipeId == CurrentUser.shared.user!.myRecipes[i].id{
-
-                CurrentUser.shared.user!.myRecipes.remove(at: i)
-                self.profileCollectionView.deleteItems(at: [IndexPath(row: i, section: 0)])
-
-            }
-        }
-        self.profileCollectionView.reloadData()
-
-    }
-
-
-}
+//}
 
 
 
@@ -90,15 +120,16 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
     
     //MARK: Properties
     var userNameStr:String = ""
-    var myFavorites:[Recipe] {
-        return CurrentUser.shared.user!.favoriteRecipes
-    }
+//    var myFavorites:[Recipe]
+//    {
+//        return CurrentUser.shared.user!.favoriteRecipes
+//    }
     
     
     //MARK: LiveCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("profileVC is here")
         checkAndLoadProfileImage()
 
         profileCollectionView.delegate = self
@@ -153,7 +184,7 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch segmentCV.selectedSegmentIndex {
         case 0:
-            return myFavorites.count
+            return CurrentUser.shared.user!.favoriteRecipes.count
         case 1:
             return CurrentUser.shared.user!.myRecipes.count
         default:
@@ -166,7 +197,7 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         
         switch segmentCV.selectedSegmentIndex {
         case 0:
-            let recipe = myFavorites[indexPath.row]
+            let recipe = CurrentUser.shared.user!.favoriteRecipes[indexPath.row]
             profileCell.populate(recipe: recipe, vc: self, segmentIndex: 0)
             break
         case 1:
@@ -184,7 +215,7 @@ class ProfileController: UIViewController, UICollectionViewDataSource,UICollecti
         
         switch segmentCV.selectedSegmentIndex {
         case 0:
-            self.performSegue(withIdentifier: "profileToInstructions", sender: myFavorites[indexPath.row])
+            self.performSegue(withIdentifier: "profileToInstructions", sender: CurrentUser.shared.user!.favoriteRecipes[indexPath.row])
             break
         case 1:
             self.performSegue(withIdentifier: "profileToInstructions", sender: CurrentUser.shared.user!.myRecipes[indexPath.row])
